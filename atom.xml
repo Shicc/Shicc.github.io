@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-08-22T01:42:15.466Z</updated>
+  <updated>2017-08-23T03:01:18.471Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -16,40 +16,48 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>关于本站</title>
-    <link href="http://shic.top/2017/08/22/aboutSite/"/>
-    <id>http://shic.top/2017/08/22/aboutSite/</id>
-    <published>2017-08-21T16:00:00.000Z</published>
-    <updated>2017-08-22T01:42:15.466Z</updated>
+    <title>准备起飞之SSD</title>
+    <link href="http://shic.top/2017/08/23/SSD%E8%A1%8C%E6%83%85%E6%B5%85%E6%9E%90/"/>
+    <id>http://shic.top/2017/08/23/SSD行情浅析/</id>
+    <published>2017-08-22T16:00:00.000Z</published>
+    <updated>2017-08-23T03:01:18.471Z</updated>
     
-    <content type="html"><![CDATA[<center><img src="/images/aboutThisSite.jpg" alt="关于" title="关于"></center>
-
-<h2 id="为什么有本站"><a href="#为什么有本站" class="headerlink" title="为什么有本站"></a><center>为什么有本站</center></h2><blockquote>
-<p>首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。</p>
+    <content type="html"><![CDATA[<h2 id="涨价风波一年多的SSD行情浅析"><a href="#涨价风波一年多的SSD行情浅析" class="headerlink" title="涨价风波一年多的SSD行情浅析"></a><center>涨价风波一年多的SSD行情浅析</center></h2><p>希望能帮到正要买固态的你<br><a href="http://shic.top" title="你点呀！">shic.top</a>   防哈橙戌员</p>
+<ul>
+<li><strong>简介</strong>：SSD全称是<em>Solid State Drive/Disk</em>，顾名思义意为<em>固态硬盘</em>，不同于机械硬盘，它没有驱动旋转马达，没有磁盘碟片，用NAND闪存颗粒作为存储介质，是一个常见的非易失性存储。且SSD内部还有包括想主控，缓存等东西。<a id="more"></a>
 <blockquote>
-<p><a id="more"></a>而我是那种对于电脑的基础部件很有兴趣的人，所以经常折腾电脑，玩儿久了也有不少的体会，也可以叫做一个小小的极客吧。借着暑假的空闲时间，简单上线了一个博客平台，分享一些关于电脑日常使用和优化的帖子，让大家也能有一个反应快速的生产力工具，提高自己的工作学习效率，这也算是我的一个课外兴趣吧，捣鼓了大半天，研究了一个啥好用的技能，能够通过自己的平台进行分享也是很有乐趣的一件事，毕竟兴趣能冲淡无聊而无线重复的平凡生活，让我们更加有活力。      </p>
+<p>我记得固态硬盘从去年第二季度经历了一次白菜价后，价格就一直处于上升阶段，涨到现在都还在涨，就只有2017年5月左右有一些小幅度价格平缓时期。那是不是价格一直这么涨，是不是现在就不是买的时候呢？情况获取还不是这样的，你在现在依然可以有选择。那么我们先来看一下SSD的主要两个涨价因素：</p>
 <blockquote>
-<p>本站也只是笔者的一个课外兴趣，也不做过多的修饰和更改，仅仅是一个个人博客，由于<strong>不可抗拒的原因（自己以后可能会把该博客搬到国内，也许不会，因为歪果有些云服务器的确便宜，以后搬回来再备案、所以目前暂不添加评论功能了）</strong>，以后有时间可能会多一个分类，就不光是计算机的东西，我会根据实际的情况和时间节点来给大家分享一些计算机方面的知识，希望能够帮到你，如有什么问题，还可以微博私信我，每一期的文章分享我也会在微博上及时更新，希望它能够第一时间和你见面，下面的 就是我的微博，赶快加一波关注吧～    </p>
+<p>1.各大闪存颗粒厂商颗粒正处于2D NAND转3D NAND中。<br> 2.移动市场需求火热，eMMC，UFS等都是NAND的闪存颗粒。<br> //3.当然也有主流厂商的抬价</p>
 </blockquote>
 </blockquote>
-</blockquote>
-<center><img src="/images/weibo.jpg" alt="微博" title="微博关注"></center>]]></content>
+</li>
+</ul>
+<p>的确，从现在的行情来看，固态的价格涨了太多了，一年多钱399能买一个一线大厂的240GB盘，现在可能需要600多，看似也不适合出手了，而且就目前形势来看，固态的需求依然旺盛，厂商依然还在产能转型期，所以固态预计的价格平缓和降价至少会在18年Q1，但可以确定的是，短时间不会回到16年上半年的白菜价了。<br>简单的分析一下哪些情况可以买：</p>
+<ol>
+<li>你的电脑有m.2接口</li>
+<li>电脑真的太慢需要出血购买</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">1.对于第一点来说，m.2接口初期都是配合一些高端产品在出售，这类固态通常是走PCI-E通道，走SATA通道的另当别论，这类产品本身就处于高端产品，但在涨价风波中却没有</div><div class="line">过多的上涨，而且因为新技术的普及。整体还有所下降，甚至和涨价后的有些SATA接口的产品一个价位了，这样一来，性能高出好几倍的PCI-E通道的固态是不是就值了呢</div><div class="line">*/</div></pre></td></tr></table></figure>
+<ul>
+<li>注：有m.2接口且支持PCI-E通道电脑的一定要配同样是走PCI-E的SSD，传统的硬盘接口SATA，全称是<em>Serial Advanced Technology Attachment</em>，是一种串行电脑总线，专为机械硬盘而设计的AHCI标准配合SATA接口并不能发挥出固态的全部实力，甚至因为接口性能而出现了速度瓶颈，AHIC+SATA并不适合低延迟的固态，全新的NVMe协议的PCI-E固态才是正确的选择，NVMe是Non-Volatile Memory Express的缩写，非易失性存储器标准，充分利用PCI-E通道的低延时以及并行性，降低了I/O操作等待时间、提升同一时间内的操作数、更大容量的操作队列等。性能可谓是突飞猛进</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">2.你的电脑真的太卡了，已经影响到自己的使用体验了，那么对于没有m.2接口的电脑，选择就2条原则，第一就是选国际一线品牌，有保障，固态硬盘是有使用寿命的。</div><div class="line">  第二就是相同价格选MLC颗粒而不是TLC。</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p><em><center>好了，不多说了，这只是简单的分析，后期还会给大家分享关于固态装机和后期使用的一些很重要的事，敬请期待吧</center></em></p>
+<center><img src="/images/让电脑飞/战术目镜.jpg" alt="战术目镜"></center>]]></content>
     
     <summary type="html">
     
-      &lt;center&gt;&lt;img src=&quot;/images/aboutThisSite.jpg&quot; alt=&quot;关于&quot; title=&quot;关于&quot;&gt;&lt;/center&gt;
-
-&lt;h2 id=&quot;为什么有本站&quot;&gt;&lt;a href=&quot;#为什么有本站&quot; class=&quot;headerlink&quot; title=&quot;为什么有本站&quot;&gt;&lt;/a&gt;&lt;center&gt;为什么有本站&lt;/center&gt;&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;
+      &lt;h2 id=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;a href=&quot;#涨价风波一年多的SSD行情浅析&quot; class=&quot;headerlink&quot; title=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;/a&gt;&lt;center&gt;涨价风波一年多的SSD行情浅析&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;希望能帮到正要买固态的你&lt;br&gt;&lt;a href=&quot;http://shic.top&quot; title=&quot;你点呀！&quot;&gt;shic.top&lt;/a&gt;   防哈橙戌员&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;：SSD全称是&lt;em&gt;Solid State Drive/Disk&lt;/em&gt;，顾名思义意为&lt;em&gt;固态硬盘&lt;/em&gt;，不同于机械硬盘，它没有驱动旋转马达，没有磁盘碟片，用NAND闪存颗粒作为存储介质，是一个常见的非易失性存储。且SSD内部还有包括想主控，缓存等东西。
     
     </summary>
     
-      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
+      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
     
     
-      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
     
   </entry>
   
@@ -57,8 +65,8 @@
     <title>让电脑飞系列开篇</title>
     <link href="http://shic.top/2017/08/22/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E%E5%89%8D%E8%A8%80/"/>
     <id>http://shic.top/2017/08/22/让电脑飞前言/</id>
-    <published>2017-08-21T16:00:00.000Z</published>
-    <updated>2017-08-22T01:42:15.450Z</updated>
+    <published>2017-08-21T16:01:00.000Z</published>
+    <updated>2017-08-23T02:52:54.298Z</updated>
     
     <content type="html"><![CDATA[<h2 id="电脑怎么飞"><a href="#电脑怎么飞" class="headerlink" title="电脑怎么飞"></a><center>电脑怎么飞</center></h2><p><code>作者：防哈橙戌员</code> 主页：<a href="http://shic.top" title="你点呀！">shic.top</a></p>
 <p><strong>说实在的，玩机这么久了，也是时候答应小伙伴的要求了，相应你们的号召，先解决一下电脑使用的问题，还你一个高效快速的体验，我也省点心不必每次自己操作，大家去<em>我的主页<a href="http://shic.top" title="没错，这就是我的主页">shic.top</a></em>看<em>让电脑飞</em>相关标签的的帖子，保证你上了这趟车车再也回不去了</strong></p>
@@ -92,6 +100,44 @@
     
     
       <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于本站</title>
+    <link href="http://shic.top/2017/08/22/aboutSite/"/>
+    <id>http://shic.top/2017/08/22/aboutSite/</id>
+    <published>2017-08-21T16:00:00.000Z</published>
+    <updated>2017-08-23T02:52:54.282Z</updated>
+    
+    <content type="html"><![CDATA[<center><img src="/images/aboutThisSite.jpg" alt="关于" title="关于"></center>
+
+<h2 id="为什么有本站"><a href="#为什么有本站" class="headerlink" title="为什么有本站"></a><center>为什么有本站</center></h2><blockquote>
+<p>首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。</p>
+<blockquote>
+<p><a id="more"></a>而我是那种对于电脑的基础部件很有兴趣的人，所以经常折腾电脑，玩儿久了也有不少的体会，也可以叫做一个小小的极客吧。借着暑假的空闲时间，简单上线了一个博客平台，分享一些关于电脑日常使用和优化的帖子，让大家也能有一个反应快速的生产力工具，提高自己的工作学习效率，这也算是我的一个课外兴趣吧，捣鼓了大半天，研究了一个啥好用的技能，能够通过自己的平台进行分享也是很有乐趣的一件事，毕竟兴趣能冲淡无聊而无线重复的平凡生活，让我们更加有活力。      </p>
+<blockquote>
+<p>本站也只是笔者的一个课外兴趣，也不做过多的修饰和更改，仅仅是一个个人博客，由于<strong>不可抗拒的原因（自己以后可能会把该博客搬到国内，也许不会，因为歪果有些云服务器的确便宜，以后搬回来再备案、所以目前暂不添加评论功能了）</strong>，以后有时间可能会多一个分类，就不光是计算机的东西，我会根据实际的情况和时间节点来给大家分享一些计算机方面的知识，希望能够帮到你，如有什么问题，还可以微博私信我，每一期的文章分享我也会在微博上及时更新，希望它能够第一时间和你见面，下面的 就是我的微博，赶快加一波关注吧～    </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<center><img src="/images/weibo.jpg" alt="微博" title="微博关注"></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;center&gt;&lt;img src=&quot;/images/aboutThisSite.jpg&quot; alt=&quot;关于&quot; title=&quot;关于&quot;&gt;&lt;/center&gt;
+
+&lt;h2 id=&quot;为什么有本站&quot;&gt;&lt;a href=&quot;#为什么有本站&quot; class=&quot;headerlink&quot; title=&quot;为什么有本站&quot;&gt;&lt;/a&gt;&lt;center&gt;为什么有本站&lt;/center&gt;&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+    
+    </summary>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
     
   </entry>
   
