@@ -6,18 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shic.top">
-  <title>Category: 让电脑飞 | GeekShi</title>
+  <title>UEFI篇 | GeekShi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GeekShi">
-<meta property="og:url" content="http://shic.top/categories/让电脑飞/index.html">
+  <meta name="description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
+<meta name="keywords" content="让电脑飞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UEFI篇">
+<meta property="og:url" content="http://shic.top/2017/08/25/UFEI1/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
+<meta property="og:description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/滴.jpg">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/msinfo.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/BIOS_model.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi1.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/diskgenius.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/esp.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi2.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/uefi修复.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi3.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi4.png">
+<meta property="og:updated_time" content="2017-08-26T02:56:15.500Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeekShi">
-<meta name="twitter:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
+<meta name="twitter:title" content="UEFI篇">
+<meta name="twitter:description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
+<meta name="twitter:image" content="http://shic.top/images/让电脑飞/滴.jpg">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -143,36 +157,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-UFEI1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      UEFI篇
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/25/UFEI1/" class="archive-article-date">
+
+        
+        <a href="/2017/08/25/UFEI1/" class="archive-article-date">
   	<time datetime="2017-08-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-25</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/25/UFEI1/">UEFI篇</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="电脑快速进入工作状态，你需要UEFI启动"><a href="#电脑快速进入工作状态，你需要UEFI启动" class="headerlink" title="电脑快速进入工作状态，你需要UEFI启动"></a><center>电脑快速进入工作状态，你需要UEFI启动</center></h2><p><em>首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查资料，不断的找原因，还去学习了一些硬盘的分区结构，最后才想了想才把它整理了出来形成了两篇文稿，如果你和我一样喜欢折腾，那就可以继续往下看了。</em><br><a id="more"></a><br>关于为什么UFEI启动这么快，下篇文章会简单说明一下，那么本篇我们就先来操作一番，先把电脑启动模式改成UEFI。</p>
+<ul>
+<li>首先我们要看一下我们电脑是否已经是UEFI启动了，如果是那就别看了。。。<br><center><img src="/images/让电脑飞/滴.jpg" alt="滴"></center><br><em>不对</em>，键盘win+R，调开运行，输入msinfo32，就会打开一个窗口，查看里面的BIOS模式就行了，写的UEFI，那么就是UEFI的的引导模式了。<br><center><img src="/images/让电脑飞/msinfo.png" alt="msinfo"></center><br>如果写的是传统，那就是传统的模式。这时，我们就需要把它改成UEFI，来达到电脑开机比以前快的目的。<br><center><img src="/images/让电脑飞/BIOS_model.png" alt="BIOS_model"></center><br>经过我的测试，不重装系统应该是行不通的。道理也很简单，那么这里再次为下一篇精彩的文章做出预告，欢迎及时关注《改传统于UEFI，你不得不知的这些》一文的更新，好了，废话不多说，我们现在就进行操作。<br>首先，我们做一件事需要一个规划，我们的操作要规划好，才能节约时间且达到满意的效果。首先我们的硬盘里是有重要的数据的，在进行改UEFI的过程中，需要更改硬盘的分区结构，涉及到所有的数据。当然这个在正常情况下是安全的，如果自己的电脑性能真的不好，运行软件容易卡顿，那就更加应该备份了，在运行过程中死机，那强行关机，多半会造成一些数据的损失。如果重要信息备份已经完成，或者没有可保留的数据，那么就往下看。</li>
+</ul>
+<ol>
+<li>准备Windows系统</li>
+<li>制作启动盘</li>
+<li>修改磁盘分区方案</li>
+<li>建立ESP分区</li>
+<li>EFI分区操作</li>
+<li>开始“刷机”    </li>
+</ol>
+<p>那么我们就开始分步开始操作了：</p>
+<p></p><h4>准备Windows系统</h4><p></p>
+<blockquote>
+<p>重装系统先要准备好目标系统，在vista及之后的64位系统都支持UEFI，但是只有win8及之后的系统才预装了UEFI启动所需要的启动文件。如果还想用win7的朋友，就只能自行添加相关的EFI文件到系统包里面了。而就目前的形式来看，首先的系统当然是win10了。   </p>
+</blockquote>
+<center><img src="/images/让电脑飞/efi.png" alt="efi"></center><br>win8.1，efi文件夹里有boot文件里，里面还有相关的efi文件，8以后的系统都有它。<br><center><img src="/images/让电脑飞/efi1.png" alt="efi1"></center><br>Win7的efi文件夹里没有相应的boot文件夹，更没有efi的文件了，也就是没有预装efi文件。<br><br><h4>制作启动盘</h4><br>因为笔者喜欢用U盘装机，装机盘可以随时移动还可以外借，十分方便，所以本文就以U盘装机为例了。<br>大家在网上去搜索相关制作U盘启动盘的软件就行，此处记住，一定要下载UEFI装机版的软件。这些软件的使用在其官网上都有使用方法，笔者在这就不赘述了。<br>按照相关要求，把你要安装的系统放入制作好的U盘里。<br><br><h4>修改磁盘分区方案</h4><br>MBR和GPT是磁盘的两种不同分区方案，传统的启动模式下都是采用的MBR的分区结构，而因为微软限制，想要在UEFI下安装Windows系统只能将系统安装在GPT硬盘中，所以我们此处需要修改磁盘的分区方案。<br>而正好有软件可以让我们把磁盘无损地从MBR转到GPT，除非小概率事件自己机器出毛病卡死造成数据损失，其他时候都是安全的。那么我们就要用到一个名叫diskgenius的软件。如果你制作的U盘启动器里面有此软件，那么选择U盘启动后，在PE里操作。如果里面没有，就下载一个放U盘里，然后U盘启动后安装此软件。进入软件后，大家可以先把系统的分区表备份到U盘中，万一真的操作失败可以将备份分区表重新导入系统盘中。<br>我们点击软件顶部区域的“硬盘”，点击“转换分区表类型为GUID格式”。<br><center><img src="/images/让电脑飞/diskgenius.png" alt="diskgenius"></center><br><center>（点击确认即可）</center>    
 
-        <div class="article-info info-on-right">
-          
+<p></p><h4>建立ESP分区</h4><br>我们需要建立EFI system partition分区，这是UEFI GPT模式下必须有的分区，简称ESP分区。有些电脑上会有几百兆的隐藏空间，我们就把它删除了再建立ESP分区，如果电脑上没有这一小块的隐藏空间，那么就需要自己从C盘中分一点空间出来，当然强大的diskgenius可以完成此项任务。鼠标右键点击“调整分区大小”，设置100MB的分区大小就行了，然后选中刚分出来的区域（此时应该为灰色），建立ESP分区，如果是磁盘全部删除或者是新的磁盘，那么就会出现下面的画面<p></p>
+<center><img src="/images/让电脑飞/esp.png" alt="esp"></center><br>选择建立ESP分区而不是MSR分区，设置大小为100MB即可，点击确定。如果磁盘是以前用过的，也没关系，照着上面步骤操作，<em>如果出来的界面和上面不一样，多半是因为以前硬盘引导过系统启动，该盘上已经有了MSR分区了，所以上图就不会出现，但会出现一个分区的详情选择，文件系统默认的可能是NTFS或者FAT32等，此处在选择单里面选择EFI system partition就行了，点击确定。盘符不用管</em>。有些玩家在操作的时候说此时一定不能分配盘符，要重新启动后再来分盘符，不然要出错，其实这里涉及到的4种情况笔者都亲自试过了，不管何时分配的盘符，都能成功装机，也有可能我用的diskgenius版本号是4.9的原因吧，大家看到这篇文章时，可能5.0都出来了，所以大家不用担心，大胆进行操作。<br><br><h4>EFI分区操作</h4><br>建立好ESP分区后，我们需要把EFI分区文件放入ESP分区更目录。此处我建立的ESP盘符是E<br><center><img src="/images/让电脑飞/efi2.png" alt="efi2"></center><br>然后再用UEFI引导修复工具修复，挂载ESP分区，选择要装系统的根目录<br><center><img src="/images/让电脑飞/uefi修复.png" alt="uefi修复"></center> 
+
+<p></p><h4>开始“刷机”</h4><br>先进入BIOS，因为众多的主板设置不太相同，所以大家都根据这自己的情况来。<strong>在boot一项中选择启动模式，改成UEFI，或者有UEFI/Legacy字样的。保存退出。</strong> 再次进入BIOS，选择UEFI：U盘的启动，U盘可能会出现两个，<strong>要选择UEFI字样的</strong>，进入后按照标准装机步骤进行安装系统即可。<p></p>
+<p><center><img src="/images/让电脑飞/efi3.png" alt="efi3"></center><br>装机完成后进入系统按照上述的查看方法查看启动方式，就已经修改了。</p>
+<p><center><img src="/images/让电脑飞/efi4.png" alt="efi4"></center><br>接下来的日子里，你的电脑启动就会比以前快了。那么这个UEFI启动是不是很神奇呢，下一篇文章讲用通俗的语言来讲解一下这一原理，敬请期待吧~    </p>
+<p><em>欢迎转载，转载注明出处</em></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的支持是我原创的动力<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -184,7 +253,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -197,115 +266,102 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/08/25/UFEI1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/23/SSD行情浅析/" class="archive-article-date">
-  	<time datetime="2017-08-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/23/SSD行情浅析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">准备起飞之SSD</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/23/SSD行情浅析/">准备起飞之SSD</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/让电脑飞/" class="article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/22/让电脑飞前言/" class="archive-article-date">
-  	<time datetime="2017-08-21T16:01:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/22/让电脑飞前言/">让电脑飞系列开篇</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/让电脑飞/" class="article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -328,10 +384,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
