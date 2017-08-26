@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shic.top">
-  <title>关于本站 | GeekShi</title>
+  <title>超强string类 | GeekShi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="为什么有本站 首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的">
-<meta name="keywords" content="IntelliJ IDEA">
+  <meta name="description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
+<meta name="keywords" content="C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于本站">
-<meta property="og:url" content="http://shic.top/2017/08/22/aboutSite/index.html">
+<meta property="og:title" content="超强string类">
+<meta property="og:url" content="http://shic.top/2017/08/26/C++string/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="为什么有本站 首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的">
+<meta property="og:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://shic.top/images/aboutThisSite.jpg">
-<meta property="og:image" content="http://shic.top/images/weibo.jpg">
-<meta property="og:updated_time" content="2017-08-23T02:52:54.282Z">
+<meta property="og:updated_time" content="2017-08-26T15:30:36.553Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于本站">
-<meta name="twitter:description" content="为什么有本站 首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的">
-<meta name="twitter:image" content="http://shic.top/images/aboutThisSite.jpg">
+<meta name="twitter:title" content="超强string类">
+<meta name="twitter:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -148,38 +145,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-aboutSite" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C++string" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于本站
+      超强string类
     </h1>
   
 
         
-        <a href="/2017/08/22/aboutSite/" class="archive-article-date">
-  	<time datetime="2017-08-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-22</time>
+        <a href="/2017/08/26/C++string/" class="archive-article-date">
+  	<time datetime="2017-08-25T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <center><img src="/images/aboutThisSite.jpg" alt="关于" title="关于"></center>
+        <h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
+<ul>
+<li>其实C++挺好的，我我一直很努力的学习，上马克思课我都在看，我觉得C++的编程书真的好看，特别是C++ Primer Plus 堪称C++界的巨著，奈何时间紧促，我老是想开发个规模大的东西，于是后面因为某些原因就入了JAVA的坑，但是面向对象的思想我在C++里却学到了很多。<br>我的装备好多都因为一次电脑硬件的变动而不见了，不知仍那去了，今天还找到了以前改的string类（基于某个初级版本），给它加了点料</li>
+</ul>
+<hr>
+<p><strong>string1.h</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">/*这是一个增强（自己修改过的）string类，类名是String，可以实现直接用字符串复制给这个String类的对象</div><div class="line">，还可以把这个类对象想字符数组一样输出第几个字符，还可以想正常的string类的对象一样的输出输入，做加法，</div><div class="line">判断哪个长，变换大小写等运算使用时包含string1.h的头文件，并注意放的文件夹位置*/</div><div class="line">//如果报错说strcpy等不安全就加这个：#define _CRT_SECURE_NO_WARNINGS//关闭安全检查</div><div class="line">#ifndef STRING1_H_</div><div class="line">#define STRING1_H_</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include&lt;cctype&gt;</div><div class="line">using std::ostream;</div><div class="line">using std::istream;</div><div class="line">class String</div><div class="line">&#123;</div><div class="line">private:</div><div class="line">	char * str;             // pointer to string</div><div class="line">	int len;                // length of string</div><div class="line">	static int num_strings; // number of objects</div><div class="line">	static const int CINLIM = 80;  // cin input limit</div><div class="line">public:</div><div class="line">	// constructors and other methods</div><div class="line">	String(const char * s); // constructor</div><div class="line">	String();               // default constructor</div><div class="line">	String(const String &amp;); // copy constructor</div><div class="line">	~String();              // destructor</div><div class="line">	int length() const &#123; return len; &#125;</div><div class="line">	// overloaded operator methods</div><div class="line">	String &amp; operator=(const String &amp;); //重载 赋值运算符函数 对象赋对象</div><div class="line">	String &amp; operator=(const char *);     //重载 赋值运算符函数 字符串赋值对象</div><div class="line">	String  operator+(const String &amp;);   //重载+号</div><div class="line">	char &amp; operator[](int i);</div><div class="line">	const char &amp; operator[](int i) const;</div><div class="line">	// overloaded operator friends</div><div class="line">	friend bool operator&lt;(const String &amp;st, const String &amp;st2);</div><div class="line">	friend bool operator&gt;(const String &amp;st1, const String &amp;st2);</div><div class="line">	friend bool operator==(const String &amp;st, const String &amp;st2);</div><div class="line">	friend ostream &amp; operator&lt;&lt;(ostream &amp; os, const String &amp; st);</div><div class="line">	friend istream &amp; operator &gt;&gt; (istream &amp; is, String &amp; st);</div><div class="line">	// static function</div><div class="line">	static int HowMany();</div><div class="line">	//大小写转化，包含头文件 写：#include&lt;cctype&gt;</div><div class="line">	void Stringlow();</div><div class="line">	void Stringbig();</div><div class="line">&#125;;</div><div class="line">#endif</div><div class="line">```    </div><div class="line"></div><div class="line">****</div><div class="line">**string1.cpp**</div></pre></td></tr></table></figure></p>
+<p>#include “string1.h”</p>
+<p>#include <cstring>  // string.h for some</cstring></p>
+<p>#include<cctype><br>using std::cin;<br>using std::cout;<br>//有些用的strcpy，有些是strncpy。。反正都要报错说不安全</cctype></p>
+<p>// initializing static class member</p>
+<p>int String::num_strings = 0;</p>
+<p>// static method<br>int String::HowMany()<br>{<br>    return num_strings;<br>}<br>// class methods<br>String::String(const char * s)     // construct String from C string<br>{<br>    len = std::strlen(s);          // set size<br>    str = new char[len + 1];       // allot storage<br>    std::strncpy(str, s, len + 1);           // initialize pointer<br>    num_strings++;                 // set object count<br>}</p>
+<p>String::String()                   // default constructor<br>{<br>    len = 4;<br>    str = new char[1];<br>    str[0] = ‘\0’;                 // default string<br>    num_strings++;<br>}</p>
+<p>String::String(const String &amp; st)<br>{<br>    num_strings++;             // handle static member update<br>    len = st.len;              // same length<br>    str = new char[len + 1];  // allot space<br>    std::strcpy(str, st.str);  // copy string to new location<br>}</p>
+<p>String::~String()                     // necessary destructor<br>{<br>    –num_strings;                    // required<br>    delete[] str;                    // required<br>}</p>
+<p>// overloaded operator methods</p>
+<p>// assign a String to a String<br>String &amp; String::operator=(const String &amp; st)<br>{<br>    if (this == &amp;st)<br>        return <em>this;<br>    delete[] str;<br>    len = st.len;<br>    str = new char[len + 1];<br>    std::strncpy(str, st.str, len + 1);<br>    return </em>this;<br>}</p>
+<p>// assign a C string to a String<br>String &amp; String::operator=(const char <em> s)<br>{<br>    delete[] str;<br>    len = std::strlen(s);<br>    str = new char[len + 1];<br>    std::strcpy(str, s);<br>    return </em>this;<br>}</p>
+<p>String  String::operator+(const String &amp;s)<br>{<br>    String sum;<br>    sum.len = len + s.len;<br>    sum.str = new char[sum.len + 1];<br>    std::strcpy(sum.str, str);<br>    std::strcat(sum.str, s.str);<br>    return sum;<br>}</p>
+<p>// read-write char access for non-const String<br>char &amp; String::operator<a href="int i"></a><br>{<br>    return str[i];<br>}</p>
+<p>// read-only char access for const String<br>const char &amp; String::operator<a href="int i"></a> const<br>{<br>    return str[i];<br>}</p>
+<p>// overloaded operator friends</p>
+<p>bool operator&lt;(const String &amp;st1, const String &amp;st2)<br>{<br>    return (std::strcmp(st1.str, st2.str) &lt; 0);<br>}</p>
+<p>bool operator&gt;(const String &amp;st1, const String &amp;st2)<br>{<br>    return st2 &lt; st1;<br>}</p>
+<p>bool operator==(const String &amp;st1, const String &amp;st2)<br>{<br>    return (std::strcmp(st1.str, st2.str) == 0);<br>}</p>
+<p>// simple String output<br>ostream &amp; operator&lt;&lt;(ostream &amp; os, const String &amp; st)<br>{<br>    os &lt;&lt; st.str;<br>    return os;<br>}</p>
+<p>// quick and dirty String input<br>istream &amp; operator &gt;&gt; (istream &amp; is, String &amp; st)<br>{<br>    char temp[String::CINLIM];<br>    is.get(temp, String::CINLIM);<br>    if (is)<br>        st = temp;<br>    while (is &amp;&amp; is.get() != ‘\n’)<br>        continue;<br>    return is;<br>}<br>void String::Stringlow()<br>{<br>    for (int i = 0; i &lt; len; i++)<br>    {<br>        str[i] = tolower(str[i]);<br>    }<br>    cout &lt;&lt; “小写：” &lt;&lt; str;<br>}  //变成小写</p>
+<p>void String::Stringbig()<br>{<br>    for (int i = 0; i &lt; len; i++)<br>    {<br>        str[i] = toupper(str[i]);<br>    }<br>    cout &lt;&lt; “大写：” &lt;&lt; str;<br>}  //变成大写<br>```<br><em>哎，半年多没有看过C++了，友元函数，运算符重载，相关的垃圾回收机制都记忆模糊了，都不知找来的装备还能不能用了，关它的，先存个档~嘻嘻</em></p>
 
-<h2 id="为什么有本站"><a href="#为什么有本站" class="headerlink" title="为什么有本站"></a><center>为什么有本站</center></h2><blockquote>
-<p>首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。</p>
-<blockquote>
-<p><a id="more"></a>而我是那种对于电脑的基础部件很有兴趣的人，所以经常折腾电脑，玩儿久了也有不少的体会，也可以叫做一个小小的极客吧。借着暑假的空闲时间，简单上线了一个博客平台，分享一些关于电脑日常使用和优化的帖子，让大家也能有一个反应快速的生产力工具，提高自己的工作学习效率，这也算是我的一个课外兴趣吧，捣鼓了大半天，研究了一个啥好用的技能，能够通过自己的平台进行分享也是很有乐趣的一件事，毕竟兴趣能冲淡无聊而无线重复的平凡生活，让我们更加有活力。      </p>
-<blockquote>
-<p>本站也只是笔者的一个课外兴趣，也不做过多的修饰和更改，仅仅是一个个人博客，由于<strong>不可抗拒的原因（自己以后可能会把该博客搬到国内，也许不会，因为歪果有些云服务器的确便宜，以后搬回来再备案、所以目前暂不添加评论功能了）</strong>，以后有时间可能会多一个分类，就不光是计算机的东西，我会根据实际的情况和时间节点来给大家分享一些计算机方面的知识，希望能够帮到你，如有什么问题，还可以微博私信我，每一期的文章分享我也会在微博上及时更新，希望它能够第一时间和你见面，下面的 就是我的微博，赶快加一波关注吧～    </p>
-</blockquote>
-</blockquote>
-</blockquote>
-<center><img src="/images/weibo.jpg" alt="微博" title="微博关注"></center>
       
 
       
@@ -223,7 +237,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -235,7 +249,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/IntelliJIDEA/" class="article-tag-list-link color4">IntelliJ IDEA</a>
+        			<a href="/categories/C++/" class="article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -290,7 +304,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/08/22/aboutSite/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/08/26/C++string/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,15 +318,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/22/让电脑飞前言/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          让电脑飞系列开篇
-        
-      </div>
-    </a>
   
+    <a href="/2017/08/25/UFEI1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UEFI篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
