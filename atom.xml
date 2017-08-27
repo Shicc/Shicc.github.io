@@ -55,9 +55,9 @@
     <link href="http://shic.top/2017/08/27/C++string/"/>
     <id>http://shic.top/2017/08/27/C++string/</id>
     <published>2017-08-26T16:00:00.000Z</published>
-    <updated>2017-08-27T01:27:17.961Z</updated>
+    <updated>2017-08-27T01:31:47.675Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
 <ul>
 <li>其实C++挺好的，我我一直很努力的学习，上马克思课我都在看，我觉得C++的编程书真的好看，特别是C++ Primer Plus 堪称C++界的巨著，奈何时间紧促，我老是想开发个规模大的东西，于是后面因为某些原因就入了JAVA的坑，但是面向对象的思想我在C++里却学到了很多。<br>我的装备好多都因为一次电脑硬件的变动而不见了，不知仍那去了，今天还找到了以前改的string类（基于某个初级版本），给它加了点料</li>
 </ul>
@@ -88,7 +88,7 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;C-里的string用得不爽怎么办&quot;&gt;&lt;a href=&quot;#C-里的string用得不爽怎么办&quot; class=&quot;headerlink&quot; title=&quot;C++里的string用得不爽怎么办&quot;&gt;&lt;/a&gt;&lt;center&gt;C++里的string用得不爽怎么办&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。&lt;br&gt;
+      &lt;h2 id=&quot;C-里的string用得不爽怎么办&quot;&gt;&lt;a href=&quot;#C-里的string用得不爽怎么办&quot; class=&quot;headerlink&quot; title=&quot;C++里的string用得不爽怎么办&quot;&gt;&lt;/a&gt;&lt;center&gt;C++里的string用得不爽怎么办&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。&lt;br&gt;
     
     </summary>
     
