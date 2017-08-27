@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-08-26T15:35:25.059Z</updated>
+  <updated>2017-08-27T01:28:15.439Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -16,11 +16,46 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>UEFI番外篇</title>
+    <link href="http://shic.top/2017/08/27/UEFI2/"/>
+    <id>http://shic.top/2017/08/27/UEFI2/</id>
+    <published>2017-08-26T16:00:10.000Z</published>
+    <updated>2017-08-27T01:28:15.439Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="改传统于UEFI，你知道这些就够了"><a href="#改传统于UEFI，你知道这些就够了" class="headerlink" title="改传统于UEFI，你知道这些就够了"></a><center>改传统于UEFI，你知道这些就够了</center></h2><p><em>在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的</em><br><a id="more"></a><br>为了简单明了地弄懂这个问题，我通过自己的总结和举例，帮助读者懂明白。<br>虽然有些可能不是100%的准确，但大致可以这样理解。</p>
+<ul>
+<li><p></p><h4>UEFI采用的不同的开机引导</h4><br>首先我们明白，我们的系统是放在硬盘里的，那些数据是用一个容器来装着的，但硬盘里那么多的数据，计算机怎么知道开机需要哪一块的呢？所以开机的时候需要引导，像一个指挥棒一样，指引着硬件怎么去利用特定的数据。这里的引导模式就有些不同了，这在我们装系统的时候就能看出来，需要一个盘去引导硬件开机。<br><center><img src="/images/让电脑飞/引导.png" alt="引导"></center><br>传统的安装系统，在安装的时候会出现添加引导，其中你把系统装入的分区就是引导分区，如上图一样我把系统装在C盘，添加的引导就是C盘，且推荐也是C盘，意思是要用它来引导开机，而UEFI模式下，从装机时的引导就能看出不一样，需要的引导不是系统所在分区，而是我们建立的ESP分区了。如下图：<br><center><img src="/images/让电脑飞/UEFI引导.png" alt="UEFI引导"></center><br>我把系统装在C盘，但UEFI下的引导并不是C盘的，而是我们之前建立的ESP分区，就是上图所示的E盘。<strong>而从这里我们也明白了为什么要实现UEFI启动必须要有ESP分区了，还要向该分区里手动添加EFI分区文件，因为是需要用来ESP分区来引导系统的启动</strong>，而大家也会发现EFI分区文件和系统镜像文件里的boot文件夹里的EFI很像<p></p>
+</li>
+<li><p></p><h4>不同EFI文件夹里的不同内容</h4><p></p>
+<center><img src="/images/让电脑飞/区别.png" alt="区别"></center><br><center>（上方为EFI分区文件，下方为win10iso里的efi文件夹，当然里面的内容是不同的）</center>   
+</li>
+<li><p></p><h4>UEFI和传统的BIOS启动方式不同</h4><br>我们推荐目前的电脑都采用UEFI启动是因为它开机快，为什么现在的UEFI比传统的BIOS启动快呢？原因还启动的流程不同<br>大概可以这样分：<strong>开机-&gt;UEFI初始化-&gt;引导操作系统-&gt;进入系统</strong><br>而传统模式下：<strong>开机-&gt;BIOS初始化-&gt;BIOS自检-&gt;引导操作系统-&gt;进入系统</strong><br>这么一来UEFI开机就要快些了。所以我们推荐使用UEFI，那么我们之前在改什么硬盘的分区结构又是怎么回事呢？为此我还专门去研究了一下硬盘的分区结构，那可以不改吗？答案是：不行的，必须改。我们需要安装Windows系统，<strong>由于微软的限制，只能将系统安装在GPT硬盘中</strong>。我们以前的传统模式下，BIOS是不能识别GPT的，所以那时我们的硬盘都是MBR的分区结构，这也有了<a href="http://shic.top/2017/08/25/UFEI1/" title="点击查看怎样UEFI启动">《怎样UEFI启动》</a>一文，里面有详细的处理步骤。而经过笔者的亲自测试，如果硬盘是MBR结构，即使使用UEFI版的装机U盘，也只能是传统的启动；如果硬盘是GPT结构的，安装win7会出现“Windows无法安装到这个磁盘,选中的磁盘采用GPT分区形式”，原因是win7没有像以后的系统一样预装efi文件。只有把硬盘格式改成MBR才可以装win7。所以给大家总结一下启动模式和硬盘的分区结构的组合搭配应该是：传统BIOS+MBR硬盘，或者UEFI+GPT硬盘。<p></p>
+</li>
+<li><p></p><h4>后言</h4><br>当然就后者UEFI+GPT硬盘，优势并不只是开机快了点，而UEFI有其他优势，GPT分区结构也有比MBR更强大的地方，因为已经超出了本文的讨论范围，所以就不赘述了。总的来说，<strong>在未来会有越来越多的UEFI+GPT的组合出现在电脑上，这应该是一个趋势所在</strong>。<p></p>
+</li>
+</ul>
+<p><em>欢迎转载，转载注明出处</em></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;改传统于UEFI，你知道这些就够了&quot;&gt;&lt;a href=&quot;#改传统于UEFI，你知道这些就够了&quot; class=&quot;headerlink&quot; title=&quot;改传统于UEFI，你知道这些就够了&quot;&gt;&lt;/a&gt;&lt;center&gt;改传统于UEFI，你知道这些就够了&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;&lt;em&gt;在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的&lt;/em&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
+    
+    
+      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
+    
+  </entry>
+  
+  <entry>
     <title>超强string类</title>
-    <link href="http://shic.top/2017/08/26/C++string/"/>
-    <id>http://shic.top/2017/08/26/C++string/</id>
-    <published>2017-08-25T16:00:00.000Z</published>
-    <updated>2017-08-26T15:35:25.059Z</updated>
+    <link href="http://shic.top/2017/08/27/C++string/"/>
+    <id>http://shic.top/2017/08/27/C++string/</id>
+    <published>2017-08-26T16:00:00.000Z</published>
+    <updated>2017-08-27T01:27:17.961Z</updated>
     
     <content type="html"><![CDATA[<h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女同学改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
 <ul>
