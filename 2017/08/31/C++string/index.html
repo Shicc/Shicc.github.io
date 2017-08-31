@@ -6,21 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shic.top">
-  <title>GeekShi</title>
+  <title>超强string类 | GeekShi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个超小的404页面">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GeekShi">
-<meta property="og:url" content="http://shic.top/404.html">
+  <meta name="description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超强string类">
+<meta property="og:url" content="http://shic.top/2017/08/31/C++string/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="一个超小的404页面">
+<meta property="og:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://shic.top/images/别跑.gif">
-<meta property="og:updated_time" content="2017-08-21T15:19:35.259Z">
+<meta property="og:updated_time" content="2017-08-31T03:11:00.056Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeekShi">
-<meta name="twitter:description" content="一个超小的404页面">
-<meta name="twitter:image" content="http://shic.top/images/别跑.gif">
+<meta name="twitter:title" content="超强string类">
+<meta name="twitter:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -152,12 +151,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-C++string" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      超强string类
+    </h1>
+  
+
+        
+        <a href="/2017/08/31/C++string/" class="archive-article-date">
+  	<time datetime="2017-08-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-31</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一个超小的404页面"><a href="#一个超小的404页面" class="headerlink" title="一个超小的404页面"></a><center>一个超小的404页面</center></h2><center><img src="/images/别跑.gif" alt="别跑，回来把代码写完" title="别跑，回来把代码写完"></center>
+        <h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
+<ul>
+<li>其实C++挺好的，我我一直很努力的学习，上马克思课我都在看，我觉得C++的编程书真的好看，特别是C++ Primer Plus 堪称C++界的巨著，奈何时间紧促，我老是想开发个规模大的东西，于是后面因为某些原因就入了JAVA的坑，但是面向对象的思想我在C++里却学到了很多。<br>我的装备好多都因为一次电脑硬件的变动而不见了，不知仍那去了，今天还找到了以前改的string类（基于某个初级版本），给它加了点料</li>
+</ul>
+<p><strong>string1.h</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">/*这是一个增强（自己修改过的）string类，类名是String，可以实现直接用字符串复制给这个String类的对象</div><div class="line">，还可以把这个类对象想字符数组一样输出第几个字符，还可以想正常的string类的对象一样的输出输入，做加法，</div><div class="line">判断哪个长，变换大小写等运算使用时包含string1.h的头文件，并注意放的文件夹位置*/</div><div class="line">//如果报错说strcpy等不安全就加这个：#define _CRT_SECURE_NO_WARNINGS//关闭安全检查</div><div class="line">#ifndef STRING1_H_</div><div class="line">#define STRING1_H_</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include&lt;cctype&gt;</div><div class="line">using std::ostream;</div><div class="line">using std::istream;</div><div class="line">class String</div><div class="line">&#123;</div><div class="line">private:</div><div class="line">	char * str;             // pointer to string</div><div class="line">	int len;                // length of string</div><div class="line">	static int num_strings; // number of objects</div><div class="line">	static const int CINLIM = 80;  // cin input limit</div><div class="line">public:</div><div class="line">	// constructors and other methods</div><div class="line">	String(const char * s); // constructor</div><div class="line">	String();               // default constructor</div><div class="line">	String(const String &amp;); // copy constructor</div><div class="line">	~String();              // destructor</div><div class="line">	int length() const &#123; return len; &#125;</div><div class="line">	// overloaded operator methods</div><div class="line">	String &amp; operator=(const String &amp;); //重载 赋值运算符函数 对象赋对象</div><div class="line">	String &amp; operator=(const char *);     //重载 赋值运算符函数 字符串赋值对象</div><div class="line">	String  operator+(const String &amp;);   //重载+号</div><div class="line">	char &amp; operator[](int i);</div><div class="line">	const char &amp; operator[](int i) const;</div><div class="line">	// overloaded operator friends</div><div class="line">	friend bool operator&lt;(const String &amp;st, const String &amp;st2);</div><div class="line">	friend bool operator&gt;(const String &amp;st1, const String &amp;st2);</div><div class="line">	friend bool operator==(const String &amp;st, const String &amp;st2);</div><div class="line">	friend ostream &amp; operator&lt;&lt;(ostream &amp; os, const String &amp; st);</div><div class="line">	friend istream &amp; operator &gt;&gt; (istream &amp; is, String &amp; st);</div><div class="line">	// static function</div><div class="line">	static int HowMany();</div><div class="line">	//大小写转化，包含头文件 写：#include&lt;cctype&gt;</div><div class="line">	void Stringlow();</div><div class="line">	void Stringbig();</div><div class="line">&#125;;</div><div class="line">#endif</div><div class="line">```    </div><div class="line"></div><div class="line"></div><div class="line">**string1.cpp**</div></pre></td></tr></table></figure></p>
+<p>#include “string1.h”</p>
+<p>#include <cstring>  // string.h for some</cstring></p>
+<p>#include<cctype><br>using std::cin;<br>using std::cout;<br>//有些用的strcpy，有些是strncpy。。反正都要报错说不安全</cctype></p>
+<p>// initializing static class member</p>
+<p>int String::num_strings = 0;</p>
+<p>// static method<br>int String::HowMany()<br>{<br>    return num_strings;<br>}<br>// class methods<br>String::String(const char * s)     // construct String from C string<br>{<br>    len = std::strlen(s);          // set size<br>    str = new char[len + 1];       // allot storage<br>    std::strncpy(str, s, len + 1);           // initialize pointer<br>    num_strings++;                 // set object count<br>}</p>
+<p>String::String()                   // default constructor<br>{<br>    len = 4;<br>    str = new char[1];<br>    str[0] = ‘\0’;                 // default string<br>    num_strings++;<br>}</p>
+<p>String::String(const String &amp; st)<br>{<br>    num_strings++;             // handle static member update<br>    len = st.len;              // same length<br>    str = new char[len + 1];  // allot space<br>    std::strcpy(str, st.str);  // copy string to new location<br>}</p>
+<p>String::~String()                     // necessary destructor<br>{<br>    –num_strings;                    // required<br>    delete[] str;                    // required<br>}</p>
+<p>// overloaded operator methods</p>
+<p>// assign a String to a String<br>String &amp; String::operator=(const String &amp; st)<br>{<br>    if (this == &amp;st)<br>        return <em>this;<br>    delete[] str;<br>    len = st.len;<br>    str = new char[len + 1];<br>    std::strncpy(str, st.str, len + 1);<br>    return </em>this;<br>}</p>
+<p>// assign a C string to a String<br>String &amp; String::operator=(const char <em> s)<br>{<br>    delete[] str;<br>    len = std::strlen(s);<br>    str = new char[len + 1];<br>    std::strcpy(str, s);<br>    return </em>this;<br>}</p>
+<p>String  String::operator+(const String &amp;s)<br>{<br>    String sum;<br>    sum.len = len + s.len;<br>    sum.str = new char[sum.len + 1];<br>    std::strcpy(sum.str, str);<br>    std::strcat(sum.str, s.str);<br>    return sum;<br>}</p>
+<p>// read-write char access for non-const String<br>char &amp; String::operator<a href="int i"></a><br>{<br>    return str[i];<br>}</p>
+<p>// read-only char access for const String<br>const char &amp; String::operator<a href="int i"></a> const<br>{<br>    return str[i];<br>}</p>
+<p>// overloaded operator friends</p>
+<p>bool operator&lt;(const String &amp;st1, const String &amp;st2)<br>{<br>    return (std::strcmp(st1.str, st2.str) &lt; 0);<br>}</p>
+<p>bool operator&gt;(const String &amp;st1, const String &amp;st2)<br>{<br>    return st2 &lt; st1;<br>}</p>
+<p>bool operator==(const String &amp;st1, const String &amp;st2)<br>{<br>    return (std::strcmp(st1.str, st2.str) == 0);<br>}</p>
+<p>// simple String output<br>ostream &amp; operator&lt;&lt;(ostream &amp; os, const String &amp; st)<br>{<br>    os &lt;&lt; st.str;<br>    return os;<br>}</p>
+<p>// quick and dirty String input<br>istream &amp; operator &gt;&gt; (istream &amp; is, String &amp; st)<br>{<br>    char temp[String::CINLIM];<br>    is.get(temp, String::CINLIM);<br>    if (is)<br>        st = temp;<br>    while (is &amp;&amp; is.get() != ‘\n’)<br>        continue;<br>    return is;<br>}<br>void String::Stringlow()<br>{<br>    for (int i = 0; i &lt; len; i++)<br>    {<br>        str[i] = tolower(str[i]);<br>    }<br>    cout &lt;&lt; “小写：” &lt;&lt; str;<br>}  //变成小写</p>
+<p>void String::Stringbig()<br>{<br>    for (int i = 0; i &lt; len; i++)<br>    {<br>        str[i] = toupper(str[i]);<br>    }<br>    cout &lt;&lt; “大写：” &lt;&lt; str;<br>}  //变成大写<br>```    </p>
+<p><em>哎，半年多没有看过C++了，友元函数，运算符重载，相关的垃圾回收机制都记忆模糊了，都不知找来的装备还能不能用了，关它的，先存个档~嘻嘻</em></p>
+
       
 
       
@@ -196,7 +238,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C++/" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -246,7 +310,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/404.html" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/08/31/C++string/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -258,6 +322,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/27/UEFI2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UEFI番外篇</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -306,7 +380,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
