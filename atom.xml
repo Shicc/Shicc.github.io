@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-08-31T13:40:41.287Z</updated>
+  <updated>2017-09-17T02:34:35.484Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>百公里去眉山</title>
+    <link href="http://shic.top/2017/09/17/RunTimeToMeishan/"/>
+    <id>http://shic.top/2017/09/17/RunTimeToMeishan/</id>
+    <published>2017-09-16T16:00:00.000Z</published>
+    <updated>2017-09-17T02:34:35.484Z</updated>
+    
+    <content type="html"><![CDATA[<p>歌    </p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=168620&auto=0&height=66"></iframe><br>视频    </p>
+<center><iframe height="498" width="510" src="http://player.youku.com/embed/XMzAyODMzMTExMg==" frameborder="0" 'allowfullscreen'=""></iframe></center><br><center>图片<img src="https://res.cloudinary.com/shi1996/image/upload/v1505611420/三人合影_qdkyzz.jpg" alt="合照"></center>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;歌    &lt;/p&gt;
+&lt;p&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/p
+    
+    </summary>
+    
+      <category term="漂移" scheme="http://shic.top/categories/%E6%BC%82%E7%A7%BB/"/>
+    
+    
+      <category term="漂移" scheme="http://shic.top/tags/%E6%BC%82%E7%A7%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>超强string类</title>
@@ -344,28 +370,6 @@ void String::Stringbig()
       &lt;h2 id=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;a href=&quot;#涨价风波一年多的SSD行情浅析&quot; class=&quot;headerlink&quot; title=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;/a&gt;&lt;center&gt;涨价风波一年多的SSD行情浅析&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;希望能帮到正要买固态的你&lt;br&gt;&lt;a href=&quot;http://shic.top&quot; title=&quot;你点呀！&quot;&gt;shic.top&lt;/a&gt;   防哈橙戌员&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;：SSD全称是&lt;em&gt;Solid State Drive/Disk&lt;/em&gt;，顾名思义意为&lt;em&gt;固态硬盘&lt;/em&gt;，不同于机械硬盘，它没有驱动旋转马达，没有磁盘碟片，用NAND闪存颗粒作为存储介质，是一个常见的非易失性存储。且SSD内部还有包括想主控，缓存等东西。
-    
-    </summary>
-    
-      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-    
-      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>准备起飞之SSD</title>
-    <link href="http://shic.top/2017/08/23/test163Music/"/>
-    <id>http://shic.top/2017/08/23/test163Music/</id>
-    <published>2017-08-22T16:00:00.000Z</published>
-    <updated>2017-09-16T13:50:50.529Z</updated>
-    
-    <content type="html"><![CDATA[<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=168620&auto=1&height=66"></iframe>]]></content>
-    
-    <summary type="html">
-    
-      &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/player?type=2&amp;id=
     
     </summary>
     
