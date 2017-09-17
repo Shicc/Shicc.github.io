@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shic.top">
-  <title>超强string类 | GeekShi</title>
+  <title>Category: 漂移 | GeekShi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
-<meta name="keywords" content="C++">
-<meta property="og:type" content="article">
-<meta property="og:title" content="超强string类">
-<meta property="og:url" content="http://shic.top/2017/08/31/C++string/index.html">
+  <meta name="description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GeekShi">
+<meta property="og:url" content="http://shic.top/categories/漂移/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
+<meta property="og:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-31T13:40:41.287Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="超强string类">
-<meta name="twitter:description" content="C++里的string用得不爽怎么办还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。">
+<meta name="twitter:title" content="GeekShi">
+<meta name="twitter:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -151,382 +149,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-C++string" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      超强string类
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/09/17/RunTimeToMeishan/" class="archive-article-date">
+  	<time datetime="2017-09-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/09/17/RunTimeToMeishan/">百公里去眉山</a>
     </h1>
   
 
-        
-        <a href="/2017/08/31/C++string/" class="archive-article-date">
-  	<time datetime="2017-08-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="C-里的string用得不爽怎么办"><a href="#C-里的string用得不爽怎么办" class="headerlink" title="C++里的string用得不爽怎么办"></a><center>C++里的string用得不爽怎么办</center></h2><p>还记得我20岁生日那天，上午帮一女生改代码，下午参加了一个编程活动，我选的语言是C++，然后，TMD居然装备忘带了。。。。晚上虽然和室友出去小搓了一顿，但心里还是惦记着我忘带的装备，没了信仰的加成，电脑都要蓝屏。。<br><a id="more"></a></p>
-<ul>
-<li>其实C++挺好的，我我一直很努力的学习，上马克思课我都在看，我觉得C++的编程书真的好看，特别是C++ Primer Plus 堪称C++界的巨著，奈何时间紧促，我老是想开发个规模大的东西，于是后面因为某些原因就入了JAVA的坑，但是面向对象的思想我在C++里却学到了很多。<br>我的装备好多都因为一次电脑硬件的变动而不见了，不知仍那去了，今天还找到了以前改的string类（基于某个初级版本），给它加了点料</li>
-</ul>
-<p><strong>string1.h</strong></p>
-<pre><code>
-/*这是一个增强（自己修改过的）string类，类名是String，可以实现直接用字符串复制给这个String类的对象
-，还可以把这个类对象想字符数组一样输出第几个字符，还可以想正常的string类的对象一样的输出输入，做加法，
-判断哪个长，变换大小写等运算使用时包含string1.h的头文件，并注意放的文件夹位置*/
-//如果报错说strcpy等不安全就加这个：#define _CRT_SECURE_NO_WARNINGS//关闭安全检查
-#ifndef STRING1_H_
-#define STRING1_H_
-#include <iostream>
-#include<cctype>
-using std::ostream;
-using std::istream;
-class String
-{
-private:
-    char * str;             // pointer to string
-    int len;                // length of string
-    static int num_strings; // number of objects
-    static const int CINLIM = 80;  // cin input limit
-public:
-    // constructors and other methods
-    String(const char * s); // constructor
-    String();               // default constructor
-    String(const String &); // copy constructor
-    ~String();              // destructor
-    int length() const { return len; }
-    // overloaded operator methods
-    String & operator=(const String &); //重载 赋值运算符函数 对象赋对象
-    String & operator=(const char *);     //重载 赋值运算符函数 字符串赋值对象
-    String  operator+(const String &);   //重载+号
-    char & operator[](int i);
-    const char & operator[](int i) const;
-    // overloaded operator friends
-    friend bool operator<(const string="" &st,="" const="" &st2);="" friend="" bool="" operator="">(const String &st1, const String &st2);
-    friend bool operator==(const String &st, const String &st2);
-    friend ostream & operator<<(ostream &="" os,="" const="" string="" st);="" friend="" istream="" operator="">> (istream & is, String & st);
-    // static function
-    static int HowMany();
-    //大小写转化，包含头文件 写：#include<cctype>
-    void Stringlow();
-    void Stringbig();
-};
-#endif
-</cctype></(ostream></(const></cctype></iostream></code></pre>
---下面是方法实现
-
-**string1.cpp**
-<pre><code>
-#include "string1.h"
-#include <cstring>  // string.h for some
-#include<cctype>
-using std::cin;
-using std::cout;
-//有些用的strcpy，有些是strncpy。。反正都要报错说不安全
-
-// initializing static class member
-
-int String::num_strings = 0;
-
-// static method
-int String::HowMany()
-{
-    return num_strings;
-}
-// class methods
-String::String(const char * s)     // construct String from C string
-{
-    len = std::strlen(s);          // set size
-    str = new char[len + 1];       // allot storage
-    std::strncpy(str, s, len + 1);           // initialize pointer
-    num_strings++;                 // set object count
-}
-
-String::String()                   // default constructor
-{
-    len = 4;
-    str = new char[1];
-    str[0] = '\0';                 // default string
-    num_strings++;
-}
-
-String::String(const String & st)
-{
-    num_strings++;             // handle static member update
-    len = st.len;              // same length
-    str = new char[len + 1];  // allot space
-    std::strcpy(str, st.str);  // copy string to new location
-}
-
-String::~String()                     // necessary destructor
-{
-    --num_strings;                    // required
-    delete[] str;                    // required
-}
-
-// overloaded operator methods
-
-// assign a String to a String
-String & String::operator=(const String & st)
-{
-    if (this == &st)
-        return *this;
-    delete[] str;
-    len = st.len;
-    str = new char[len + 1];
-    std::strncpy(str, st.str, len + 1);
-    return *this;
-}
-
-// assign a C string to a String
-String & String::operator=(const char * s)
-{
-    delete[] str;
-    len = std::strlen(s);
-    str = new char[len + 1];
-    std::strcpy(str, s);
-    return *this;
-}
-
-String  String::operator+(const String &s)
-{
-    String sum;
-    sum.len = len + s.len;
-    sum.str = new char[sum.len + 1];
-    std::strcpy(sum.str, str);
-    std::strcat(sum.str, s.str);
-    return sum;
-}
-
-// read-write char access for non-const String
-char & String::operator[](int i)
-{
-    return str[i];
-}
-
-// read-only char access for const String
-const char & String::operator[](int i) const
-{
-    return str[i];
-}
-
-// overloaded operator friends
-
-bool operator<(const string="" &st1,="" const="" &st2)="" {="" return="" (std::strcmp(st1.str,="" st2.str)="" <="" 0);="" }="" bool="" operator="">(const String &st1, const String &st2)
-{
-    return st2 < st1;
-}
-
-bool operator==(const String &st1, const String &st2)
-{
-    return (std::strcmp(st1.str, st2.str) == 0);
-}
-
-// simple String output
-ostream & operator<<(ostream &="" os,="" const="" string="" st)="" {="" os="" <<="" st.str;="" return="" os;="" }="" quick="" and="" dirty="" input="" istream="" operator="">> (istream & is, String & st)
-{
-    char temp[String::CINLIM];
-    is.get(temp, String::CINLIM);
-    if (is)
-        st = temp;
-    while (is && is.get() != '\n')
-        continue;
-    return is;
-}
-void String::Stringlow()
-{
-    for (int i = 0; i < len; i++)
-    {
-        str[i] = tolower(str[i]);
-    }
-    cout << "小写：" << str;
-}  //变成小写
-
-void String::Stringbig()
-{
-    for (int i = 0; i < len; i++)
-    {
-        str[i] = toupper(str[i]);
-    }
-    cout << "大写：" << str;
-}  //变成大写
-</(ostream></(const></cctype></cstring></code></pre> 
-
-<p><em>哎，半年多没有看过C++了，友元函数，运算符重载，相关的垃圾回收机制都记忆模糊了，都不知找来的装备还能不能用了，关它的，先存个档~嘻嘻</em></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的支持是我原创的动力<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/alipay.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/images/weixin.jpg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">漂移</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/C++/" class="article-tag-list-link color4">C++</a>
+        			<a href="/categories/漂移/" class="article-tag-list-link color3">漂移</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/08/31/C++string/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/09/17/RunTimeToMeishan/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          百公里去眉山
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/08/27/UEFI2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">UEFI番外篇</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -549,10 +236,10 @@ void String::Stringbig()
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
