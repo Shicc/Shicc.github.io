@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-09-17T11:44:55.966Z</updated>
+  <updated>2017-09-27T13:29:49.345Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,118 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python初学</title>
+    <link href="http://shic.top/2017/09/27/pythonTest/"/>
+    <id>http://shic.top/2017/09/27/pythonTest/</id>
+    <published>2017-09-26T16:00:00.000Z</published>
+    <updated>2017-09-27T13:29:49.345Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="初敲Python后的一些感受"><a href="#初敲Python后的一些感受" class="headerlink" title="初敲Python后的一些感受"></a><center>初敲Python后的一些感受</center></h2><ul>
+<li>常敲Java的我开启了Python之路<ul>
+<li>最开始觉得Python很方便，方便程度：Python&gt;Java&gt;C++</li>
+<li>然后没看书了自己摸索直接敲，觉得Python很不友好</li>
+<li>最后发现问题是自己没好好看书。。。</li>
+<li>于是在今天把杂事都处理了之后我便自己实验了起来。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>我最想了解Python的项目结构。原因有二：<ul>
+<li>之前学C的时候全是一个文件在玩儿，感觉就是限制了开发，毕竟一个文件要么功能单一，要么有功能但臃肿庞大不利于后期阅读。</li>
+<li>之后学C++，通常是自己写需要功能然后把它们封装成类写在一个头文件里，然后以后需要用了就直接include，就特别方便，然后功能也可以实现很多。之后的Java就不多说。所以现在特别想了解一下Python的项目结构可以是什么样的，我能根据它来写出什么样的功能。    </li>
+</ul>
+</li>
+</ul>
+<p><strong>因为我没有看懂网上的教程，苦逼的我便开始了试验：</strong></p>
+<ul>
+<li>项目结构：<ul>
+<li>hello1 D:\MyProject\PyCharmProjcet<ul>
+<li>package_test<ul>
+<li>_ <em>init</em> _.py </li>
+<li>p_test.py</li>
+<li>service_package_print.py</li>
+</ul>
+</li>
+<li>service_obj.py</li>
+<li>service_print.py</li>
+<li>test.py</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>测试在根目录下从另一文件里调用函数输出，测试文件test.py</p>
+<ul>
+<li>service_print.py:<br><code><pre><code>def if_print():
+print(&quot;这是项目根目录下的if_print()&quot;)
+s=0
+for i in range(1,101):
+       s+=i 
+print(s)
+</code></pre></code></li>
+<li><p>service_obj.py:<br><code></code></p>
+<pre><code>class service_object:
+#如果这里写s=2，在函数里就用不了，全局没用？
+#print(s)
+   print(&quot;这是项目根目录下的test_object类&quot;)
+def if_print_the_sum():
+    s = 2
+    for i in range(1, 201):
+        s += i
+    print(s)
+
+def if_print_str(str):
+    print(str)
+</code></pre><p></p>
+</li>
+<li><p>test.py<br><code></code></p>
+<pre><code>import service_print
+import service_obj
+import package_test
+
+# service_print.if_print()
+# service_obj.test_object.if_print_the_sum()
+my_class=service_obj
+#id(my_class)
+my_class.service_object.if_print_str(&quot;my_class.service_object.if_print_str输出&quot;)
+my_object=my_class.service_object
+# id(my_object)
+my_object.if_print_str(&quot;my_object.if_print_str输出&quot;)
+</code></pre><p></p>
+</li>
+<li><p>结果：<br><center><img src="https://res.cloudinary.com/shi1996/image/upload/v1506501312/pycharm_irvlcw.png" alt="pycharm"></center><br><em>* 通过实验，了解到了python与Java等语言不同：</em></p>
+<ul>
+<li>类名和文件名可以不同</li>
+<li>一个类的实例是需要file_name.class_name来赋值，Java中文件名和类名必须是一样的，所以my_object=file_name也差不多能解释。但python里文件名和类名一样后也不行。</li>
+<li>而且python里还可以直接用file_name.function_name()来执行类中方法不需要对象.#注意：是不能使用类名直接调用的。<br></li>
+</ul>
+</li>
+<li><p>之后再测试了package里是怎么回事 ：</p>
+<ul>
+<li>建立package后，包里面会默认有一个_ <em>init</em> _.py 文件，暂时不知是干啥的</li>
+<li>然后import 这个包，发现不会用。。</li>
+<li><img src="http://res.cloudinary.com/shi1996/image/upload/v1506509094/packageTest_ort1cv.png" alt="packageTest"></li>
+</ul>
+</li>
+<li>但是问了一下豆豆，她却给我说她只用过directory没用过package。。.于是我有趣尝试了一下directory,结果发现只比package少了一个_ <em>init</em> _.py，也用不了<br><strong><center>这半天，我感觉我被逗了。。。</center></strong></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;初敲Python后的一些感受&quot;&gt;&lt;a href=&quot;#初敲Python后的一些感受&quot; class=&quot;headerlink&quot; title=&quot;初敲Python后的一些感受&quot;&gt;&lt;/a&gt;&lt;center&gt;初敲Python后的一些感受&lt;/center&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li
+    
+    </summary>
+    
+      <category term="Python" scheme="http://shic.top/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://shic.top/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>SSD揭秘篇</title>
