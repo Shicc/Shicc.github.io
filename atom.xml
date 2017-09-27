@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-09-27T13:34:10.900Z</updated>
+  <updated>2017-09-27T13:38:13.731Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://shic.top/2017/09/27/pythonTest/"/>
     <id>http://shic.top/2017/09/27/pythonTest/</id>
     <published>2017-09-26T16:00:00.000Z</published>
-    <updated>2017-09-27T13:34:10.900Z</updated>
+    <updated>2017-09-27T13:38:13.731Z</updated>
     
     <content type="html"><![CDATA[<h2 id="初敲Python后的一些感受"><a href="#初敲Python后的一些感受" class="headerlink" title="初敲Python后的一些感受"></a><center>初敲Python后的一些感受</center></h2><ul>
 <li>常敲Java的我开启了Python之路<a id="more"></a>
@@ -59,40 +59,43 @@
 </ul>
 <p>测试在根目录下从另一文件里调用函数输出，测试文件test.py</p>
 <ul>
-<li>service_print.py:<pre><code>def if_print():
-print(&quot;这是项目根目录下的if_print()&quot;)
-s=0
-for i in range(1,101):
-       s+=i 
-print(s)
+<li>service_print.py:<pre><code>
+      def if_print():
+      print("这是项目根目录下的if_print()")
+      s=0
+      for i in range(1,101):
+             s+=i 
+      print(s)
 </code></pre></li>
 <li><p>service_obj.py:</p>
-<pre><code>class service_object:
-#如果这里写s=2，在函数里就用不了，全局没用？
-#print(s)
-   print(&quot;这是项目根目录下的test_object类&quot;)
-def if_print_the_sum():
-    s = 2
-    for i in range(1, 201):
-        s += i
-    print(s)
+<pre><code>
+      class service_object:
+      #如果这里写s=2，在函数里就用不了，全局没用？
+      #print(s)
+         print("这是项目根目录下的test_object类")
+      def if_print_the_sum():
+          s = 2
+          for i in range(1, 201):
+              s += i
+          print(s)
 
-def if_print_str(str):
-    print(str)
+      def if_print_str(str):
+          print(str)
 </code></pre></li>
 <li><p>test.py</p>
-<pre><code>import service_print
-import service_obj
-import package_test
+<pre><code>
+      import service_print
+      import service_obj
+      import package_test
 
-# service_print.if_print()
-# service_obj.test_object.if_print_the_sum()
-my_class=service_obj
-#id(my_class)
-my_class.service_object.if_print_str(&quot;my_class.service_object.if_print_str输出&quot;)
-my_object=my_class.service_object
-# id(my_object)
-my_object.if_print_str(&quot;my_object.if_print_str输出&quot;)
+      # service_print.if_print()
+      # service_obj.test_object.if_print_the_sum()
+      my_class=service_obj
+      #id(my_class)
+      my_class.service_object.if_print_str("my_class.service_object.if_print_str输出")
+      my_object=my_class.service_object
+      # id(my_object)
+      my_object.if_print_str("my_object.if_print_str输出")
 </code></pre></li>
 <li><p>结果：<br><center><img src="https://res.cloudinary.com/shi1996/image/upload/v1506501312/pycharm_irvlcw.png" alt="pycharm"></center><br><em>* 通过实验，了解到了python与Java等语言不同：</em></p>
 <ul>
