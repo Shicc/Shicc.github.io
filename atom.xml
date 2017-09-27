@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-09-27T13:29:49.345Z</updated>
+  <updated>2017-09-27T13:34:10.900Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://shic.top/2017/09/27/pythonTest/"/>
     <id>http://shic.top/2017/09/27/pythonTest/</id>
     <published>2017-09-26T16:00:00.000Z</published>
-    <updated>2017-09-27T13:29:49.345Z</updated>
+    <updated>2017-09-27T13:34:10.900Z</updated>
     
     <content type="html"><![CDATA[<h2 id="初敲Python后的一些感受"><a href="#初敲Python后的一些感受" class="headerlink" title="初敲Python后的一些感受"></a><center>初敲Python后的一些感受</center></h2><ul>
-<li>常敲Java的我开启了Python之路<ul>
+<li>常敲Java的我开启了Python之路<a id="more"></a>
+<ul>
 <li>最开始觉得Python很方便，方便程度：Python&gt;Java&gt;C++</li>
 <li>然后没看书了自己摸索直接敲，觉得Python很不友好</li>
 <li>最后发现问题是自己没好好看书。。。</li>
@@ -58,14 +59,14 @@
 </ul>
 <p>测试在根目录下从另一文件里调用函数输出，测试文件test.py</p>
 <ul>
-<li>service_print.py:<br><code><pre><code>def if_print():
+<li>service_print.py:<pre><code>def if_print():
 print(&quot;这是项目根目录下的if_print()&quot;)
 s=0
 for i in range(1,101):
        s+=i 
 print(s)
-</code></pre></code></li>
-<li><p>service_obj.py:<br><code></code></p>
+</code></pre></li>
+<li><p>service_obj.py:</p>
 <pre><code>class service_object:
 #如果这里写s=2，在函数里就用不了，全局没用？
 #print(s)
@@ -78,9 +79,8 @@ def if_print_the_sum():
 
 def if_print_str(str):
     print(str)
-</code></pre><p></p>
-</li>
-<li><p>test.py<br><code></code></p>
+</code></pre></li>
+<li><p>test.py</p>
 <pre><code>import service_print
 import service_obj
 import package_test
@@ -93,8 +93,7 @@ my_class.service_object.if_print_str(&quot;my_class.service_object.if_print_str�
 my_object=my_class.service_object
 # id(my_object)
 my_object.if_print_str(&quot;my_object.if_print_str输出&quot;)
-</code></pre><p></p>
-</li>
+</code></pre></li>
 <li><p>结果：<br><center><img src="https://res.cloudinary.com/shi1996/image/upload/v1506501312/pycharm_irvlcw.png" alt="pycharm"></center><br><em>* 通过实验，了解到了python与Java等语言不同：</em></p>
 <ul>
 <li>类名和文件名可以不同</li>
@@ -116,7 +115,7 @@ my_object.if_print_str(&quot;my_object.if_print_str输出&quot;)
     <summary type="html">
     
       &lt;h2 id=&quot;初敲Python后的一些感受&quot;&gt;&lt;a href=&quot;#初敲Python后的一些感受&quot; class=&quot;headerlink&quot; title=&quot;初敲Python后的一些感受&quot;&gt;&lt;/a&gt;&lt;center&gt;初敲Python后的一些感受&lt;/center&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li
+&lt;li&gt;常敲Java的我开启了Python之路
     
     </summary>
     
