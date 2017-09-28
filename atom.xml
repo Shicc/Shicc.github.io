@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-09-27T13:38:13.731Z</updated>
+  <updated>2017-09-28T05:59:34.614Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://shic.top/2017/09/27/pythonTest/"/>
     <id>http://shic.top/2017/09/27/pythonTest/</id>
     <published>2017-09-26T16:00:00.000Z</published>
-    <updated>2017-09-27T13:38:13.731Z</updated>
+    <updated>2017-09-28T05:59:34.614Z</updated>
     
     <content type="html"><![CDATA[<h2 id="初敲Python后的一些感受"><a href="#初敲Python后的一些感受" class="headerlink" title="初敲Python后的一些感受"></a><center>初敲Python后的一些感受</center></h2><ul>
 <li>常敲Java的我开启了Python之路<a id="more"></a>
@@ -108,10 +108,23 @@
 <ul>
 <li>建立package后，包里面会默认有一个_ <em>init</em> _.py 文件，暂时不知是干啥的</li>
 <li>然后import 这个包，发现不会用。。</li>
-<li><img src="http://res.cloudinary.com/shi1996/image/upload/v1506509094/packageTest_ort1cv.png" alt="packageTest"></li>
+<li><img src="http://res.cloudinary.com/shi1996/image/upload/v1506509094/packageTest_ort1cv.png" alt="packageTest"><blockquote>
+<p>但是问了一下豆豆，她却给我说她只用过directory没用过package。。.于是我有趣尝试了一下directory,结果发现只比package少了一个_ <em>init</em> _.py，也用不了。..</p>
+</blockquote>
+</li>
 </ul>
 </li>
-<li>但是问了一下豆豆，她却给我说她只用过directory没用过package。。.于是我有趣尝试了一下directory,结果发现只比package少了一个_ <em>init</em> _.py，也用不了<br><strong><center>这半天，我感觉我被逗了。。。</center></strong></li>
+<li><p>但实际上，但仔细阅读Python模块定义后才明白，.py就是一个模块，而在Java中.java可以说是一个类，我们要用一个模块就像在Java中要用一个类一样，所以要</p>
+<pre><code>import package_name.module_name #这样使用
+</code></pre><blockquote>
+<p>但很奇怪的一点是，import一个包里的模块后，例如上面这样，在使用的时候却<strong>不能直接使用里面的模块，这一点我搞不懂为什么</strong>，要package_name.module_name这样使用，例如我想使用service_package_print模块：<br><center><img src="https://res.cloudinary.com/shi1996/image/upload/v1506577897/11_t5ifhs.png" alt="service_package_print()方法"></center></p>
+<blockquote>
+<p>而我用</p>
+<pre><code>from package_test import service_package_print
+</code></pre><p>就直接能够使用service_package_print模块而不需要先调用包名，且想要调用直接调用包都不行，因为这里是从该包中直接import的一个模块，要是能调用包名的话，那肯定可以调用包中的其他模块，这不符合from..import..的逻辑<br><img src="http://res.cloudinary.com/shi1996/image/upload/v1506578144/12_qlxg34.png" alt="from package_test import service_package_print"></p>
+</blockquote>
+</blockquote>
+</li>
 </ul>
 ]]></content>
     
