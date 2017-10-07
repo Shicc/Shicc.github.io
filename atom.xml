@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-06T14:44:54.380Z</updated>
+  <updated>2017-10-07T01:07:55.348Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -17,24 +17,85 @@
   
   <entry>
     <title>Spring Boot的Controller注解</title>
-    <link href="http://shic.top/2017/10/06/controller/"/>
-    <id>http://shic.top/2017/10/06/controller/</id>
-    <published>2017-10-05T16:00:00.000Z</published>
-    <updated>2017-10-06T14:44:54.380Z</updated>
+    <link href="http://shic.top/2017/10/07/springBootController/"/>
+    <id>http://shic.top/2017/10/07/springBootController/</id>
+    <published>2017-10-06T16:00:00.000Z</published>
+    <updated>2017-10-07T01:07:55.348Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-5-7-RELEASE版本中的Controller注解"><a href="#1-5-7-RELEASE版本中的Controller注解" class="headerlink" title="1.5.7. RELEASE版本中的Controller注解"></a>1.5.7. RELEASE版本中的Controller注解</h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
-<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507300798/%E6%89%93%E8%84%91%E5%A3%B3_v6bqgj.jpg" alt="打脑壳"></center><br><center>说得又想放表情包了，先往下看。。。</center><br>1. 环境及IDE：<br>  <em> JDK 1.8
-  </em> Spring Boot 1.5.7.RELEASE<br>  <em> maven 3.5
-  </em> IntelliJ IDEA 2017.1.1<br><br>2. 问题由来：<br> <em> 教程使用的是Spring Boot 1.4.1
- </em> 我使用的是1.5.7.RELEASE<br><br>3. 问题出现：<br> <em> 在使用Controller注解时，1.4.1就会出现500的错误（服务器内部错误），但是我用的1.5.7. RELEASE版本，就没有500的错误，但是有404错误。<br><br>4. 分析与思考：
- </em> 500的服务器错误就是因为：<strong>1.4.1版本需要使用到模板，然后方法返回一个字符串去匹配同名的视图</strong>，但是1.5.7. RELEASE版本是404错误，感觉就不是服务器出错了，只是说404错误，是找不到页面，<strong>那按照这个道理来说，1.5.7. RELEASE版本在用配置好的URL访问时就不是因为缺少模板文件导致的了</strong>。<br> <em> 通过查看了一下1.4.1需要怎么使用模板文件发现还是比较麻烦的，要是之后的版本取消这么使用就好了。<br><br>5. 于是去spring boot官网找答案：
- </em> 其中给的例子是：<br>   <pre><code><br>    package hello;<br><br>    import org.springframework.boot.<em>;<br>    import org.springframework.boot.autoconfigure.</em>;<br>    import org.springframework.stereotype.<em>;<br>    import org.springframework.web.bind.annotation.</em>;<br><br>    @Controller<br>    @EnableAutoConfiguration<br>    public class SampleController {<br><br>    @RequestMapping(“/“)<br>    @ResponseBody<br>    String home() {<br>        return “Hello World!”;<br>        }<br><br>    public static void main(String[] args) throws Exception {<br>        SpringApplication.run(SampleController.class, args);<br>        }<br>    }<br>   </code></pre><br><br>6. @Controller对比@RestController：<br> <em> @RestController在声明类前面注释之后，在需要通过URL访问的方法前面注释@RequestMapping()就行了
- </em> @Controller多了两个注释：一是@Controller下方的@EnableAutoConfiguration，二是方法前的@ResponseBody，<em>*实测只需要@ResponseBody就能成功访问了而不会出现404错误。（ResponseBody意思就是注解一下回复的主体吧，这样就很好理解了）
- </em> <center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507301057/2_ex7c2o.png" alt="test"></center>]]></content>
+    <content type="html"><![CDATA[<h2 id="1-5-7版本中的Controller注解"><a href="#1-5-7版本中的Controller注解" class="headerlink" title="1.5.7版本中的Controller注解"></a>1.5.7版本中的Controller注解</h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
+<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507300798/%E6%89%93%E8%84%91%E5%A3%B3_v6bqgj.jpg" alt="打脑壳"></center><br><center>说得又想放表情包了，先往下看。。。</center>
+
+<ul>
+<li><p>环境及IDE</p>
+<ul>
+<li>JDK 1.8</li>
+<li>Spring Boot 1.5.7.RELEASE</li>
+<li>maven 3.5</li>
+<li>IntelliJ IDEA 2017.1.1</li>
+</ul>
+</li>
+<li><p>问题由来：</p>
+<ul>
+<li>教程使用的是Spring Boot 1.4.1</li>
+<li>我使用的是1.5.7.RELEASE</li>
+</ul>
+</li>
+<li><p>问题出现：</p>
+<ul>
+<li>在使用Controller注解时，1.4.1就会出现500的错误（服务器内部错误），但是我用的1.5.7. RELEASE版本，就没有500的错误，但是有404错误。</li>
+</ul>
+</li>
+<li><p>分析与思考：</p>
+<ul>
+<li>500的服务器错误就是因为：<strong>1.4.1版本需要使用到模板，然后方法返回一个字符串去匹配同名的视图</strong>，但是1.5.7. RELEASE版本是404错误，感觉就不是服务器出错了，只是说404错误，是找不到页面，<strong>那按照这个道理来说，1.5.7. RELEASE版本在用配置好的URL访问时就不是因为缺少模板文件导致的了</strong>。</li>
+<li>通过查看了一下1.4.1需要怎么使用模板文件发现还是比较麻烦的，要是之后的版本取消这么使用就好了。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>于是去spring boot官网找答案：</p>
+<ul>
+<li><p>其中给的例子是：</p>
+<pre><code>
+package hello;
+
+import org.springframework.boot.*;
+import org.springframework.boot.autoconfigure.*;
+import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@EnableAutoConfiguration
+public class SampleController {
+
+@RequestMapping("/")
+@ResponseBody
+String home() {
+    return "Hello World!";
+    }
+
+public static void main(String[] args) throws Exception {
+    SpringApplication.run(SampleController.class, args);
+    }
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>@Controller对比@RestController：</p>
+<ul>
+<li>@RestController在声明类前面注释之后，在需要通过URL访问的方法前面注释@RequestMapping()就行了</li>
+<li>@Controller多了两个注释：一是@Controller下方的@EnableAutoConfiguration，二是方法前的@ResponseBody，**实测只需要@ResponseBody就能成功访问了而不会出现404错误。（ResponseBody意思就是注解一下回复的主体吧，这样就很好理解了）</li>
+<li><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507301057/2_ex7c2o.png" alt="test"></center>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-5-7-RELEASE版本中的Controller注解&quot;&gt;&lt;a href=&quot;#1-5-7-RELEASE版本中的Controller注解&quot; class=&quot;headerlink&quot; title=&quot;1.5.7. RELEASE版本中的Controller注解&quot;&gt;&lt;/a&gt;1.5.7. RELEASE版本中的Controller注解&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳&lt;/strong&gt;&lt;br&gt;
+      &lt;h2 id=&quot;1-5-7版本中的Controller注解&quot;&gt;&lt;a href=&quot;#1-5-7版本中的Controller注解&quot; class=&quot;headerlink&quot; title=&quot;1.5.7版本中的Controller注解&quot;&gt;&lt;/a&gt;1.5.7版本中的Controller注解&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳&lt;/strong&gt;&lt;br&gt;
     
     </summary>
     
