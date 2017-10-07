@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-07T01:07:55.348Z</updated>
+  <updated>2017-10-07T01:15:18.836Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://shic.top/2017/10/07/springBootController/"/>
     <id>http://shic.top/2017/10/07/springBootController/</id>
     <published>2017-10-06T16:00:00.000Z</published>
-    <updated>2017-10-07T01:07:55.348Z</updated>
+    <updated>2017-10-07T01:15:18.836Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-5-7版本中的Controller注解"><a href="#1-5-7版本中的Controller注解" class="headerlink" title="1.5.7版本中的Controller注解"></a>1.5.7版本中的Controller注解</h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
 <center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507300798/%E6%89%93%E8%84%91%E5%A3%B3_v6bqgj.jpg" alt="打脑壳"></center><br><center>说得又想放表情包了，先往下看。。。</center>
@@ -55,30 +55,16 @@
 <ul>
 <li><p>于是去spring boot官网找答案：</p>
 <ul>
-<li><p>其中给的例子是：</p>
-<pre><code>
-package hello;
-
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
-
-@Controller
-@EnableAutoConfiguration
-public class SampleController {
-
-@RequestMapping("/")
-@ResponseBody
-String home() {
-    return "Hello World!";
-    }
-
-public static void main(String[] args) throws Exception {
-    SpringApplication.run(SampleController.class, args);
-    }
+<li><p>其中给的例子是：<br><code><br>package hello;</code></p>
+<p>import org.springframework.boot.<em>;<br>import org.springframework.boot.autoconfigure.</em>;<br>import org.springframework.stereotype.<em>;<br>import org.springframework.web.bind.annotation.</em>;</p>
+<p>@Controller<br>@EnableAutoConfiguration<br>public class SampleController {</p>
+<p>@RequestMapping(“/“)<br>@ResponseBody<br>String home() {</p>
+<pre><code>return &quot;Hello World!&quot;;
 }
-</code></pre>
+</code></pre><p>public static void main(String[] args) throws Exception {</p>
+<pre><code>SpringApplication.run(SampleController.class, args);
+}
+</code></pre><p>}<br></p>
 </li>
 </ul>
 </li>
