@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://shic.top">
-  <title>Archives: 2017 | GeekShi</title>
+  <title>单元测试 | GeekShi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GeekShi">
-<meta property="og:url" content="http://shic.top/archives/2017/index.html">
+  <meta name="description" content="Spring Boot，spring data JPA的单元测试 两种  直接在test的相应目录中测试有关的repository功能  测试类前写好两个注释@RunWith(SpringRunner.class)和@SpringBootTest，这种仅仅能测试方法写对没 代码：123456789101112131415161718192021 	package top.shic.reposito">
+<meta name="keywords" content="IntelliJ IDEA,Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单元测试">
+<meta property="og:url" content="http://shic.top/2017/10/08/UnitTest/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
+<meta property="og:description" content="Spring Boot，spring data JPA的单元测试 两种  直接在test的相应目录中测试有关的repository功能  测试类前写好两个注释@RunWith(SpringRunner.class)和@SpringBootTest，这种仅仅能测试方法写对没 代码：123456789101112131415161718192021 	package top.shic.reposito">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-08T13:43:32.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeekShi">
-<meta name="twitter:description" content="这是shic的博客，你能了解到一些电脑的技巧和编程的小知识">
+<meta name="twitter:title" content="单元测试">
+<meta name="twitter:description" content="Spring Boot，spring data JPA的单元测试 两种  直接在test的相应目录中测试有关的repository功能  测试类前写好两个注释@RunWith(SpringRunner.class)和@SpringBootTest，这种仅仅能测试方法写对没 代码：123456789101112131415161718192021 	package top.shic.reposito">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -149,37 +151,113 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-UnitTest" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/08/UnitTest/" class="archive-article-date">
-  	<time datetime="2017-10-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/08/UnitTest/">单元测试</a>
+    <h1 class="article-title" itemprop="name">
+      单元测试
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/10/08/UnitTest/" class="archive-article-date">
+  	<time datetime="2017-10-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring-Boot，spring-data-JPA的单元测试"><a href="#Spring-Boot，spring-data-JPA的单元测试" class="headerlink" title="Spring Boot，spring data JPA的单元测试"></a>Spring Boot，spring data JPA的单元测试</h2><ul>
+<li><p>两种</p>
+<ul>
+<li><p>直接在test的相应目录中测试有关的repository功能</p>
+<ul>
+<li>测试类前写好两个注释@RunWith(SpringRunner.class)和@SpringBootTest，这种仅仅能测试方法写对没</li>
+<li>代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> 	package top.shic.repository;</div><div class="line"></div><div class="line">import org.junit.Test;</div><div class="line">import org.junit.runner.RunWith;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.boot.test.context.SpringBootTest;</div><div class="line">import org.springframework.test.context.junit4.SpringRunner;</div><div class="line"></div><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest</div><div class="line">public class EmployeeRepositoryTest &#123;</div><div class="line"></div><div class="line">  	@Autowired</div><div class="line">  	private EmployeeRepository employeeRepository;//自己写的EmployeeRepository的Repository接口</div><div class="line"></div><div class="line">  	@Test</div><div class="line">  	public void findEmployeeByName()&#123;</div><div class="line">      	employeeRepository.findByName(&quot;二&quot;);//但最好是把查询结果打印出来，方便查看结果是否正确</div><div class="line">  		&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>测试JPA。要区分get/post等的方式，就需要在类前加上<strong>@AutoConfigureMockMvc注解，在类中也需要一个MockMvc类型的变量（重点）</strong></p>
+<ul>
+<li><p>代码示例：</p>
+<pre><code>package top.shic.controller;
+
+ import org.junit.Test;
+ import org.junit.runner.RunWith;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+ import org.springframework.boot.test.context.SpringBootTest;
+ import org.springframework.test.context.junit4.SpringRunner;
+ import org.springframework.test.web.servlet.MockMvc;
+ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+ import static org.junit.Assert.*;
+
+ @RunWith(SpringRunner.class)
+ @SpringBootTest
+ @AutoConfigureMockMvc//这里测试的是JPA，所以也要区分是get，post等方式
+ public class GirlControllerTest {
+
+ @Autowired
+ private MockMvc mvc;//需要用到它
+
+ @Test
+ public void girlList() throws Exception {
+     //下面是测试get的访问方式
+     mvc.perform(MockMvcRequestBuilders.get(&quot;/girls&quot;)).andExpect(MockMvcResultMatchers.status().isOk());
+     }
+ }
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>您的支持是我原创的动力<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/images/weixin.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,7 +273,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -212,233 +290,103 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://shic.top/2017/10/08/UnitTest/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/10/07/springBootController/" class="archive-article-date">
-  	<time datetime="2017-10-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/07/springBootController/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Boot的Controller注解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/10/07/springBootController/">Spring Boot的Controller注解</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IntelliJ IDEA</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Boot</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/SpringBoot/" class="article-tag-list-link color2">Spring Boot</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ntelliJIDEA/" class="article-tag-list-link color3">ntelliJ IDEA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/27/pythonTest/" class="archive-article-date">
-  	<time datetime="2017-09-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/27/pythonTest/">Python初学</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/17/SSD揭秘/" class="archive-article-date">
-  	<time datetime="2017-09-16T16:00:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/17/SSD揭秘/">SSD揭秘篇</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/让电脑飞/" class="article-tag-list-link color5">让电脑飞</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/17/RunTimeToMeishan/" class="archive-article-date">
-  	<time datetime="2017-09-16T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/17/RunTimeToMeishan/">百公里去眉山</a>
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">漂移</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/漂移/" class="article-tag-list-link color3">漂移</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2017/page/2/">2</a><a class="page-number" href="/archives/2017/page/3/">3</a><a class="extend next" rel="next" href="/archives/2017/page/2/">Next &raquo;</a>
-    </nav>
   
 
+  
 
-<％-
-popular_posts（）％>
 
           </div>
         </div>
@@ -460,8 +408,8 @@ popular_posts（）％>
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
