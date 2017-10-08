@@ -82,9 +82,9 @@
       <category term="IntelliJ IDEA" scheme="http://shic.top/categories/Spring-Boot/IntelliJ-IDEA/"/>
     
     
-      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
-    
       <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
     
   </entry>
   
@@ -93,7 +93,7 @@
     <link href="http://shic.top/2017/10/07/springBootController/"/>
     <id>http://shic.top/2017/10/07/springBootController/</id>
     <published>2017-10-06T16:00:00.000Z</published>
-    <updated>2017-10-08T13:43:32.601Z</updated>
+    <updated>2017-10-08T13:44:29.232Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-5-7版本中的Controller注解"><a href="#1-5-7版本中的Controller注解" class="headerlink" title="1.5.7版本中的Controller注解"></a>1.5.7版本中的Controller注解</h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
 <center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507300798/%E6%89%93%E8%84%91%E5%A3%B3_v6bqgj.jpg" alt="打脑壳"></center><br><center>说得又想放表情包了，先往下看。。。</center>
@@ -152,12 +152,12 @@
     
       <category term="Spring Boot" scheme="http://shic.top/categories/Spring-Boot/"/>
     
-      <category term="ntelliJ IDEA" scheme="http://shic.top/categories/Spring-Boot/ntelliJ-IDEA/"/>
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/Spring-Boot/IntelliJ-IDEA/"/>
     
-    
-      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
     
       <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
     
   </entry>
   
