@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-08T13:48:43.105Z</updated>
+  <updated>2017-10-09T10:38:44.609Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://shic.top/2017/10/08/UnitTest/"/>
     <id>http://shic.top/2017/10/08/UnitTest/</id>
     <published>2017-10-07T16:00:00.000Z</published>
-    <updated>2017-10-08T13:48:43.105Z</updated>
+    <updated>2017-10-09T10:38:44.609Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Spring-Boot，spring-data-JPA的单元测试"><a href="#Spring-Boot，spring-data-JPA的单元测试" class="headerlink" title="Spring Boot，spring data JPA的单元测试"></a>Spring Boot，spring data JPA的单元测试</h2><ul>
 <li><p>两种…</p>
@@ -29,42 +29,43 @@
 <li><p>直接在test的相应目录中测试有关的repository功能</p>
 <ul>
 <li>测试类前写好两个注释@RunWith(SpringRunner.class)和@SpringBootTest，这种仅仅能测试方法写对没</li>
-<li>代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> 	package top.shic.repository;</div><div class="line"></div><div class="line">import org.junit.Test;</div><div class="line">import org.junit.runner.RunWith;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.boot.test.context.SpringBootTest;</div><div class="line">import org.springframework.test.context.junit4.SpringRunner;</div><div class="line"></div><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest</div><div class="line">public class EmployeeRepositoryTest &#123;</div><div class="line"></div><div class="line">  	@Autowired</div><div class="line">  	private EmployeeRepository employeeRepository;//自己写的EmployeeRepository的Repository接口</div><div class="line"></div><div class="line">  	@Test</div><div class="line">  	public void findEmployeeByName()&#123;</div><div class="line">      	employeeRepository.findByName(&quot;二&quot;);//但最好是把查询结果打印出来，方便查看结果是否正确</div><div class="line">  		&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>代码：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> 	package top.shic.repository;</div><div class="line"></div><div class="line">import org.junit.Test;</div><div class="line">import org.junit.runner.RunWith;</div><div class="line">import org.springframework.beans.factory.annotation.Autowired;</div><div class="line">import org.springframework.boot.test.context.SpringBootTest;</div><div class="line">import org.springframework.test.context.junit4.SpringRunner;</div><div class="line"></div><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest</div><div class="line">public class EmployeeRepositoryTest &#123;</div><div class="line"></div><div class="line">  	@Autowired</div><div class="line">  	private EmployeeRepository employeeRepository;//自己写的EmployeeRepository的Repository接口</div><div class="line"></div><div class="line">  	@Test</div><div class="line">  	public void <span class="function"><span class="title">findEmployeeByName</span></span>()&#123;</div><div class="line">      	employeeRepository.findByName(<span class="string">"二"</span>);//但最好是把查询结果打印出来，方便查看结果是否正确</div><div class="line">  		&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 <li><p>测试JPA。要区分get/post等的方式，就需要在类前加上<strong>@AutoConfigureMockMvc注解，在类中也需要一个MockMvc类型的变量（重点）</strong></p>
 <ul>
 <li><p>代码示例：</p>
-<pre><code>package top.shic.controller;
+<pre><code class="bash">package top.shic.controller;
 
- import org.junit.Test;
- import org.junit.runner.RunWith;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
- import org.springframework.boot.test.context.SpringBootTest;
- import org.springframework.test.context.junit4.SpringRunner;
- import org.springframework.test.web.servlet.MockMvc;
- import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
- import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+  import org.junit.Test;
+  import org.junit.runner.RunWith;
+  import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+  import org.springframework.boot.test.context.SpringBootTest;
+  import org.springframework.test.context.junit4.SpringRunner;
+  import org.springframework.test.web.servlet.MockMvc;
+  import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+  import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
- import static org.junit.Assert.*;
+  import static org.junit.Assert.*;
 
- @RunWith(SpringRunner.class)
- @SpringBootTest
- @AutoConfigureMockMvc//这里测试的是JPA，所以也要区分是get，post等方式
- public class GirlControllerTest {
+  @RunWith(SpringRunner.class)
+  @SpringBootTest
+  @AutoConfigureMockMvc//这里测试的是JPA，所以也要区分是get，post等方式
+  public class GirlControllerTest {
 
- @Autowired
- private MockMvc mvc;//需要用到它
+  @Autowired
+  private MockMvc mvc;//需要用到它
 
- @Test
- public void girlList() throws Exception {
-     //下面是测试get的访问方式
-     mvc.perform(MockMvcRequestBuilders.get(&quot;/girls&quot;)).andExpect(MockMvcResultMatchers.status().isOk());
-     }
- }
-</code></pre></li>
+  @Test
+  public void girlList() throws Exception {
+      //下面是测试get的访问方式
+      mvc.perform(MockMvcRequestBuilders.get(<span class="string">"/girls"</span>)).andExpect(MockMvcResultMatchers.status().isOk());
+      }
+  }
+</code></pre>
+</li>
 </ul>
 </li>
 </ul>
