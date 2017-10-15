@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-09T10:38:44.609Z</updated>
+  <updated>2017-10-15T11:26:57.514Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -16,13 +16,136 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>争取写一个就我能看懂的笔记 嘻嘻～</title>
+    <link href="http://shic.top/2017/10/15/FullStackDevelopment/"/>
+    <id>http://shic.top/2017/10/15/FullStackDevelopment/</id>
+    <published>2017-10-14T16:00:00.000Z</published>
+    <updated>2017-10-15T11:26:57.514Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Full-Stack-Development-with-Spring-Boot"><a href="#Full-Stack-Development-with-Spring-Boot" class="headerlink" title="Full Stack Development with Spring Boot"></a><center>Full Stack Development with Spring Boot</center></h2><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Windows 10 64Bit 1703Pro</li>
+<li>JDK 1.8 </li>
+<li>IntelliJ IDEA 2017.1.1</li>
+<li>Maven 3.5</li>
+<li>MySQL 5.5</li>
+<li>Spring Boot 1.5.7.RELEASE<a id="more"></a>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2></li>
+<li>打开IntelliJ-&gt;New Project-&gt;Spring Initializr-&gt;[正确输出GroupID，Artifact等参数,此处选择的jar方式]-&gt;为项目添加依赖(此处选择web即可，之后的框架可以通过手动添加pom文件的方式，或者直接点击之后就不用之后在pom里写了)-&gt;点击next，点击Finlishi完成项目的创建</li>
+<li><p>给pom.xml手动添加以依赖(此处分享一下我自己添加的依赖，是可以共用的，只是dependency)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 包含jpa，mysql驱动，hibernate-entitymanager，thymeleaf模板库 --&gt;</div><div class="line">		&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">		&lt;/dependency&gt;</div><div class="line"></div><div class="line">		&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">		&lt;/dependency&gt;</div><div class="line"></div><div class="line">		&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.hibernate&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;</div><div class="line">		&lt;/dependency&gt;</div><div class="line"></div><div class="line">		&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">		&lt;/dependency&gt;</div><div class="line">		</div><div class="line">		&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</div><div class="line">			&lt;version&gt;1.5.6.RELEASE&lt;/version&gt;</div><div class="line">		&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改spring配置文件application.properties(建议改成application.yml)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  datasource:</div><div class="line">    driver-class-name: com.mysql.jdbc.Driver</div><div class="line">    url: jdbc:mysql://127.0.0.1:3306/[your db]</div><div class="line">    username: [your username]</div><div class="line">    password: [your password]</div><div class="line"></div><div class="line">  thymeleaf:</div><div class="line">    encoding: utf-8</div><div class="line">    cache: false  #关闭缓存，不然没法看见实时页面？</div><div class="line">    mode: HTML5</div><div class="line">    content-type: text/html</div><div class="line"></div><div class="line">  jpa:</div><div class="line">    hibernate:</div><div class="line">      ddl-auto: update[create/...]</div><div class="line">    show-sql: true</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实体类映射表"><a href="#实体类映射表" class="headerlink" title="实体类映射表"></a>实体类映射表</h2><ul>
+<li>写实体类反向建立数据表（top.shic.domain/entity）<ul>
+<li>@Entity 对整个类进行实体类注解</li>
+<li>@Id和@GeneratedValue  用于主键id的注解</li>
+<li>对于其他字段用到@Column(length = [?],nullable = false),还有其他属性</li>
+<li>对于某些数字的控制，注解@Min(value = 18,message = “未成年不得入内”)</li>
+<li>对于某些字符串长度的控制 @Size(min=2, max=30)</li>
+<li>不能为空，并写出错误时的提示  @NotNull(message = “该字段不能缺”)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>测试运行，查看数据库是否正确生成了实体类表</li>
+</ul>
+<h2 id="Repository层"><a href="#Repository层" class="headerlink" title="Repository层"></a>Repository层</h2><ul>
+<li><p>接口：</p>
+<ul>
+<li>Repository 空接口</li>
+<li>CrudRepository 继承Repository，实现CRUD<ul>
+<li>PagingAndSortingRepository 继承CrudRepository，实现分页和排序相关的方法<ul>
+<li>JpaRepository 继承PagingAndSortingRepository，实现JPA规范相关的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定义查询方法</p>
+<ul>
+<li>使用Repository中定义过规范格式的方法名进行查询</li>
+<li>在方法体上，使用注解@Query([？查询条件？])<ul>
+<li>@Query只能进行查询操作，要进行删除和更新操作就必须使用到另外两个注解，@Modifying和@Transactional</li>
+<li>@Modifying写在@Query上面，@Transactional写在服务层（下一大点会讲）</li>
+</ul>
+</li>
+<li>特别注意两点：<ul>
+<li>在测试类前不写@RunWith(SpringRunner.class)和@SpringBootTest就会报空指针的错误</li>
+<li>@Modifying的注解只能返回void，int，和Integer类型的返回值，成功修改就返回1（错误时，推测是0），可能就只能判断是否正确修改了。如果返回类型是其他的话就要报错。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Service层"><a href="#Service层" class="headerlink" title="Service层"></a>Service层</h2><p><em>service层通常是放一些对数据库进行更改和删除的操作，之前测试的Repository层的一些功能测试比如说保存，添加等，在正式编码时就可以把操作的方法写在service层</em></p>
+<ul>
+<li>Service层的类前加@Service注解</li>
+<li>在方法前加@Transactional，//这里的注解是javax.transaction.Transactional</li>
+<li>Service层注入Repository层的对象，然后在@Transactional事务管理所注释的方法里调用Repository层的方法进行数据库操作。</li>
+</ul>
+<h2 id="测试：RepositoryTest"><a href="#测试：RepositoryTest" class="headerlink" title="测试：RepositoryTest"></a>测试：RepositoryTest</h2><ul>
+<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
+<li>@Autowired自动注入Repository层对象</li>
+<li>测试方法前添加@Test注解</li>
+</ul>
+<h2 id="测试：ServiceTest"><a href="#测试：ServiceTest" class="headerlink" title="测试：ServiceTest"></a>测试：ServiceTest</h2><ul>
+<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
+<li>@Autowired自动注入Service层对象</li>
+<li>测试方法前添加@Test注解</li>
+</ul>
+<h2 id="Controller层"><a href="#Controller层" class="headerlink" title="Controller层"></a>Controller层</h2><ul>
+<li>在Controller层调用Service层的方法进行业务逻辑的控制</li>
+<li>@RestController和@Controller的区别<ul>
+<li>@RestController添加到类前后，直接在方法体上添加访问路径的注解</li>
+<li>@Controller在做后端访问控制时有点区别，<a href="http://shic.top/2017/10/07/springBootController/">详情请点击</a></li>
+</ul>
+</li>
+<li>在做和前端交互时需要用到@Controller，并使该类继承WebMvcConfigurerAdapter类</li>
+</ul>
+<h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><ul>
+<li>//在main/resource/templates下编写模板文件</li>
+</ul>
+<ul>
+<li>浏览器测试</li>
+</ul>
+<p>未完待续…….</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Full-Stack-Development-with-Spring-Boot&quot;&gt;&lt;a href=&quot;#Full-Stack-Development-with-Spring-Boot&quot; class=&quot;headerlink&quot; title=&quot;Full Stack Development with Spring Boot&quot;&gt;&lt;/a&gt;&lt;center&gt;Full Stack Development with Spring Boot&lt;/center&gt;&lt;/h2&gt;&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Windows 10 64Bit 1703Pro&lt;/li&gt;
+&lt;li&gt;JDK 1.8 &lt;/li&gt;
+&lt;li&gt;IntelliJ IDEA 2017.1.1&lt;/li&gt;
+&lt;li&gt;Maven 3.5&lt;/li&gt;
+&lt;li&gt;MySQL 5.5&lt;/li&gt;
+&lt;li&gt;Spring Boot 1.5.7.RELEASE
+    
+    </summary>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>单元测试</title>
     <link href="http://shic.top/2017/10/08/UnitTest/"/>
     <id>http://shic.top/2017/10/08/UnitTest/</id>
     <published>2017-10-07T16:00:00.000Z</published>
-    <updated>2017-10-09T10:38:44.609Z</updated>
+    <updated>2017-10-15T06:56:50.122Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Spring-Boot，spring-data-JPA的单元测试"><a href="#Spring-Boot，spring-data-JPA的单元测试" class="headerlink" title="Spring Boot，spring data JPA的单元测试"></a>Spring Boot，spring data JPA的单元测试</h2><ul>
+    <content type="html"><![CDATA[<h2 id="Spring-Boot，spring-data-JPA的单元测试"><a href="#Spring-Boot，spring-data-JPA的单元测试" class="headerlink" title="Spring Boot，spring data JPA的单元测试"></a><center>Spring Boot，spring data JPA的单元测试</center></h2><ul>
 <li><p>两种…</p>
 <a id="more"></a>
 <ul>
@@ -75,19 +198,19 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Spring-Boot，spring-data-JPA的单元测试&quot;&gt;&lt;a href=&quot;#Spring-Boot，spring-data-JPA的单元测试&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot，spring data JPA的单元测试&quot;&gt;&lt;/a&gt;Spring Boot，spring data JPA的单元测试&lt;/h2&gt;&lt;ul&gt;
+      &lt;h2 id=&quot;Spring-Boot，spring-data-JPA的单元测试&quot;&gt;&lt;a href=&quot;#Spring-Boot，spring-data-JPA的单元测试&quot; class=&quot;headerlink&quot; title=&quot;Spring Boot，spring data JPA的单元测试&quot;&gt;&lt;/a&gt;&lt;center&gt;Spring Boot，spring data JPA的单元测试&lt;/center&gt;&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;两种…&lt;/p&gt;
     
     </summary>
     
-      <category term="Spring Boot" scheme="http://shic.top/categories/Spring-Boot/"/>
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
     
-      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/Spring-Boot/IntelliJ-IDEA/"/>
+      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
     
-    
-      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
     
       <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
     
   </entry>
   
@@ -96,9 +219,9 @@
     <link href="http://shic.top/2017/10/07/springBootController/"/>
     <id>http://shic.top/2017/10/07/springBootController/</id>
     <published>2017-10-06T16:00:00.000Z</published>
-    <updated>2017-10-08T13:44:29.232Z</updated>
+    <updated>2017-10-15T06:56:50.099Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-5-7版本中的Controller注解"><a href="#1-5-7版本中的Controller注解" class="headerlink" title="1.5.7版本中的Controller注解"></a>1.5.7版本中的Controller注解</h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h2 id="1-5-7版本中的Controller注解"><a href="#1-5-7版本中的Controller注解" class="headerlink" title="1.5.7版本中的Controller注解"></a><center>1.5.7版本中的Controller注解</center></h2><p><strong>当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳</strong><br><a id="more"></a></p>
 <center><img src="http://res.cloudinary.com/shi1996/image/upload/v1507300798/%E6%89%93%E8%84%91%E5%A3%B3_v6bqgj.jpg" alt="打脑壳"></center><br><center>说得又想放表情包了，先往下看。。。</center>
 
 <ul>
@@ -149,18 +272,18 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-5-7版本中的Controller注解&quot;&gt;&lt;a href=&quot;#1-5-7版本中的Controller注解&quot; class=&quot;headerlink&quot; title=&quot;1.5.7版本中的Controller注解&quot;&gt;&lt;/a&gt;1.5.7版本中的Controller注解&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳&lt;/strong&gt;&lt;br&gt;
+      &lt;h2 id=&quot;1-5-7版本中的Controller注解&quot;&gt;&lt;a href=&quot;#1-5-7版本中的Controller注解&quot; class=&quot;headerlink&quot; title=&quot;1.5.7版本中的Controller注解&quot;&gt;&lt;/a&gt;&lt;center&gt;1.5.7版本中的Controller注解&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;当你发现教程和你想使用的某个东西版本不一样的时候，总会觉得有些打脑壳&lt;/strong&gt;&lt;br&gt;
     
     </summary>
     
-      <category term="Spring Boot" scheme="http://shic.top/categories/Spring-Boot/"/>
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
     
-      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/Spring-Boot/IntelliJ-IDEA/"/>
+      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
     
-    
-      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
     
       <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
     
   </entry>
   
