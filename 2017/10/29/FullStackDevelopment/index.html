@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Full Stack Development with Spring Boot##环境  Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta name="description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
 <meta name="keywords" content="IntelliJ IDEA,Spring Boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
 <meta property="og:url" content="http://shic.top/2017/10/29/FullStackDevelopment/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="Full Stack Development with Spring Boot##环境  Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta property="og:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-29T12:48:18.218Z">
+<meta property="og:updated_time" content="2017-10-29T12:58:22.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
-<meta name="twitter:description" content="Full Stack Development with Spring Boot##环境  Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta name="twitter:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
 
 
 
@@ -196,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -216,7 +216,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -290,7 +290,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-29T00:00:00+08:00">
                 2017-10-29
@@ -311,7 +311,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -322,7 +322,7 @@
 
                 
                 
-                  , 
+                  . 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -374,8 +374,7 @@
       
 
       
-        <h2 id="Full-Stack-Development-with-Spring-Boot"><a href="#Full-Stack-Development-with-Spring-Boot" class="headerlink" title="Full Stack Development with Spring Boot"></a><center>Full Stack Development with Spring Boot</center></h2><p>##环境</p>
-<ul>
+        <h2 id="Full-Stack-Development-with-Spring-Boot"><a href="#Full-Stack-Development-with-Spring-Boot" class="headerlink" title="Full Stack Development with Spring Boot"></a><center>Full Stack Development with Spring Boot</center></h2><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
 <li>Windows 10 64Bit 1703Pro</li>
 <li>JDK 1.8 </li>
 <li>IntelliJ IDEA 2017.1.1</li>
@@ -384,8 +383,7 @@
 <li>Spring Boot 1.5.7.RELEASE<a id="more"></a>
 </li>
 </ul>
-<p>##创建</p>
-<ul>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ul>
 <li>打开IntelliJ-&gt;New Project-&gt;Spring Initializr-&gt;[正确输出GroupID，Artifact等参数,此处选择的jar方式]-&gt;为项目添加依赖(此处选择web即可，之后的框架可以通过手动添加pom文件的方式，或者直接点击之后就不用之后在pom里写了)-&gt;点击next，点击Finlishi完成项目的创建</li>
 <li><p>给pom.xml手动添加以依赖(此处分享一下我自己添加的依赖，是可以共用的，只是dependency)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 包含jpa，mysql驱动，hibernate-entitymanager，thymeleaf模板库 --&gt;</div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.hibernate&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line">		</div><div class="line">	&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</div><div class="line">			&lt;version&gt;1.5.6.RELEASE&lt;/version&gt;</div><div class="line">		&lt;/dependency&gt;</div></pre></td></tr></table></figure>
@@ -394,8 +392,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  datasource:</div><div class="line">    driver-class-name: com.mysql.jdbc.Driver</div><div class="line">    url: jdbc:mysql://127.0.0.1:3306/[your db]</div><div class="line">    username: [your username]</div><div class="line">    password: [your password]</div><div class="line"></div><div class="line">  thymeleaf:</div><div class="line">    encoding: utf-8</div><div class="line">    cache: false  #关闭缓存，不然没法看见实时页面？</div><div class="line">    mode: HTML5</div><div class="line">    content-type: text/html</div><div class="line"></div><div class="line">  jpa:</div><div class="line">    hibernate:</div><div class="line">      ddl-auto: update[create/...]</div><div class="line">    show-sql: true</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>##实体类映射表</p>
-<ul>
+<h2 id="实体类映射表"><a href="#实体类映射表" class="headerlink" title="实体类映射表"></a>实体类映射表</h2><ul>
 <li>写实体类反向建立数据表（top.shic.domain/entity）<ul>
 <li>@Entity 对整个类进行实体类注解</li>
 <li>@Id和@GeneratedValue  用于主键id的注解</li>
@@ -409,8 +406,7 @@
 <ul>
 <li>测试运行，查看数据库是否正确生成了实体类表</li>
 </ul>
-<p>##Repository层</p>
-<ul>
+<h2 id="Repository层"><a href="#Repository层" class="headerlink" title="Repository层"></a>Repository层</h2><ul>
 <li><p>接口：</p>
 <ul>
 <li>Repository 空接口</li>
@@ -439,27 +435,23 @@
 </ul>
 </li>
 </ul>
-<p>##Service层</p>
-<p><em>service层通常是放一些对数据库进行更改和删除的操作，之前测试的Repository层的一些功能测试比如说保存，添加等，在正式编码时就可以把操作的方法写在service层</em></p>
+<h2 id="Service层"><a href="#Service层" class="headerlink" title="Service层"></a>Service层</h2><p><em>service层通常是放一些对数据库进行更改和删除的操作，之前测试的Repository层的一些功能测试比如说保存，添加等，在正式编码时就可以把操作的方法写在service层</em></p>
 <ul>
 <li>Service层的类前加@Service注解</li>
 <li>在方法前加@Transactional，//这里的注解是javax.transaction.Transactional</li>
 <li>Service层注入Repository层的对象，然后在@Transactional事务管理所注释的方法里调用Repository层的方法进行数据库操作。</li>
 </ul>
-<p>##测试：RepositoryTest</p>
-<ul>
+<h2 id="测试：RepositoryTest"><a href="#测试：RepositoryTest" class="headerlink" title="测试：RepositoryTest"></a>测试：RepositoryTest</h2><ul>
 <li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
 <li>@Autowired自动注入Repository层对象</li>
 <li>测试方法前添加@Test注解</li>
 </ul>
-<p>##测试：ServiceTest</p>
-<ul>
+<h2 id="测试：ServiceTest"><a href="#测试：ServiceTest" class="headerlink" title="测试：ServiceTest"></a>测试：ServiceTest</h2><ul>
 <li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
 <li>@Autowired自动注入Service层对象</li>
 <li>测试方法前添加@Test注解</li>
 </ul>
-<p>##Controller层</p>
-<ul>
+<h2 id="Controller层"><a href="#Controller层" class="headerlink" title="Controller层"></a>Controller层</h2><ul>
 <li>在Controller层调用Service层的方法进行业务逻辑的控制</li>
 <li>@RestController和@Controller的区别<ul>
 <li>@RestController添加到类前后，直接在方法体上添加访问路径的注解</li>
@@ -471,10 +463,10 @@
 <li><p>例如：当需要登录的时候，访问/login时，如果只有post模式，那我第一次直接访问需要进入页面进行登录的时候是不是就直接通过post把参数传给处理方法了，而此时我并没有输出任何参数也不是通过post方法进行访问的，所以后台会报错。</p>
 <ul>
 <li>解决方法1：那么我们就对同一个url，比如这里的<code>/login</code>同时进行@GetMapping和@PostMapping的方法编写，<strong>保证在第一次访问登录表单时不是直接将结果传回给给服务器而时请求一个页面，这是一个逻辑问题！</strong></li>
-<li>解决方法2：请求登录表单时用<code>&quot;/login&quot;</code>，控制方法注解为@GetMapping，登录表单中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">* 在做和前端交互时需要用到@Controller，并使该类继承WebMvcConfigurerAdapter类</div><div class="line">* 重写一个方法addViewControllers(ViewControllerRegistry registry)</div><div class="line">* 处理方法前用注释标标注，传参时：</div><div class="line">  * 单独参数：参数前加@RequestParam(&quot;前端参数名字&quot;)，id用(主键?)用@PathVariable(&quot;id&quot;)</div><div class="line">  * 对象参数：@Valid</div><div class="line">  * **需要向前端进行传值时加上Model model 参数**</div><div class="line">  * 参数中加上BindingResult类对象bindingResult，进行错误严重，if(bindingResult.hasErrors())，就进行错误处理</div><div class="line">* 方法返回一个字符串，官方定义是取点&quot;.html&quot;字样的模板文件名，用来匹配要想客户端显示的内容</div><div class="line">* **后台要向前端传值，在方法参数里面加上Model model，然后在方法体中用model.addAttribute(String attributeName, Object attributeValue); 第一个参数是写入model的对象的名字，类型String，这个名字是前端要通过对象名进行访问时所要用到的名字，也可以理解是bean的名字，第二个参数就是该对象了**</div><div class="line"></div><div class="line">##视图层</div><div class="line"></div><div class="line">* 在``main/resource/templates``下编写模板文件，此处用到thymeleaf，当然也可以用其他的，````&lt;html&gt;````标签内不需要任何命名空间都能够进行渲染，写了一些其他教程上提到的官方命名空间还要出错。。。</div><div class="line"> * 之前的就这样写：````&lt;form th:action=&quot;@『/login』&quot; th:object=&quot;$『user&#125;』&quot; method=&quot;post&quot;&gt;</div></pre></td></tr></table></figure></li>
+<li>解决方法2：请求登录表单时用<code>&quot;/login&quot;</code>，控制方法注解为@GetMapping，登录表单中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">* 在做和前端交互时需要用到@Controller，并使该类继承WebMvcConfigurerAdapter类</div><div class="line">* 重写一个方法addViewControllers(ViewControllerRegistry registry)</div><div class="line">* 处理方法前用注释标标注，传参时：</div><div class="line">  * 单独参数：参数前加@RequestParam(&quot;前端参数名字&quot;)，id用(主键?)用@PathVariable(&quot;id&quot;)</div><div class="line">  * 对象参数：@Valid</div><div class="line">  * **需要向前端进行传值时加上Model model 参数**</div><div class="line">  * 参数中加上BindingResult类对象bindingResult，进行错误严重，if(bindingResult.hasErrors())，就进行错误处理</div><div class="line">* 方法返回一个字符串，官方定义是取点&quot;.html&quot;字样的模板文件名，用来匹配要想客户端显示的内容</div><div class="line">* **后台要向前端传值，在方法参数里面加上Model model，然后在方法体中用model.addAttribute(String attributeName, Object attributeValue); 第一个参数是写入model的对象的名字，类型String，这个名字是前端要通过对象名进行访问时所要用到的名字，也可以理解是bean的名字，第二个参数就是该对象了**</div><div class="line"></div><div class="line">视图层</div><div class="line">--</div><div class="line">* 在``main/resource/templates``下编写模板文件，此处用到thymeleaf，当然也可以用其他的，````&lt;html&gt;````标签内不需要任何命名空间都能够进行渲染，写了一些其他教程上提到的官方命名空间还要出错。。。</div><div class="line"> * 之前的就这样写：````&lt;form th:action=&quot;@『/login』&quot; th:object=&quot;$『user&#125;』&quot; method=&quot;post&quot;&gt;</div></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>输入的值关联到form里的什么值就<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> * **即使前端自写的模板html中有这些thymeleaf的标签，但是到前端渲染后的且直接时静态的值，已经被替换掉了，所以不可能在浏览器调试里面改一个标签的th:field就出bug了**</div><div class="line"> * 在前端获取后台传值时，例如：````&lt;span th:text=&quot;$『user.username』&quot;&gt;&lt;/span&gt;````，这里的user就是后台写入model中的字符串的值，名字一一对应。</div><div class="line"> * **另外一个很重要的就是``&lt;a&gt;``标签进行跳转，不需要``th:action=&quot;@『/url』&quot;``，直接``href=&quot;/url&quot;``**</div><div class="line">* 浏览器测试</div><div class="line"></div><div class="line">###附录1：Thymeleaf常用标签</div><div class="line">* 简单数据转换（数字，日期）</div><div class="line">`</div></pre></td></tr></table></figure></p>
+<li><p>输入的值关联到form里的什么值就<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"> * **即使前端自写的模板html中有这些thymeleaf的标签，但是到前端渲染后的且直接时静态的值，已经被替换掉了，所以不可能在浏览器调试里面改一个标签的th:field就出bug了**</div><div class="line"> * 在前端获取后台传值时，例如：````&lt;span th:text=&quot;$『user.username』&quot;&gt;&lt;/span&gt;````，这里的user就是后台写入model中的字符串的值，名字一一对应。</div><div class="line"> * **另外一个很重要的就是``&lt;a&gt;``标签进行跳转，不需要``th:action=&quot;@『/url』&quot;``，直接``href=&quot;/url&quot;``**</div><div class="line">* 浏览器测试</div><div class="line"></div><div class="line">附录1：Thymeleaf常用标签</div><div class="line">---</div><div class="line">* 简单数据转换（数字，日期）</div><div class="line">`</div></pre></td></tr></table></figure></p>
 <p><dt>价格</dt><br><dd th:text="$『#numbers.formatDecimal(product.price, 1, 2)』">180</dd><br><dt>进货日期</dt><br><dd th:text="$『#dates.format(product.availableFrom, 'yyyy-MM-dd')』">2014-12-01</dd></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 字符串拼接</div></pre></td></tr></table></figure>
 </li>
@@ -505,8 +497,7 @@ spring.thymeleaf.prefix=classpath:/templates/
 # Suffix that gets appended to view names when building a URL.
 spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order of the template resolver in the chain
 </code></pre><p>````</p>
-<p>###附录2：异常处理记录（会持续更新）</p>
-<ol>
+<h2 id="附录2：异常处理记录（会持续更新）"><a href="#附录2：异常处理记录（会持续更新）" class="headerlink" title="附录2：异常处理记录（会持续更新）"></a>附录2：异常处理记录（会持续更新）</h2><ol>
 <li>Repository接口按照规定方法命名规则进行查询时，JapRepository时继承了Repository接口的，肯定能实验Repository的功能，但如果方法名没有按照规范写，就会出现该接口的bean创建失败，进一步导致自动注入了该bean的其他类创建失败，一般提示某个bean创建失败就是该类里面有错</li>
 <li>常见的HTTP错误：<ul>
 <li>400：请求出错</li>
@@ -533,8 +524,7 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
 </ul>
 </li>
 </ol>
-<p>###附录3：更新提示</p>
-<p>####beta V2.0</p>
+<h2 id="附录3：更新提示"><a href="#附录3：更新提示" class="headerlink" title="附录3：更新提示"></a>附录3：更新提示</h2><p>beta V2.0</p>
 <ol>
 <li>完善Controller层的url访问，后台接受参数，传参笔记的编写</li>
 <li>新增视图层的笔记</li>
@@ -671,10 +661,10 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -699,7 +689,7 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
                 <a href="/archives/">
               
                   <span class="site-state-item-count">12</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -710,7 +700,7 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
@@ -721,7 +711,7 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -776,7 +766,7 @@ spring.thymeleaf.suffix=.html spring.thymeleaf.template-resolver-order= # Order 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Full-Stack-Development-with-Spring-Boot"><span class="nav-number">1.</span> <span class="nav-text">Full Stack Development with Spring Boot</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Full-Stack-Development-with-Spring-Boot"><span class="nav-number">1.</span> <span class="nav-text">Full Stack Development with Spring Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体类映射表"><span class="nav-number">4.</span> <span class="nav-text">实体类映射表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository层"><span class="nav-number">5.</span> <span class="nav-text">Repository层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service层"><span class="nav-number">6.</span> <span class="nav-text">Service层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：RepositoryTest"><span class="nav-number">7.</span> <span class="nav-text">测试：RepositoryTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：ServiceTest"><span class="nav-number">8.</span> <span class="nav-text">测试：ServiceTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller层"><span class="nav-number">9.</span> <span class="nav-text">Controller层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录2：异常处理记录（会持续更新）"><span class="nav-number">10.</span> <span class="nav-text">附录2：异常处理记录（会持续更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录3：更新提示"><span class="nav-number">11.</span> <span class="nav-text">附录3：更新提示</span></a></li></ol></div>
             
 
           </div>
