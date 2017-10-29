@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta name="description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
 <meta name="keywords" content="IntelliJ IDEA,Spring Boot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
-<meta property="og:url" content="http://shic.top/2017/10/29/FullStackDevelopment/index.html">
+<meta property="og:title" content="Model与ModelMap">
+<meta property="og:url" content="http://shic.top/2017/10/29/FrontAndBackInteraction/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta property="og:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-29T13:07:37.759Z">
+<meta property="og:updated_time" content="2017-10-29T13:40:07.640Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
-<meta name="twitter:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta name="twitter:title" content="Model与ModelMap">
+<meta name="twitter:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://shic.top/2017/10/29/FullStackDevelopment/"/>
+  <link rel="canonical" href="http://shic.top/2017/10/29/FrontAndBackInteraction/"/>
 
 
 
 
 
-  <title>争取写一个就我能看懂的笔记 嘻嘻～ | GeekShi</title>
+  <title>Model与ModelMap | GeekShi</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shic.top/2017/10/29/FullStackDevelopment/">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/2017/10/29/FrontAndBackInteraction/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="this.Shi">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">争取写一个就我能看懂的笔记 嘻嘻～</h1>
+          <h1 class="post-title" itemprop="name headline">Model与ModelMap</h1>
         
 
         <div class="post-meta">
@@ -343,7 +343,7 @@
 
           
           
-             <span id="/2017/10/29/FullStackDevelopment/" class="leancloud_visitors" data-flag-title="争取写一个就我能看懂的笔记 嘻嘻～">
+             <span id="/2017/10/29/FrontAndBackInteraction/" class="leancloud_visitors" data-flag-title="Model与ModelMap">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,156 +374,60 @@
       
 
       
-        <h2 id="Full-Stack-Development-with-Spring-Boot"><a href="#Full-Stack-Development-with-Spring-Boot" class="headerlink" title="Full Stack Development with Spring Boot"></a><center>Full Stack Development with Spring Boot</center></h2><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
-<li>Windows 10 64Bit 1703Pro</li>
-<li>JDK 1.8 </li>
-<li>IntelliJ IDEA 2017.1.1</li>
-<li>Maven 3.5</li>
-<li>MySQL 5.5</li>
-<li>Spring Boot 1.5.7.RELEASE<a id="more"></a>
-</li>
-</ul>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ul>
-<li>打开IntelliJ-&gt;New Project-&gt;Spring Initializr-&gt;[正确输出GroupID，Artifact等参数,此处选择的jar方式]-&gt;为项目添加依赖(此处选择web即可，之后的框架可以通过手动添加pom文件的方式，或者直接点击之后就不用之后在pom里写了)-&gt;点击next，点击Finlishi完成项目的创建</li>
-<li><p>给pom.xml手动添加以依赖(此处分享一下我自己添加的依赖，是可以共用的，只是dependency)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 包含jpa，mysql驱动，hibernate-entitymanager，thymeleaf模板库 --&gt;</div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.hibernate&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line">		</div><div class="line">	&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</div><div class="line">			&lt;version&gt;1.5.6.RELEASE&lt;/version&gt;</div><div class="line">		&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>修改spring配置文件application.properties(建议改成application.yml)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  datasource:</div><div class="line">    driver-class-name: com.mysql.jdbc.Driver</div><div class="line">    url: jdbc:mysql://127.0.0.1:3306/[your db]</div><div class="line">    username: [your username]</div><div class="line">    password: [your password]</div><div class="line"></div><div class="line">  thymeleaf:</div><div class="line">    encoding: utf-8</div><div class="line">    cache: false  #关闭缓存，不然没法看见实时页面？</div><div class="line">    mode: HTML5</div><div class="line">    content-type: text/html</div><div class="line"></div><div class="line">  jpa:</div><div class="line">    hibernate:</div><div class="line">      ddl-auto: update[create/...]</div><div class="line">    show-sql: true</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="实体类映射表"><a href="#实体类映射表" class="headerlink" title="实体类映射表"></a>实体类映射表</h2><ul>
-<li>写实体类反向建立数据表（top.shic.domain/entity）<ul>
-<li>@Entity 对整个类进行实体类注解</li>
-<li>@Id和@GeneratedValue  用于主键id的注解</li>
-<li>对于其他字段用到@Column(length = [?],nullable = false),还有其他属性</li>
-<li>对于某些数字的控制，注解@Min(value = 18,message = “未成年不得入内”)</li>
-<li>对于某些字符串长度的控制 @Size(min=2, max=30)</li>
-<li>不能为空，并写出错误时的提示  @NotNull(message = “该字段不能缺”)</li>
+        <h2 id="前后端交互"><a href="#前后端交互" class="headerlink" title="前后端交互"></a><center>前后端交互</center></h2><h2 id="Model与ModelMap"><a href="#Model与ModelMap" class="headerlink" title="Model与ModelMap"></a>Model与ModelMap</h2><ul>
+<li>看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？<ul>
+<li>然而实验了一下，Model也能存多个属性进去。。</li>
+<li>那ModelMap是怎么个用法。。。//待实验，待去查看类地源码</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>测试运行，查看数据库是否正确生成了实体类表</li>
+<li>Model里面到底存的什么？ <ul>
+<li>示例：<code>model.toString():{user=User{id=2, username=&#39;shi&#39;, password=&#39;shi&#39;},</code><br><code>ModelTest=User{id=null, username=&#39;ModelTest&#39;, password=&#39;hasAnotherAttr?&#39;}}</code>，Model里面就直接放的是整个对象，Model相当于一个容器</li>
 </ul>
-<h2 id="Repository层"><a href="#Repository层" class="headerlink" title="Repository层"></a>Repository层</h2><ul>
-<li><p>接口：</p>
+</li>
+</ul>
 <ul>
-<li>Repository 空接口</li>
-<li>CrudRepository 继承Repository，实现CRUD<ul>
-<li>PagingAndSortingRepository 继承CrudRepository，实现分页和排序相关的方法<ul>
-<li>JpaRepository 继承PagingAndSortingRepository，实现JPA规范相关的方法</li>
+<li>怎么删除Model里的数据<ul>
+<li>首先要明白的就是Model里同名的属性就只有一个，那么直接覆盖它，让它等于某个值我们就知道它是否被删除了，这一点应该是行得通的</li>
+<li>那么直接让他等于null，会报错，很巧妙的解决办法就是new一个新的对象，没有初值的，那它里面该对象的数据成员的值就是空的了，也是一个特殊值null，很方便进行判断是都删除了Model中的该属性了</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-<li><p>定义查询方法</p>
 <ul>
-<li>使用Repository中定义过规范格式的方法名进行查询</li>
-<li>在方法体上，使用注解@Query([？查询条件？])<ul>
-<li>@Query只能进行查询操作，要进行删除和更新操作就必须使用到另外两个注解，@Modifying和@Transactional</li>
-<li>@Modifying写在@Query上面，@Transactional写在服务层（下一大点会讲）</li>
-</ul>
-</li>
-<li>特别注意两点：<ul>
-<li>在测试类前不写@RunWith(SpringRunner.class)和@SpringBootTest就会报空指针的错误</li>
-<li>@Modifying的注解只能返回void，int，和Integer类型的返回值，成功修改就返回1（错误时，推测是0），可能就只能判断是否正确修改了。如果返回类型是其他的话就要报错。</li>
+<li>由一个问题引起的问题：.怎么让一个action返回一个url，然后进入另一个action<ul>
+<li><strong>重定向就行，redirect:/url，然而重定向后，model里的值就没有了</strong></li>
+<li>然后问题就来了，Model里的值 怎么回事？？</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h2 id="Service层"><a href="#Service层" class="headerlink" title="Service层"></a>Service层</h2><p><em>service层通常是放一些对数据库进行更改和删除的操作，之前测试的Repository层的一些功能测试比如说保存，添加等，在正式编码时就可以把操作的方法写在service层</em></p>
-<ul>
-<li>Service层的类前加@Service注解</li>
-<li>在方法前加@Transactional，//这里的注解是javax.transaction.Transactional</li>
-<li>Service层注入Repository层的对象，然后在@Transactional事务管理所注释的方法里调用Repository层的方法进行数据库操作。</li>
-</ul>
-<h2 id="测试：RepositoryTest"><a href="#测试：RepositoryTest" class="headerlink" title="测试：RepositoryTest"></a>测试：RepositoryTest</h2><ul>
-<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
-<li>@Autowired自动注入Repository层对象</li>
-<li>测试方法前添加@Test注解</li>
-</ul>
-<h2 id="测试：ServiceTest"><a href="#测试：ServiceTest" class="headerlink" title="测试：ServiceTest"></a>测试：ServiceTest</h2><ul>
-<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
-<li>@Autowired自动注入Service层对象</li>
-<li>测试方法前添加@Test注解</li>
-</ul>
-<h2 id="Controller层"><a href="#Controller层" class="headerlink" title="Controller层"></a>Controller层</h2><ul>
-<li>在Controller层调用Service层的方法进行业务逻辑的控制</li>
-<li>@RestController和@Controller的区别<ul>
-<li>@RestController添加到类前后，直接在方法体上添加访问路径的注解</li>
-<li>@Controller在做后端访问控制时有点区别，<a href="http://shic.top/2017/10/07/springBootController/">详情请点击</a></li>
-</ul>
-</li>
-<li><strong>什么情况下需要对同一个url同时编写@GetMapping和@PostMapping：</strong><ul>
-<li>例如：当需要登录的时候，访问/login时，如果只有post模式，那我第一次直接访问需要进入页面进行登录的时候是不是就直接通过post把参数传给处理方法了，而此时我并没有输出任何参数也不是通过post方法进行访问的，所以后台会报错。<ul>
-<li>解决方法1：那么我们就对同一个url，比如这里的<code>/login</code>同时进行@GetMapping和@PostMapping的方法编写，<strong>保证在第一次访问登录表单时不是直接将结果传回给给服务器而时请求一个页面，这是一个逻辑问题！</strong></li>
-<li>解决方法2：请求登录表单时用<code>&quot;/login&quot;</code>，控制方法注解为@GetMapping，登录表单中的<code>&lt;form&gt;</code>标签的提交url就换一个，比如说”/toLogin”，然后用post模式，这样就区分开了到底是请求页面还是提交参数了</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>在做和前端交互时需要用到@Controller，并使该类继承WebMvcConfigurerAdapter类</li>
-<li>重写一个方法addViewControllers(ViewControllerRegistry registry)</li>
-<li>处理方法前用注释标标注，传参时：<ul>
-<li>单独参数：参数前加@RequestParam(“前端参数名字”)，id用(主键?)用@PathVariable(“id”)</li>
-<li>对象参数：@Valid</li>
-<li><strong>需要向前端进行传值时加上Model model 参数</strong></li>
-<li>参数中加上BindingResult类对象bindingResult，进行错误严重，if(bindingResult.hasErrors())，就进行错误处理</li>
-</ul>
-</li>
-<li>方法返回一个字符串，官方定义是取点”.html”字样的模板文件名，用来匹配要想客户端显示的内容</li>
-<li><strong>后台要向前端传值，在方法参数里面加上Model model，然后在方法体中用model.addAttribute(String attributeName, Object attributeValue); 第一个参数是写入model的对象的名字，类型String，这个名字是前端要通过对象名进行访问时所要用到的名字，也可以理解是bean的名字，第二个参数就是该对象了</strong></li>
-</ul>
-<h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><ul>
-<li>在main/resource/templates下编写模板文件，此处用到thymeleaf，当然也可以用其他的，<code>&lt;html&gt;</code>标签内不需要任何命名空间都能够进行渲染，写了一些其他教程上提到的官方命名空间还要出错。。。<ul>
-<li>之前的就这样写：<code>&lt;form th:action=&quot;@『/login』&quot; th:object=&quot;$『user}』&quot; method=&quot;post&quot;&gt;</code></li>
-<li>输入的值关联到form里的什么值就<code>th:field=&quot;*『username』&quot;</code>，<code>*</code>号代表th:object的对象，这里就是表示该输入的时user.username的值,<strong>官方文档提示表单传值需要th:object和th:field配合使用</strong></li>
-<li><strong>即使前端自写的模板html中有这些thymeleaf的标签，但是到前端渲染后的且直接时静态的值，已经被替换掉了，所以不可能在浏览器调试里面改一个标签的th:field就出bug了</strong></li>
-<li>在前端获取后台传值时，例如：<code>&lt;span th:text=&quot;$『user.username』&quot;&gt;&lt;/span&gt;</code>，这里的user就是后台写入model中的字符串的值，名字一一对应。</li>
-<li><strong>另外一个很重要的就是<code>&lt;a&gt;</code>标签进行跳转，不需要th:action=”@『/url』”，直接href=”/url”</strong></li>
-</ul>
-</li>
-<li>浏览器测试</li>
-</ul>
-<h2 id="附录1：异常处理记录（会持续更新）"><a href="#附录1：异常处理记录（会持续更新）" class="headerlink" title="附录1：异常处理记录（会持续更新）"></a>附录1：异常处理记录（会持续更新）</h2><ol>
-<li>Repository接口按照规定方法命名规则进行查询时，JapRepository时继承了Repository接口的，肯定能实验Repository的功能，但如果方法名没有按照规范写，就会出现该接口的bean创建失败，进一步导致自动注入了该bean的其他类创建失败，一般提示某个bean创建失败就是该类里面有错</li>
-<li>常见的HTTP错误：<ul>
-<li>400：请求出错</li>
-<li>404：找不到页面</li>
-<li>405：不允许此方法，比如说不支持post而用了post</li>
-<li>500：内部服务器出错，在控制台会抛出异常</li>
-<li>502：网关出错：比如说19大期间访问谷歌。。。</li>
-</ul>
-</li>
-<li><p>Thymeleaf渲染出错，表示前端标签有问题，报错的提醒是Neither BindingResult nor plain target object for bean name “[这就是你的bean的名字]” available as request attribute，也就是说前端表单提交的的信息汇总成一个bean就出错，怎么解决</p>
-<ul>
-<li>试了很多次，第一次的/login也没有写过参数，但也没有报错，但是在提交很多信息的表单的时候就要报错</li>
-<li><strong>*所以在某一个页面有啥对象的时候，还是在进入这个页面的的控制方法中加一个某对象在方法参数列表里为好。</strong></li>
-</ul>
-</li>
-<li><p>出现啥BindingResult的错误，提示是An Errors/BindingResult argument is expected to be declared immediately after the model attribute</p>
-<ul>
-<li>自己写的文件没有错，但是就有这个错，把参数列表里的BindingResult类去掉就行了</li>
-</ul>
-</li>
-<li>出现405错误的解决方案<ul>
-<li>@PostMaping互改@GetMapping就行。</li>
-<li>也有可能是转发(forward)造成的，有一种情况就是@GetMapping向@PostMapping转发的时候，比如说自己写的分页，删除，这里就需要重新进行首页的查询，代码量比较大，且有重复。</li>
-</ul>
-</li>
+<h2 id="Action交由另一个Action处理后传值的问题研究"><a href="#Action交由另一个Action处理后传值的问题研究" class="headerlink" title="Action交由另一个Action处理后传值的问题研究"></a>Action交由另一个Action处理后传值的问题研究</h2><h2 id="一：发现问题"><a href="#一：发现问题" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>后台报错，说的admin.loginName为空，模板的渲染就要出错，我是在第一个action里往model里存了admin的，但为什么为空？</p>
+<h2 id="二：去实验，寻找问题的根源"><a href="#二：去实验，寻找问题的根源" class="headerlink" title="二：去实验，寻找问题的根源"></a>二：去实验，寻找问题的根源</h2><ol>
+<li>在不同的action处理方法里打印其model，也就是输出model.toString()的值，<strong>发现存入model的值就只限于在一个方法中处理了就往前端传的时候才存在，要是跳转了第二个方法，那model就不是同一个model了，自然里面的存的东西也就不一样</strong>，<em>这是结论一</em></li>
+<li>经过和一个朋友的交流，发现不光是spring boot里的model在重定向后会出现这种情况，springMVC也是，然后<strong>需要用到转发才能将参数一并传过去</strong>，这让我想起了以前学jsp和servlet的时候，的确有这种情况</li>
+<li>在网上找收spring boot的转发，出来了基本都是springMVC的东西。。。于是看了一下，重定向也是用的redirect，于是大胆猜测<strong>转发</strong>也是一样的，都<strong>是forward</strong></li>
+<li>尝试forward，的确是<strong>正确的转发return “forward:/url”</strong>;，但是访问的时候，控制台说的request method post is not support。。。反正这个问题没有解决，于是把这两个action都改成了@PostMapping，然后又说get方法也不被支持。</li>
+<li>网上有说法是，要redirect+url+参数，就是手动拼接，或者是用到一个叫<strong>RedirectAttributes</strong>的类，点击该类进行查看可以看出，该类也是继承了之前我们提到的Model的，敲出来看了看，这个类肯定也有类似于加入某些参数的方法，毕竟继承了Model，于是又去实验RedirectAttributes</li>
+<li>RedirectAttributeshench很扯的地方就是，它和Model都报存同一个东西，Model能全部打印出来，而RedirectAttributes只能打印出报存内容的id值，<strong>就是一串id值，20个</strong>，而Model打印出流程20个对象，这也解释了为什么在代码编写正确的情况下，前端还是没有正确接收到来自后台的参数，<strong>又有一个很神奇的就是，RedirectAttributes里面存的admin对象</strong>，控制台打印出来的是空，但是前端又能正确访问到。。<br>三：综其上实验，得出究极解决方案:)</li>
 </ol>
-<h2 id="附录2：更新提示"><a href="#附录2：更新提示" class="headerlink" title="附录2：更新提示"></a>附录2：更新提示</h2><p>beta V2.0</p>
-<ol>
-<li>完善Controller层的url访问，后台接受参数，传参笔记的编写</li>
-<li>新增视图层的笔记</li>
-<li>新增附录，添加第一条Thymeleaf的常用标签</li>
-<li>新增异常处理记录</li>
-<li>修改部分代码块的缩进问题，把英文大括号改成中文状态下，避免语法错误。</li>
-<li>©2017 <a href="http://shic.top/">shic.top</a> All Rights Reserved</li>
+<hr>
+<ul>
+<li>由于两个处理方法都要接收参数，于是都用l@PostMapping，第一个controller处理方法里传入前端来值，附带上<strong>RedirectAttributes redirectAttributes, BindingResult bindingResult</strong>两个参数，处理后将某一值存入，例如：redirectAttributes.addAttribute(“admin”,admin);然后return “forward:/url”;</li>
+<li>在第二个controller处理方法的参数里，加上Model model，再加上前一个方法存入redirectAttributes中的参数，这里是@alid Admin admin，还有错误提示参数。此处的参数列表是：<strong>Model model ,@Valid Admin admin,BindingResult bindingResult</strong></li>
+<li>在第二个方法中传入的admin对象就是在第一个方法中存入redirectAttributes中的那个Admin对象。这里传入Model对象，就是为了把再该方法中处理了的参数存入Model对象中，并在前端进行方法，这样最终做成了。解决了困扰我一天半的难题，还花了一个小时来写总结和博客。</li>
+</ul>
+<p><strong>以上问题是：登录-&gt;AdminController里的@PostMapping(“/login”)-&gt;正确时返回的正确视图是forward:/adminIndex（这个转发的处理类是NewsinfoController）-&gt;显示登录后的主页（能查看自己的信息，目前最新的20条信息）-&gt;然后点击添加通知后-&gt;发现新的页面里，管理员用户的信息又没有了。。。于是又开始了为期一天半的探究</strong></p>
+<h2 id="多action多页面跳转研究"><a href="#多action多页面跳转研究" class="headerlink" title="多action多页面跳转研究"></a>多action多页面跳转研究</h2><h2 id="一：发现问题-1"><a href="#一：发现问题-1" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>之前用了RedirectAttributes来存放参数，但多跳转几次就没有用了。。。感觉之前花了一天半玩儿了那么多还是被坑了啊:(</p>
+<h2 id="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"><a href="#二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案" class="headerlink" title="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"></a>二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案</h2><ol>
+<li>废话还是少说了，我搜了很多怎么样在整个项目中都可以访问到某些值，于是一个关键词出现在了我的视野里<strong>Session</strong>，然后session怎么用呢？</li>
+<li>之前说要加上什么artifactId为spring-session包，还要加artifactId为spring-boot-starter-redis的包，然后再配置文件里加redis相关的配置，再在处理方法中加上HttpSession类，于是就报错了，真的是实验了很久，于是又改了回来，处理方法里的参数重新换回了Model，但是还是报错，和以前一样，说的是<strong>Session创建失败</strong>，以前都是这样操作的一样的处理和渲染，但是现在却要报错，想来想去后决定把所有东西都恢复到以前，才发现pom里又session的包就要出错，yml配置文件里也要删除干净。</li>
+<li>于是我在处理方法中加上了最普通的HttpSession的参数(javax.servlet.http.HttpSession)，什么依赖都没有加，于是还成了。。</li>
+<li><strong>当然要使用好HttpSession还是需要配合Model来使用的</strong></li>
+</ol>
+<h2 id="a标签传参数"><a href="#a标签传参数" class="headerlink" title="a标签传参数"></a>a标签传参数</h2><ol>
+<li><code>&lt;a th:href=&quot;@{&#39;/delete/&#39;+${thisNewsinfo.id}}&quot;&gt;删除&lt;/a&gt;</code>例如这样，这是一个相对路径写法，${thisNewsinfo.id}从从Model里面得到一个值，然后向字符串拼接一样接在url后面，比如/delete/105，就是传递的105参数到后台</li>
+<li>处理方法上一定要加的是Get请求参数，例如：<code>@GetMapping(&quot;/delete/{id}&quot;)</code></li>
+<li>参数列表里加上<code>@PathVariable(&quot;id&quot;) Integer id</code>，然后就能直接使用该id变量了。</li>
 </ol>
 
       
@@ -586,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/29/FrontAndBackInteraction/" rel="next" title="Model与ModelMap">
-                <i class="fa fa-chevron-left"></i> Model与ModelMap
+              <a href="/2017/10/08/UnitTest/" rel="next" title="单元测试">
+                <i class="fa fa-chevron-left"></i> 单元测试
               </a>
             
           </div>
@@ -595,6 +499,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/29/FullStackDevelopment/" rel="prev" title="争取写一个就我能看懂的笔记 嘻嘻～">
+                争取写一个就我能看懂的笔记 嘻嘻～ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -758,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Full-Stack-Development-with-Spring-Boot"><span class="nav-number">1.</span> <span class="nav-text">Full Stack Development with Spring Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体类映射表"><span class="nav-number">4.</span> <span class="nav-text">实体类映射表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository层"><span class="nav-number">5.</span> <span class="nav-text">Repository层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service层"><span class="nav-number">6.</span> <span class="nav-text">Service层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：RepositoryTest"><span class="nav-number">7.</span> <span class="nav-text">测试：RepositoryTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：ServiceTest"><span class="nav-number">8.</span> <span class="nav-text">测试：ServiceTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller层"><span class="nav-number">9.</span> <span class="nav-text">Controller层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图层"><span class="nav-number">10.</span> <span class="nav-text">视图层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录1：异常处理记录（会持续更新）"><span class="nav-number">11.</span> <span class="nav-text">附录1：异常处理记录（会持续更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录2：更新提示"><span class="nav-number">12.</span> <span class="nav-text">附录2：更新提示</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前后端交互"><span class="nav-number">1.</span> <span class="nav-text">前后端交互</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model与ModelMap"><span class="nav-number">2.</span> <span class="nav-text">Model与ModelMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Action交由另一个Action处理后传值的问题研究"><span class="nav-number">3.</span> <span class="nav-text">Action交由另一个Action处理后传值的问题研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一：发现问题"><span class="nav-number">4.</span> <span class="nav-text">一：发现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：去实验，寻找问题的根源"><span class="nav-number">5.</span> <span class="nav-text">二：去实验，寻找问题的根源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多action多页面跳转研究"><span class="nav-number">6.</span> <span class="nav-text">多action多页面跳转研究</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一：发现问题-1"><span class="nav-number">7.</span> <span class="nav-text">一：发现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"><span class="nav-number">8.</span> <span class="nav-text">二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a标签传参数"><span class="nav-number">9.</span> <span class="nav-text">a标签传参数</span></a></li></ol></div>
             
 
           </div>
