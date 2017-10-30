@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-29T13:07:37.759Z</updated>
+  <updated>2017-10-30T10:54:42.147Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,92 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Model与ModelMap</title>
+    <link href="http://shic.top/2017/10/29/FrontAndBackInteraction/"/>
+    <id>http://shic.top/2017/10/29/FrontAndBackInteraction/</id>
+    <published>2017-10-28T16:00:10.000Z</published>
+    <updated>2017-10-30T10:54:42.147Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前后端交互"><a href="#前后端交互" class="headerlink" title="前后端交互"></a><center>前后端交互</center></h2><h2 id="Model与ModelMap"><a href="#Model与ModelMap" class="headerlink" title="Model与ModelMap"></a>Model与ModelMap</h2><ul>
+<li><p>看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？</p>
+<ul>
+<li>然而实验了一下，Model也能存多个属性进去。。</li>
+<li>那ModelMap是怎么个用法。。。//待实验，待去查看类地源码<a id="more"></a>
+</li>
+</ul>
+</li>
+<li><p>Model里面到底存的什么？ </p>
+<ul>
+<li>示例：<code>model.toString():{user=User{id=2, username=&#39;shi&#39;, password=&#39;shi&#39;},</code><br><code>ModelTest=User{id=null, username=&#39;ModelTest&#39;, password=&#39;hasAnotherAttr?&#39;}}</code>，Model里面就直接放的是整个对象，Model相当于一个容器</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>怎么删除Model里的数据<ul>
+<li>首先要明白的就是Model里同名的属性就只有一个，那么直接覆盖它，让它等于某个值我们就知道它是否被删除了，这一点应该是行得通的</li>
+<li>那么直接让他等于null，会报错，很巧妙的解决办法就是new一个新的对象，没有初值的，那它里面该对象的数据成员的值就是空的了，也是一个特殊值null，很方便进行判断是都删除了Model中的该属性了</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>由一个问题引起的问题：.怎么让一个action返回一个url，然后进入另一个action<ul>
+<li><strong>重定向就行，redirect:/url，然而重定向后，model里的值就没有了</strong></li>
+<li>然后问题就来了，Model里的值 怎么回事？？</li>
+</ul>
+</li>
+</ul>
+<h2 id="Action交由另一个Action处理后传值的问题研究"><a href="#Action交由另一个Action处理后传值的问题研究" class="headerlink" title="Action交由另一个Action处理后传值的问题研究"></a>Action交由另一个Action处理后传值的问题研究</h2><h2 id="一：发现问题"><a href="#一：发现问题" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>后台报错，说的admin.loginName为空，模板的渲染就要出错，我是在第一个action里往model里存了admin的，但为什么为空？</p>
+<h2 id="二：去实验，寻找问题的根源"><a href="#二：去实验，寻找问题的根源" class="headerlink" title="二：去实验，寻找问题的根源"></a>二：去实验，寻找问题的根源</h2><ol>
+<li>在不同的action处理方法里打印其model，也就是输出model.toString()的值，<strong>发现存入model的值就只限于在一个方法中处理了就往前端传的时候才存在，要是跳转了第二个方法，那model就不是同一个model了，自然里面的存的东西也就不一样</strong>，<em>这是结论一</em></li>
+<li>经过和一个朋友的交流，发现不光是spring boot里的model在重定向后会出现这种情况，springMVC也是，然后<strong>需要用到转发才能将参数一并传过去</strong>，这让我想起了以前学jsp和servlet的时候，的确有这种情况</li>
+<li>在网上找收spring boot的转发，出来了基本都是springMVC的东西。。。于是看了一下，重定向也是用的redirect，于是大胆猜测<strong>转发</strong>也是一样的，都<strong>是forward</strong></li>
+<li>尝试forward，的确是<strong>正确的转发return “forward:/url”</strong>;，但是访问的时候，控制台说的request method post is not support。。。反正这个问题没有解决，于是把这两个action都改成了@PostMapping，然后又说get方法也不被支持。</li>
+<li>网上有说法是，要redirect+url+参数，就是手动拼接，或者是用到一个叫<strong>RedirectAttributes</strong>的类，点击该类进行查看可以看出，该类也是继承了之前我们提到的Model的，敲出来看了看，这个类肯定也有类似于加入某些参数的方法，毕竟继承了Model，于是又去实验RedirectAttributes</li>
+<li>RedirectAttributeshench很扯的地方就是，它和Model都报存同一个东西，Model能全部打印出来，而RedirectAttributes只能打印出报存内容的id值，<strong>就是一串id值，20个</strong>，而Model打印出流程20个对象，这也解释了为什么在代码编写正确的情况下，前端还是没有正确接收到来自后台的参数，<strong>又有一个很神奇的就是，RedirectAttributes里面存的admin对象</strong>，控制台打印出来的是空，但是前端又能正确访问到。。<br>三：综其上实验，得出究极解决方案:)</li>
+</ol>
+<hr>
+<ul>
+<li>由于两个处理方法都要接收参数，于是都用l@PostMapping，第一个controller处理方法里传入前端来值，附带上<strong>RedirectAttributes redirectAttributes, BindingResult bindingResult</strong>两个参数，处理后将某一值存入，例如：redirectAttributes.addAttribute(“admin”,admin);然后return “forward:/url”;</li>
+<li>在第二个controller处理方法的参数里，加上Model model，再加上前一个方法存入redirectAttributes中的参数，这里是@alid Admin admin，还有错误提示参数。此处的参数列表是：<strong>Model model ,@Valid Admin admin,BindingResult bindingResult</strong></li>
+<li>在第二个方法中传入的admin对象就是在第一个方法中存入redirectAttributes中的那个Admin对象。这里传入Model对象，就是为了把再该方法中处理了的参数存入Model对象中，并在前端进行方法，这样最终做成了。解决了困扰我一天半的难题，还花了一个小时来写总结和博客。</li>
+</ul>
+<p><strong>以上问题是：登录-&gt;AdminController里的@PostMapping(“/login”)-&gt;正确时返回的正确视图是forward:/adminIndex（这个转发的处理类是NewsinfoController）-&gt;显示登录后的主页（能查看自己的信息，目前最新的20条信息）-&gt;然后点击添加通知后-&gt;发现新的页面里，管理员用户的信息又没有了。。。于是又开始了为期一天半的探究</strong></p>
+<h2 id="多action多页面跳转研究"><a href="#多action多页面跳转研究" class="headerlink" title="多action多页面跳转研究"></a>多action多页面跳转研究</h2><h2 id="一：发现问题-1"><a href="#一：发现问题-1" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>之前用了RedirectAttributes来存放参数，但多跳转几次就没有用了。。。感觉之前花了一天半玩儿了那么多还是被坑了啊:(</p>
+<h2 id="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"><a href="#二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案" class="headerlink" title="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"></a>二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案</h2><ol>
+<li>废话还是少说了，我搜了很多怎么样在整个项目中都可以访问到某些值，于是一个关键词出现在了我的视野里<strong>Session</strong>，然后session怎么用呢？</li>
+<li>之前说要加上什么artifactId为spring-session包，还要加artifactId为spring-boot-starter-redis的包，然后再配置文件里加redis相关的配置，再在处理方法中加上HttpSession类，于是就报错了，真的是实验了很久，于是又改了回来，处理方法里的参数重新换回了Model，但是还是报错，和以前一样，说的是<strong>Session创建失败</strong>，以前都是这样操作的一样的处理和渲染，但是现在却要报错，想来想去后决定把所有东西都恢复到以前，才发现pom里又session的包就要出错，yml配置文件里也要删除干净。</li>
+<li>于是我在处理方法中加上了最普通的HttpSession的参数(javax.servlet.http.HttpSession)，什么依赖都没有加，于是还成了。。</li>
+<li><strong>当然要使用好HttpSession还是需要配合Model来使用的</strong></li>
+</ol>
+<h2 id="a标签传参数"><a href="#a标签传参数" class="headerlink" title="a标签传参数"></a>a标签传参数</h2><ol>
+<li><code>&lt;a th:href=&quot;@{&#39;/delete/&#39;+${thisNewsinfo.id}}&quot;&gt;删除&lt;/a&gt;</code>例如这样，这是一个相对路径写法，${thisNewsinfo.id}从从Model里面得到一个值，然后向字符串拼接一样接在url后面，比如/delete/105，就是传递的105参数到后台</li>
+<li>处理方法上一定要加的是Get请求参数，例如：<code>@GetMapping(&quot;/delete/{id}&quot;)</code></li>
+<li>参数列表里加上<code>@PathVariable(&quot;id&quot;) Integer id</code>，然后就能直接使用该id变量了。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前后端交互&quot;&gt;&lt;a href=&quot;#前后端交互&quot; class=&quot;headerlink&quot; title=&quot;前后端交互&quot;&gt;&lt;/a&gt;&lt;center&gt;前后端交互&lt;/center&gt;&lt;/h2&gt;&lt;h2 id=&quot;Model与ModelMap&quot;&gt;&lt;a href=&quot;#Model与ModelMap&quot; class=&quot;headerlink&quot; title=&quot;Model与ModelMap&quot;&gt;&lt;/a&gt;Model与ModelMap&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;然而实验了一下，Model也能存多个属性进去。。&lt;/li&gt;
+&lt;li&gt;那ModelMap是怎么个用法。。。//待实验，待去查看类地源码
+    
+    </summary>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
+    
+  </entry>
   
   <entry>
     <title>争取写一个就我能看懂的笔记 嘻嘻～</title>
@@ -184,87 +270,6 @@
 &lt;li&gt;Maven 3.5&lt;/li&gt;
 &lt;li&gt;MySQL 5.5&lt;/li&gt;
 &lt;li&gt;Spring Boot 1.5.7.RELEASE
-    
-    </summary>
-    
-      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
-    
-      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
-    
-    
-      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
-    
-      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Model与ModelMap</title>
-    <link href="http://shic.top/2017/10/29/FrontAndBackInteraction/"/>
-    <id>http://shic.top/2017/10/29/FrontAndBackInteraction/</id>
-    <published>2017-10-28T16:00:00.000Z</published>
-    <updated>2017-10-29T13:40:07.640Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前后端交互"><a href="#前后端交互" class="headerlink" title="前后端交互"></a><center>前后端交互</center></h2><h2 id="Model与ModelMap"><a href="#Model与ModelMap" class="headerlink" title="Model与ModelMap"></a>Model与ModelMap</h2><ul>
-<li>看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？<ul>
-<li>然而实验了一下，Model也能存多个属性进去。。</li>
-<li>那ModelMap是怎么个用法。。。//待实验，待去查看类地源码</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Model里面到底存的什么？ <ul>
-<li>示例：<code>model.toString():{user=User{id=2, username=&#39;shi&#39;, password=&#39;shi&#39;},</code><br><code>ModelTest=User{id=null, username=&#39;ModelTest&#39;, password=&#39;hasAnotherAttr?&#39;}}</code>，Model里面就直接放的是整个对象，Model相当于一个容器</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>怎么删除Model里的数据<ul>
-<li>首先要明白的就是Model里同名的属性就只有一个，那么直接覆盖它，让它等于某个值我们就知道它是否被删除了，这一点应该是行得通的</li>
-<li>那么直接让他等于null，会报错，很巧妙的解决办法就是new一个新的对象，没有初值的，那它里面该对象的数据成员的值就是空的了，也是一个特殊值null，很方便进行判断是都删除了Model中的该属性了</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>由一个问题引起的问题：.怎么让一个action返回一个url，然后进入另一个action<ul>
-<li><strong>重定向就行，redirect:/url，然而重定向后，model里的值就没有了</strong></li>
-<li>然后问题就来了，Model里的值 怎么回事？？</li>
-</ul>
-</li>
-</ul>
-<h2 id="Action交由另一个Action处理后传值的问题研究"><a href="#Action交由另一个Action处理后传值的问题研究" class="headerlink" title="Action交由另一个Action处理后传值的问题研究"></a>Action交由另一个Action处理后传值的问题研究</h2><h2 id="一：发现问题"><a href="#一：发现问题" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>后台报错，说的admin.loginName为空，模板的渲染就要出错，我是在第一个action里往model里存了admin的，但为什么为空？</p>
-<h2 id="二：去实验，寻找问题的根源"><a href="#二：去实验，寻找问题的根源" class="headerlink" title="二：去实验，寻找问题的根源"></a>二：去实验，寻找问题的根源</h2><ol>
-<li>在不同的action处理方法里打印其model，也就是输出model.toString()的值，<strong>发现存入model的值就只限于在一个方法中处理了就往前端传的时候才存在，要是跳转了第二个方法，那model就不是同一个model了，自然里面的存的东西也就不一样</strong>，<em>这是结论一</em></li>
-<li>经过和一个朋友的交流，发现不光是spring boot里的model在重定向后会出现这种情况，springMVC也是，然后<strong>需要用到转发才能将参数一并传过去</strong>，这让我想起了以前学jsp和servlet的时候，的确有这种情况</li>
-<li>在网上找收spring boot的转发，出来了基本都是springMVC的东西。。。于是看了一下，重定向也是用的redirect，于是大胆猜测<strong>转发</strong>也是一样的，都<strong>是forward</strong></li>
-<li>尝试forward，的确是<strong>正确的转发return “forward:/url”</strong>;，但是访问的时候，控制台说的request method post is not support。。。反正这个问题没有解决，于是把这两个action都改成了@PostMapping，然后又说get方法也不被支持。</li>
-<li>网上有说法是，要redirect+url+参数，就是手动拼接，或者是用到一个叫<strong>RedirectAttributes</strong>的类，点击该类进行查看可以看出，该类也是继承了之前我们提到的Model的，敲出来看了看，这个类肯定也有类似于加入某些参数的方法，毕竟继承了Model，于是又去实验RedirectAttributes</li>
-<li>RedirectAttributeshench很扯的地方就是，它和Model都报存同一个东西，Model能全部打印出来，而RedirectAttributes只能打印出报存内容的id值，<strong>就是一串id值，20个</strong>，而Model打印出流程20个对象，这也解释了为什么在代码编写正确的情况下，前端还是没有正确接收到来自后台的参数，<strong>又有一个很神奇的就是，RedirectAttributes里面存的admin对象</strong>，控制台打印出来的是空，但是前端又能正确访问到。。<br>三：综其上实验，得出究极解决方案:)</li>
-</ol>
-<hr>
-<ul>
-<li>由于两个处理方法都要接收参数，于是都用l@PostMapping，第一个controller处理方法里传入前端来值，附带上<strong>RedirectAttributes redirectAttributes, BindingResult bindingResult</strong>两个参数，处理后将某一值存入，例如：redirectAttributes.addAttribute(“admin”,admin);然后return “forward:/url”;</li>
-<li>在第二个controller处理方法的参数里，加上Model model，再加上前一个方法存入redirectAttributes中的参数，这里是@alid Admin admin，还有错误提示参数。此处的参数列表是：<strong>Model model ,@Valid Admin admin,BindingResult bindingResult</strong></li>
-<li>在第二个方法中传入的admin对象就是在第一个方法中存入redirectAttributes中的那个Admin对象。这里传入Model对象，就是为了把再该方法中处理了的参数存入Model对象中，并在前端进行方法，这样最终做成了。解决了困扰我一天半的难题，还花了一个小时来写总结和博客。</li>
-</ul>
-<p><strong>以上问题是：登录-&gt;AdminController里的@PostMapping(“/login”)-&gt;正确时返回的正确视图是forward:/adminIndex（这个转发的处理类是NewsinfoController）-&gt;显示登录后的主页（能查看自己的信息，目前最新的20条信息）-&gt;然后点击添加通知后-&gt;发现新的页面里，管理员用户的信息又没有了。。。于是又开始了为期一天半的探究</strong></p>
-<h2 id="多action多页面跳转研究"><a href="#多action多页面跳转研究" class="headerlink" title="多action多页面跳转研究"></a>多action多页面跳转研究</h2><h2 id="一：发现问题-1"><a href="#一：发现问题-1" class="headerlink" title="一：发现问题"></a>一：发现问题</h2><p>之前用了RedirectAttributes来存放参数，但多跳转几次就没有用了。。。感觉之前花了一天半玩儿了那么多还是被坑了啊:(</p>
-<h2 id="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"><a href="#二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案" class="headerlink" title="二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案"></a>二：又去实验，寻找问题的根源，然后在一天半后得出了看似比较终极的答案</h2><ol>
-<li>废话还是少说了，我搜了很多怎么样在整个项目中都可以访问到某些值，于是一个关键词出现在了我的视野里<strong>Session</strong>，然后session怎么用呢？</li>
-<li>之前说要加上什么artifactId为spring-session包，还要加artifactId为spring-boot-starter-redis的包，然后再配置文件里加redis相关的配置，再在处理方法中加上HttpSession类，于是就报错了，真的是实验了很久，于是又改了回来，处理方法里的参数重新换回了Model，但是还是报错，和以前一样，说的是<strong>Session创建失败</strong>，以前都是这样操作的一样的处理和渲染，但是现在却要报错，想来想去后决定把所有东西都恢复到以前，才发现pom里又session的包就要出错，yml配置文件里也要删除干净。</li>
-<li>于是我在处理方法中加上了最普通的HttpSession的参数(javax.servlet.http.HttpSession)，什么依赖都没有加，于是还成了。。</li>
-<li><strong>当然要使用好HttpSession还是需要配合Model来使用的</strong></li>
-</ol>
-<h2 id="a标签传参数"><a href="#a标签传参数" class="headerlink" title="a标签传参数"></a>a标签传参数</h2><ol>
-<li><code>&lt;a th:href=&quot;@{&#39;/delete/&#39;+${thisNewsinfo.id}}&quot;&gt;删除&lt;/a&gt;</code>例如这样，这是一个相对路径写法，${thisNewsinfo.id}从从Model里面得到一个值，然后向字符串拼接一样接在url后面，比如/delete/105，就是传递的105参数到后台</li>
-<li>处理方法上一定要加的是Get请求参数，例如：<code>@GetMapping(&quot;/delete/{id}&quot;)</code></li>
-<li>参数列表里加上<code>@PathVariable(&quot;id&quot;) Integer id</code>，然后就能直接使用该id变量了。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前后端交互&quot;&gt;&lt;a href=&quot;#前后端交互&quot; class=&quot;headerlink&quot; title=&quot;前后端交互&quot;&gt;&lt;/a&gt;&lt;center&gt;前后端交互&lt;/center&gt;&lt;/h2&gt;&lt;h2 id=&quot;Model与ModelMap&quot;&gt;&lt;a href=&quot;#Model与Mode
     
     </summary>
     

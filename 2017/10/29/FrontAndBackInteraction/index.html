@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
+<meta name="description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？  然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码">
 <meta name="keywords" content="IntelliJ IDEA,Spring Boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Model与ModelMap">
 <meta property="og:url" content="http://shic.top/2017/10/29/FrontAndBackInteraction/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
+<meta property="og:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？  然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-10-29T13:40:07.640Z">
+<meta property="og:updated_time" content="2017-10-30T10:54:42.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Model与ModelMap">
-<meta name="twitter:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？ 然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码     Model里面到底存的什么？  示例：model.toString():{user=User{id=2, username=&amp;#39;shi&amp;#39;, pas">
+<meta name="twitter:description" content="前后端交互Model与ModelMap 看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？  然而实验了一下，Model也能存多个属性进去。。 那ModelMap是怎么个用法。。。//待实验，待去查看类地源码">
 
 
 
@@ -196,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -216,7 +216,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -290,9 +290,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-29T00:00:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-29T00:00:10+08:00">
                 2017-10-29
               </time>
             
@@ -311,7 +311,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">in</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -322,7 +322,7 @@
 
                 
                 
-                  . 
+                  , 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -375,14 +375,15 @@
 
       
         <h2 id="前后端交互"><a href="#前后端交互" class="headerlink" title="前后端交互"></a><center>前后端交互</center></h2><h2 id="Model与ModelMap"><a href="#Model与ModelMap" class="headerlink" title="Model与ModelMap"></a>Model与ModelMap</h2><ul>
-<li>看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？<ul>
+<li><p>看名字感觉ModelMap要能存很多东西，而Model莫非只能存一个属性？</p>
+<ul>
 <li>然而实验了一下，Model也能存多个属性进去。。</li>
-<li>那ModelMap是怎么个用法。。。//待实验，待去查看类地源码</li>
-</ul>
+<li>那ModelMap是怎么个用法。。。//待实验，待去查看类地源码<a id="more"></a>
 </li>
 </ul>
+</li>
+<li><p>Model里面到底存的什么？ </p>
 <ul>
-<li>Model里面到底存的什么？ <ul>
 <li>示例：<code>model.toString():{user=User{id=2, username=&#39;shi&#39;, password=&#39;shi&#39;},</code><br><code>ModelTest=User{id=null, username=&#39;ModelTest&#39;, password=&#39;hasAnotherAttr?&#39;}}</code>，Model里面就直接放的是整个对象，Model相当于一个容器</li>
 </ul>
 </li>
@@ -490,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/08/UnitTest/" rel="next" title="单元测试">
-                <i class="fa fa-chevron-left"></i> 单元测试
+              <a href="/2017/10/29/FullStackDevelopment/" rel="next" title="争取写一个就我能看懂的笔记 嘻嘻～">
+                <i class="fa fa-chevron-left"></i> 争取写一个就我能看懂的笔记 嘻嘻～
               </a>
             
           </div>
@@ -499,10 +500,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/29/FullStackDevelopment/" rel="prev" title="争取写一个就我能看懂的笔记 嘻嘻～">
-                争取写一个就我能看懂的笔记 嘻嘻～ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -561,10 +558,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Overview
           </li>
         </ul>
       
@@ -589,7 +586,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -600,7 +597,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">Kategorien</span>
+                  <span class="site-state-item-name">categories</span>
                 
               </div>
             
@@ -611,7 +608,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
