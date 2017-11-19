@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-10-30T10:54:42.147Z</updated>
+  <updated>2017-11-19T03:41:51.013Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Test</title>
+    <link href="http://shic.top/2017/10/29/test/"/>
+    <id>http://shic.top/2017/10/29/test/</id>
+    <published>2017-10-28T16:00:10.000Z</published>
+    <updated>2017-11-19T03:41:51.013Z</updated>
+    
+    <content type="html"><![CDATA[<center><iframe height="498" width="510" src="http://player.youku.com/embed/XMzExNzYyMzMwOA==" frameborder="0" 'allowfullscreen'=""></iframe></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;center&gt;&lt;iframe height=&quot;498&quot; width=&quot;510&quot; src=&quot;http://player.youku.com/embed/XMzExNzYyMzMwOA==&quot; frameborder=&quot;0&quot; &#39;allowfullscreen&#39;=&quot;&quot;&gt;&lt;/iframe
+    
+    </summary>
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
+    
+  </entry>
   
   <entry>
     <title>Model与ModelMap</title>
