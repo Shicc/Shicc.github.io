@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-11-24T05:11:00.951Z</updated>
+  <updated>2017-12-21T09:33:18.382Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>维持你电脑的快速</title>
+    <link href="http://shic.top/2017/12/21/keep_fast_compt/"/>
+    <id>http://shic.top/2017/12/21/keep_fast_compt/</id>
+    <published>2017-12-20T16:00:00.000Z</published>
+    <updated>2017-12-21T09:33:18.382Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="保持电脑快速的正确操作方式"><a href="#保持电脑快速的正确操作方式" class="headerlink" title="保持电脑快速的正确操作方式"></a><center>保持电脑快速的正确操作方式</center></h2><p>很多人得答案肯定都是：要！不然怎么杀毒怎么保护电脑，怎么清理垃圾，怎么保持电脑得快速？<br><a id="more"></a><br><br><br><strong>但是答案是：坚决不要用国产得安全软件</strong><br><br><br>那肯定就有同学不相信了，那就解决往下看：</p>
+<p><center><img src="/images/让电脑飞/战术目镜.jpg" alt="战术目镜"></center><br><br><br>当然，为了节约时间，我就不一一做测试了，我就搬用一下电脑报的文章就行了，他们做得很好,点击链接阅读精华文章！。</p>
+<h3 id="怎么安装软件才好？"><a href="#怎么安装软件才好？" class="headerlink" title="怎么安装软件才好？"></a>怎么安装软件才好？</h3><ul>
+<li>不要乱装软件：<a href="https://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247483741&amp;idx=1&amp;sn=67310069b074ce0aaefacdf141f6e9d8#rd" target="_blank" rel="external">国产软件慎装篇</a></li>
+<li>留心电脑的预装软件：<a href="http://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247483725&amp;idx=1&amp;sn=28934af517b082fe6ceb7377e7df32a3#rd" target="_blank" rel="external">预装软件篇</a></li>
+</ul>
+<p><br></p>
+<h3 id="关于杀毒软件的必备知识"><a href="#关于杀毒软件的必备知识" class="headerlink" title="关于杀毒软件的必备知识"></a>关于杀毒软件的必备知识</h3><ul>
+<li>不推荐安装国产杀毒软件，原因看<strong><a href="https://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247483741&amp;idx=1&amp;sn=67310069b074ce0aaefacdf141f6e9d8#rd" target="_blank" rel="external">软件篇第一篇文章</a></strong></li>
+<li>清理垃圾的正确方式：<a href="http://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247483957&amp;idx=2&amp;sn=ea7642329ec126bcc1aa696e646fb67b#rd" target="_blank" rel="external">360不建议装，用什么清理系统垃圾呢？</a></li>
+<li>科普贴：<a href="http://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247483857&amp;idx=3&amp;sn=80fa30f531252b293865455491a17ba9#rd" target="_blank" rel="external">国产杀软不能装，用什么替换呢？</a></li>
+<li>电脑报的独家测试：<a href="http://mp.weixin.qq.com/s?__biz=MzI5NjMwMDMxNQ==&amp;mid=2247484628&amp;idx=1&amp;sn=9f3d7289b758a89a08eabb7edf5848b4#rd" target="_blank" rel="external">不能装360杀毒，Win10裸奔扛得住病毒吗？</a><br><br></li>
+</ul>
+<h3 id="清灰的后续正确操作"><a href="#清灰的后续正确操作" class="headerlink" title="清灰的后续正确操作"></a>清灰的后续正确操作</h3><ol>
+<li>把散热拆了看看<img src="http://res.cloudinary.com/shi1996/image/upload/v1513846579/%E6%95%A3%E7%83%AD_mkywuo.jpg" alt="散热">其实不看别的，就看看硅脂。。。要是太干的话，那就换吧。</li>
+<li>再看看处理器和显卡，应该早已干涸了吧，一个好的散热也是电脑性能正常输出的保障 <img src="http://res.cloudinary.com/shi1996/image/upload/v1513846672/cpu_itc7s4.jpg" alt="i7-4710MQ"> 把上面干掉的硅脂都擦掉，可用电吹风加热一下干化的硅脂，擦除的时候注意芯片上的电容 <img src="http://res.cloudinary.com/shi1996/image/upload/v1513846716/GPu_y06wb1.jpg" alt="GTX950M"></li>
+<li>涂上新的硅脂 <img src="http://res.cloudinary.com/shi1996/image/upload/v1513846702/%E6%B6%82_lprkuc.jpg" alt="t涂硅脂"></li>
+<li>然后再安装回去。<br><br></li>
+</ol>
+<h3 id="怎么样通过Windows更新升级到秋季创意者更新版-1709"><a href="#怎么样通过Windows更新升级到秋季创意者更新版-1709" class="headerlink" title="怎么样通过Windows更新升级到秋季创意者更新版(1709)"></a>怎么样通过Windows更新升级到秋季创意者更新版(1709)</h3><p>对于很多想更新系统的同学来说，明明win10的1709版都更新了很久了，为什么自己还没有收到更新提示？那有可能需要自己去操作一番了。（当然也可以用易升，两种方法差别不是太大，都是在重新下载安装新的系统，更新完成后激活状态不变）</p>
+<ol>
+<li>首先按win键，然后输入汉字 ：编辑组策略。（注：有可能家庭版不支持，手头没家庭版电脑没有测试），然后打开</li>
+<li>跟着图中操作（点击查看大图） <img src="http://res.cloudinary.com/shi1996/image/upload/v1513847777/%E7%BC%96%E8%BE%91%E7%BB%84%E7%AD%96%E5%92%AF_cqetjo.jpg" alt="ops"></li>
+<li>去系统设置的更新里面检查更新，然后就会有更新的提示了  <img src="http://res.cloudinary.com/shi1996/image/upload/v1513847814/updateTo1709_v8fo9q.png" alt="update_to_1709"></li>
+<li>有可能这样更改后系统的什么小更新都要收到，只是有可能，那么把它改回去就行了。<br><br></li>
+</ol>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>在你看明白之后，我相信你对电脑的使用会更加的科学，就像我家的7年老电脑，照样可以流畅的运行。是不是挺好的呢~    </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;保持电脑快速的正确操作方式&quot;&gt;&lt;a href=&quot;#保持电脑快速的正确操作方式&quot; class=&quot;headerlink&quot; title=&quot;保持电脑快速的正确操作方式&quot;&gt;&lt;/a&gt;&lt;center&gt;保持电脑快速的正确操作方式&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;很多人得答案肯定都是：要！不然怎么杀毒怎么保护电脑，怎么清理垃圾，怎么保持电脑得快速？&lt;br&gt;
+    
+    </summary>
+    
+      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
+    
+    
+      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
+    
+  </entry>
   
   <entry>
     <title>Assessment</title>
