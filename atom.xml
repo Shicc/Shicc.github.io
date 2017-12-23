@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-12-21T09:33:18.382Z</updated>
+  <updated>2017-12-23T15:20:54.913Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello Ubuntu</title>
+    <link href="http://shic.top/2017/12/23/Hello_Ubuntu/"/>
+    <id>http://shic.top/2017/12/23/Hello_Ubuntu/</id>
+    <published>2017-12-22T16:00:00.000Z</published>
+    <updated>2017-12-23T15:20:54.913Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Ubuntu-Install-Hello-Ubuntu"><a href="#Ubuntu-Install-Hello-Ubuntu" class="headerlink" title="Ubuntu Install|Hello Ubuntu"></a><center>Ubuntu Install|Hello Ubuntu</center></h2><p>我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧<br><a id="more"></a></p>
+<ul>
+<li>以Ubuntu 17.10为例，<a href="https://www.ubuntu.com/desktop/1710" target="_blank" rel="external">下载地址</a><ul>
+<li>在电脑硬盘上安装。</li>
+<li>做即插即用的U盘Ubuntu，随身携带。</li>
+</ul>
+</li>
+<li>测试怎么即插即用<br><br></li>
+</ul>
+<h3 id="制作U盘启动盘"><a href="#制作U盘启动盘" class="headerlink" title="制作U盘启动盘"></a>制作U盘启动盘</h3><p>当你下载好了Ubuntu系统后，可以用一个大于2GB的U盘来做启动盘。这样这个U盘既可以做临时的系统使用盘，也可以给其他电脑装系统。当然之后我们会制作专门的U盘系统盘，而且是在任意一台电脑上都能运行的。<br><br></p>
+<ol>
+<li>使用软件<strong>UltralISO</strong>把刚才下载的Ubuntu的镜像文件写入U盘。这个操作会清空U盘里的所有东西，<strong>请注意数据备份</strong>。而有些UltralISO版本可能导致这一步出错，我用的是9.5.5，可以用这个版本进行操作。**点击图中的文件，点击打开，然后找到事先下载好的ISO文件，点击确认   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039570/UltraISO_qybgeo.jpg" alt="0"></li>
+<li>打开之后就会是这样的界面，按照图中指示操作   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltraISO1_h4vuzs.jpg" alt="1"></li>
+<li>之后就进入了这个界面，继续按照图中指示操作,然后就会提示你引导扇区写入成功！，在点击写入，点击是，完成之后直接关掉窗口和该软件就行，这时U盘启动器就制作好啦   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltrISO2_jmk94s.jpg" alt="2"><br><br></li>
+</ol>
+<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ol>
+<li>准备安装的硬盘位置<ul>
+<li>装在电脑上<ul>
+<li>与Windows同在一个硬盘，事先分一部分磁盘空间出去，具体方法网上可查</li>
+<li>在同一台电脑上的另一个空硬盘上</li>
+</ul>
+</li>
+<li>装在可移动的U盘里，其实这个和空硬盘一样，只是U盘是插在UBS接口上的</li>
+</ul>
+</li>
+<li>U盘插上电脑，进入电脑的BIOS，具体机型按键不同，可以去网上查一下你的机型怎么进去。当然不相查的话，可以ESC，F2，F12等常用按键一起按，然后就进去了。再去设置你的U盘为第一启动项，保存关机，重启电脑。</li>
+<li>然后你应该会看到这个界面，很多同学就会以为没有正确选择U盘为第一启动项，然后一直都卡在这里，其实不是的，这表示已经进入U盘了，你只需要输入<strong>live</strong>，点击回车，等待几秒钟就会进入Ubuntu的安装界面。   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514037550/IMG_20171222_205806_HHT_w7evil.jpg" alt="3"></li>
+<li>第一步是<strong>断网！</strong>因为之后在更改软件源后再更新系统和软件这样快些，在安装时更新或者一不小心选择了更新就会特别慢。其次是选择系统语言，然后是一些不重要的操作，当到了问你安装在哪个磁盘里的时候，可能有些同学就犯傻了。<ul>
+<li>如果安装在有windows的硬盘上，会有提醒，请选择与Windows共存，不然你的Windows系统就没了。</li>
+<li>如果是<strong>在另一块空硬盘或者想把系统装在U盘里</strong>就不用这样选，但是安装时还是会提醒让你选择，也会出现与Windows共存的选择，估计是默认安装到的是有Windows的盘里，大家可以进行安装位置的选择，因为安装时不方便保留截图，所以具体方法可以网上查一下。<strong>其实也不用这么麻烦，不用去查，直接换一种方案，把有Windows的硬盘从电脑中拔掉就行了，这样就不会让你选择了，就只会有这个空余的盘。就会出现如下的图，也不会有过多的分区挂载的操作</strong> 然后一路继续点起走～  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514037553/IMG_20171222_210902_eusnqe.jpg" alt="4"></li>
+</ul>
+</li>
+<li>等到系统安装完成后，点击继续，确认等肯定的选择后就重启电脑进入新安装的Ubuntu系统了，重启时等到屏幕黑屏就可以拔掉启动盘了<br><br></li>
+</ol>
+<h3 id="进入新系统"><a href="#进入新系统" class="headerlink" title="进入新系统"></a>进入新系统</h3><p>重启电脑进入系统后，就能看见这个全新安装的Ubuntu OS了。是不是很有新鲜感呢～   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514032606/update0_xd4tbi.png" alt="5"> <strong>之后还有关于Ubuntu安装常用软件，远程操作等教程，其实很多同学就是因为不能成功安装软件而导致系统无法使用而放弃它，下一篇讲介绍一些软件的安装和需要注意的坑，请持续关注更新吧～</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Ubuntu-Install-Hello-Ubuntu&quot;&gt;&lt;a href=&quot;#Ubuntu-Install-Hello-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu Install|Hello Ubuntu&quot;&gt;&lt;/a&gt;&lt;center&gt;Ubuntu Install|Hello Ubuntu&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://shic.top/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://shic.top/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>维持你电脑的快速</title>
