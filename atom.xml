@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-12-23T15:20:54.913Z</updated>
+  <updated>2017-12-23T15:35:16.842Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://shic.top/2017/12/23/Hello_Ubuntu/"/>
     <id>http://shic.top/2017/12/23/Hello_Ubuntu/</id>
     <published>2017-12-22T16:00:00.000Z</published>
-    <updated>2017-12-23T15:20:54.913Z</updated>
+    <updated>2017-12-23T15:35:16.842Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Ubuntu-Install-Hello-Ubuntu"><a href="#Ubuntu-Install-Hello-Ubuntu" class="headerlink" title="Ubuntu Install|Hello Ubuntu"></a><center>Ubuntu Install|Hello Ubuntu</center></h2><p>我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h2 id="Ubuntu-Install-Hello-Ubuntu"><a href="#Ubuntu-Install-Hello-Ubuntu" class="headerlink" title="Ubuntu Install|Hello Ubuntu"></a><center>Ubuntu Install|Hello Ubuntu</center></h2><p>我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧</p>
+<p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1514043169/Ubuntu_tp58kw.jpg" alt="00"></center><br><a id="more"></a></p>
 <ul>
 <li>以Ubuntu 17.10为例，<a href="https://www.ubuntu.com/desktop/1710" target="_blank" rel="external">下载地址</a><ul>
 <li>在电脑硬盘上安装。</li>
@@ -61,7 +62,8 @@
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Ubuntu-Install-Hello-Ubuntu&quot;&gt;&lt;a href=&quot;#Ubuntu-Install-Hello-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu Install|Hello Ubuntu&quot;&gt;&lt;/a&gt;&lt;center&gt;Ubuntu Install|Hello Ubuntu&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧&lt;br&gt;
+      &lt;h2 id=&quot;Ubuntu-Install-Hello-Ubuntu&quot;&gt;&lt;a href=&quot;#Ubuntu-Install-Hello-Ubuntu&quot; class=&quot;headerlink&quot; title=&quot;Ubuntu Install|Hello Ubuntu&quot;&gt;&lt;/a&gt;&lt;center&gt;Ubuntu Install|Hello Ubuntu&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1514043169/Ubuntu_tp58kw.jpg&quot; alt=&quot;00&quot;&gt;&lt;/center&gt;&lt;br&gt;
     
     </summary>
     
