@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-12-23T15:35:16.842Z</updated>
+  <updated>2017-12-25T14:35:02.564Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -16,9 +16,84 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在Ubuntu里使用Python</title>
+    <link href="http://shic.top/2017/12/23/Ubuntu_python/"/>
+    <id>http://shic.top/2017/12/23/Ubuntu_python/</id>
+    <published>2017-12-22T16:00:03.000Z</published>
+    <updated>2017-12-25T14:35:02.564Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家应该都听说过，现在很多Linux系统都自带有Python，Ubuntu也不例外，但是因为版本原因，我们该如何正确使用它呢<br><a id="more"></a></p>
+<h3 id="检查Python"><a href="#检查Python" class="headerlink" title="检查Python"></a>检查Python</h3><ul>
+<li>首先我们检查一下Python才发现，原来只是自带了Python2.7，但是这时如果再输入一下<strong>Python3</strong>的话，就会发现其实Python3也是安装了的，而且Ubuntu17.10还是自带的Python3.6.2版本的。<img src="http://res.cloudinary.com/shi1996/image/upload/v1514102549/check_python_LI_as7vbg.jpg" alt=""> 但是大家会发现pypi都有安装。其实想想也是有道理的，这样用户就可以根据自己的需求来决定到底用哪一个版本的Python了。</li>
+</ul>
+<h3 id="安装Pypi和其他常用包"><a href="#安装Pypi和其他常用包" class="headerlink" title="安装Pypi和其他常用包"></a>安装Pypi和其他常用包</h3><p>以Python3.6.2为例<br><br></p>
+<ol>
+<li>当需要安装Python3的其他模块的时候，就会用到pip3，那么我们就   为系统安装它，输入以下命令：<br><code>sudo apt-get install python3-pip</code><br>输入y，点击回车，等待下载完成</li>
+<li>安装Python的其他包就可以像在Windows中一样进行操作了。当然我们Windows通常就只安装一个版本的Python，所以我们可能会直接这样用：<br><code>pip install package_name</code><br>但是需要注意的是，这时候就会报错了，很神奇？其实这也是必然，毕竟直接输入pip install是在用Python2.7，要是想要Python3的话就得输入<strong>pip3 install</strong>，   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514102538/install_pip3_podqa7.png" alt="">   这样也不会因为有两个不兼容版本的Python而不知道自己安装的模块到底属于哪一个的问题了。例如下图所示：   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514102541/install_numpy_k4sxvd.png" alt=""></li>
+<li><p><strong>这里提醒一点想安装Jupyter的伙伴们</strong>，这里有一个几个坑需要注意以下，我也是查了很久才知道怎么操作的，于是在这里总结以下。和Windows里的不一样，需要用到：<br><code>pip3 install jupyter-notebook</code></p>
+<ul>
+<li>有些电脑可能安装不上，那就检查以下jupyter，系统提示需要用到<strong>sudo apt</strong>来安装，于是跟着提示进行操作  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514102537/jupyter0_vtta1y.png" alt=""></li>
+<li>然后在输入jupyter发现是安装了，和Windows里的一样显示，但是输入jupyter notebook发现还是不行。  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514102534/jupyter1_xncv8c.png" alt="">  </li>
+<li>这个时候，再在Terminal里面输入下面的命令就行了<br><code>pip3 install jupyter-notebook</code></li>
+</ul>
+<p>最后在看一下大功告成的样子，完美~  <img src="http://res.cloudinary.com/shi1996/image/upload/c_scale,w_1999/v1514037548/IMG_20171222_203340_zvk3rm.jpg" alt=""></p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;大家应该都听说过，现在很多Linux系统都自带有Python，Ubuntu也不例外，但是因为版本原因，我们该如何正确使用它呢&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://shic.top/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://shic.top/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu安装本地软件</title>
+    <link href="http://shic.top/2017/12/23/Ubuntu_install_app/"/>
+    <id>http://shic.top/2017/12/23/Ubuntu_install_app/</id>
+    <published>2017-12-22T16:00:02.000Z</published>
+    <updated>2017-12-25T14:33:48.563Z</updated>
+    
+    <content type="html"><![CDATA[<p>安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。<br>感觉又何Java开发类似了，不停地找啥以来直到用上spring<br><a id="more"></a><br>我们一安装网易云音乐和搜狗拼音为例来进行操作，之后的软件安装都可以类似操作。</p>
+<h3 id="安装网易云音乐"><a href="#安装网易云音乐" class="headerlink" title="安装网易云音乐"></a>安装网易云音乐</h3><ol>
+<li>先从网上下载安装包到本地，然后在下载的文件夹中打开Terminal（右键-打开终端）,输入以下安装本地软件的命令（中括号中请替换成相应软件的名字，包括格式，例如:abc123.deb）<br><code>sudo dpkg -i [your app&#39;s name]</code><br>如下图所示，输入密码后可能会出现很多依赖缺失的情况  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083063/163_0_mlrvmy.png" alt="0"> 那么我们就可以根据提示去做，它说未安装的软件包，我们就去安装就行了。</li>
+<li>当我们输入安装软件包的指令后，他会去我们设定好的软件源去下载：<br><code>sudo apt-get install gconf-service</code><br>会发现依然有很多毛病不能正常安装，它又说没有gconf-service-backend，那是不是又要去安装它呢，万一又缺啥是不是就进入死循环了呢？  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083049/163_1_tdvl9v.png" alt="1">  哈哈，先不急着往下安装，<strong>每一次报错都要仔细看一下提示信息嘛，一般都很有用的</strong></li>
+<li>提示说有未能满足的依赖关系。请尝试不指明软件包的名字来运行apt     –fix-broken install然后给出了一行命令，那么我们就输入它试试                    看：<br><code>apt --fix-broken install</code></li>
+<li>输入之后你会发现它提示权限不够，然而我们在安装系统的时候所设置        的用户就是超级用户了，也就是管理员了。然而很多同学可能就会。想到Windows下有提升用户权限的操作，于是就去搜Ubuntu提升用户。权限的操 作，结果又没有搜到于是就一直卡在这里。 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083057/163_2_hnxtwo.png" alt="2"><br>其实要是懂一点Linux的基本命令就会知道，而且我们之前安装软件都输入了<strong>sudo</strong>的字符，sudo是linux系统管理指令，是允许系统管理员让普通用户执行一些或者全部的root命令的一个工具。简单理解可以是super user do。那么我们尝试一下下面的命令：<br><code>sudo apt --fix-broken install</code></li>
+<li>输入之后你将看到一下的界面  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083070/163_3_s7yjdj.png" alt="3">  输入y点击回车就行了，要是你不放心呢，就去输入命令检查一下，结果也是发现以前缺少的依赖都在了  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083065/163_4_yw7xgw.png" alt="4">  那么你就可以在该软件安装包所在的文件夹里打开Terminal，使用一下命令安装你的软件了：<br><code>sudo dpkg -i [your app&#39;s name]</code><br><br></li>
+</ol>
+<h3 id="安装搜狗拼音"><a href="#安装搜狗拼音" class="headerlink" title="安装搜狗拼音"></a>安装搜狗拼音</h3><p>讲真，自带的中文输入法还真的不好用，于是我们换成了对中文输入更加友好的搜狗拼音。</p>
+<ol>
+<li>和之前的安装步骤一样，遇到问题一样的操作，你自己操作一遍就会熟练了。 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin0_ifoxwf.png" alt="5">  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083053/pinyin1_rbuxxa.png" alt="5"></li>
+<li>安装好之后就如图进行设置 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin3_ws8bsm.png" alt="6"> 选择键盘输入法系统为fcitx，有些电脑可能会出现下面图中定位情况，选择是或者安装就行了 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083066/pinyin2_l4utx6.png" alt="7"></li>
+<li>最后我们检验一下，发现能用就大功告成啦  <img src="http://res.cloudinary.com/shi1996/image/upload/c_limit,w_1182/v1514037552/IMG_20171222_222709_kyupuh.jpg" alt="8"></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。&lt;br&gt;感觉又何Java开发类似了，不停地找啥以来直到用上spring&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://shic.top/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://shic.top/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello Ubuntu</title>
-    <link href="http://shic.top/2017/12/23/Hello_Ubuntu/"/>
-    <id>http://shic.top/2017/12/23/Hello_Ubuntu/</id>
+    <link href="http://shic.top/2017/12/23/U_Hello_Ubuntu/"/>
+    <id>http://shic.top/2017/12/23/U_Hello_Ubuntu/</id>
     <published>2017-12-22T16:00:00.000Z</published>
     <updated>2017-12-23T15:35:16.842Z</updated>
     
@@ -124,34 +199,19 @@
   </entry>
   
   <entry>
-    <title>Assessment</title>
-    <link href="http://shic.top/2017/11/24/Assessment/"/>
-    <id>http://shic.top/2017/11/24/Assessment/</id>
+    <title>Battle Symphony</title>
+    <link href="http://shic.top/2017/11/24/Battle%20Symphony/"/>
+    <id>http://shic.top/2017/11/24/Battle Symphony/</id>
     <published>2017-11-23T16:00:00.000Z</published>
-    <updated>2017-11-24T05:11:00.951Z</updated>
+    <updated>2017-12-25T14:28:14.514Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="考核"><a href="#考核" class="headerlink" title="考核"></a><center>考核</center></h1><p>大家期待已久的考核终于是来了，是不是很激动呢，好了废话不多说。。。</p>
-<p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1511434483/%E4%B8%89%E8%A1%8C%E4%BB%A3%E7%A0%81_yjm9r1.jpg" alt="让你三行代码"></center><br><a id="more"></a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><ol>
-<li>首先明确一点，搞实际的开发可以按照视频所讲的流程进行，这是一个不错的开发路线，但这并不适合学习路线。结合自己的思考，从快速展现出学习效果的角度出发，规划一下自己今后在这方面的学习流程，格式:A技术–&gt;B技术，并阐明每一环节这样安排顺序的理由，简明回答。</li>
-<li>项目开始时，打开IntelliJ后，会对项目的某个文件添加依赖，你认为这是用IntelliJ开发项目的必要操作吗？请阐明理由。</li>
-<li>视频中讲到建立实体类的时候，我们编写了两个构造函数，请简要说明构造函数在类中的作用。</li>
-<li>视频中声明studentRepository时，和你平时声明有什么区别？你平时声明类对象是用到了什么运算符。对比视频中的不同操作，你有什么看法？</li>
-</ol>
-<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><ul>
-<li>所有回答在邮件中完成，标注好题号。邮件标题写自己的名字，发送到shichi@shic.top</li>
-<li>限周六20：00之前发送邮件。过期作废。</li>
-</ul>
-<p><br><br><br><br><br><br><br><br><br><br><br><br></p>
-<h2 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h2><p>关于考核，是一项公正严格且没有人情的事情。<strong>不管你有没有通过，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！</strong></p>
-<p>半年前，正是初夏。每天我都会去挤点时间看NBA季后赛，每天看完后都觉得自己又能量满满，他们的精神鼓励了我。每天都会有季后赛的战况宣传片，里面放的歌我记忆犹新。<br><strong>听歌一首，与知己者共赏</strong></p>
-<p><audio src="http://www.0dutv.com/plug/down/up2.php/201068780.mp3" controls="controls"></audio><br>I got a long way to go<br>漫漫路途在我前头<br>And a long memory<br>留下冗长的记忆<br>I been searching for an answer<br>我一直在探索真正的答案<br>Always just out of reach<br>却总差一尺之距<br>Blood on the floor<br>热血地上挥洒过<br>Sirens repeat<br>扰音回荡不停<br>I been searching for the courage<br>我不断地寻找坚毅的勇气<br>To face my enemies<br>以直面我的夙敌<br>When they turn down the lights<br>当他们将光芒熄灭掩盖<br>I hear my battle symphony<br>我听到我的战乐响起<br>All the world in front of me<br>浩航世界呈现在眼底<br>If my armor breaks<br>若我铠甲被打碎<br>I’ll fuse it back together<br>我要将碎片熔铸缝合<br>Battle symphony<br>战斗交响曲<br>Please just don’t give up on me<br>请勿轻易地把我放弃<br>And my eyes are wide awake<br>我的双目依旧清醒<br>For my battle symphony<br>为我的战斗交响曲<br>For my battle symphony<br>为我的战斗交响曲<br>“<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1511440867/Kyrie_Irving_guwppx.png" alt="Kyrie Irving"></center>“</p>
+    <content type="html"><![CDATA[<p><strong>不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！</strong><br><a id="more"></a><br>半年前，正是初夏。每天我都会去挤点时间看NBA季后赛，每天看完后都觉得自己又能量满满，他们的精神鼓励了我。每天都会有季后赛的战况宣传片，里面放的歌我记忆犹新。<br><strong>听歌一首，与知己者共赏</strong></p>
+<h3 id="Battle-Symphony"><a href="#Battle-Symphony" class="headerlink" title="Battle Symphony"></a>Battle Symphony</h3><p><audio src="http://www.0dutv.com/plug/down/up2.php/201068780.mp3" controls="controls"></audio><br>I got a long way to go<br>漫漫路途在我前头<br>And a long memory<br>留下冗长的记忆<br>I been searching for an answer<br>我一直在探索真正的答案<br>Always just out of reach<br>却总差一尺之距<br>Blood on the floor<br>热血地上挥洒过<br>Sirens repeat<br>扰音回荡不停<br>I been searching for the courage<br>我不断地寻找坚毅的勇气<br>To face my enemies<br>以直面我的夙敌<br>When they turn down the lights<br>当他们将光芒熄灭掩盖<br>I hear my battle symphony<br>我听到我的战乐响起<br>All the world in front of me<br>浩航世界呈现在眼底<br>If my armor breaks<br>若我铠甲被打碎<br>I’ll fuse it back together<br>我要将碎片熔铸缝合<br>Battle symphony<br>战斗交响曲<br>Please just don’t give up on me<br>请勿轻易地把我放弃<br>And my eyes are wide awake<br>我的双目依旧清醒<br>For my battle symphony<br>为我的战斗交响曲<br>For my battle symphony<br>为我的战斗交响曲<br>“<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1511440867/Kyrie_Irving_guwppx.png" alt="Kyrie Irving"></center>“</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;考核&quot;&gt;&lt;a href=&quot;#考核&quot; class=&quot;headerlink&quot; title=&quot;考核&quot;&gt;&lt;/a&gt;&lt;center&gt;考核&lt;/center&gt;&lt;/h1&gt;&lt;p&gt;大家期待已久的考核终于是来了，是不是很激动呢，好了废话不多说。。。&lt;/p&gt;
-&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1511434483/%E4%B8%89%E8%A1%8C%E4%BB%A3%E7%A0%81_yjm9r1.jpg&quot; alt=&quot;让你三行代码&quot;&gt;&lt;/center&gt;&lt;br&gt;
+      &lt;p&gt;&lt;strong&gt;不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！&lt;/strong&gt;&lt;br&gt;
     
     </summary>
     

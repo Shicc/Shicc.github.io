@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="让电脑飞," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -79,22 +79,29 @@
 
 
 
-<meta name="description" content="改传统于UEFI，你知道这些就够了在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的">
-<meta name="keywords" content="让电脑飞">
+<meta name="description" content="安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。感觉又何Java开发类似了，不停地找啥以来直到用上spring">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UEFI番外篇">
-<meta property="og:url" content="http://shic.top/2017/08/27/UEFI2/index.html">
+<meta property="og:title" content="Ubuntu安装本地软件">
+<meta property="og:url" content="http://shic.top/2017/12/23/Ubuntu_install_app/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="改传统于UEFI，你知道这些就够了在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的">
+<meta property="og:description" content="安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。感觉又何Java开发类似了，不停地找啥以来直到用上spring">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://shic.top/images/让电脑飞/引导.png">
-<meta property="og:image" content="http://shic.top/images/让电脑飞/UEFI引导.png">
-<meta property="og:image" content="http://shic.top/images/让电脑飞/区别.png">
-<meta property="og:updated_time" content="2017-08-27T01:28:15.439Z">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083063/163_0_mlrvmy.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083049/163_1_tdvl9v.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083057/163_2_hnxtwo.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083070/163_3_s7yjdj.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083065/163_4_yw7xgw.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin0_ifoxwf.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083053/pinyin1_rbuxxa.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin3_ws8bsm.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083066/pinyin2_l4utx6.png">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/c_limit,w_1182/v1514037552/IMG_20171222_222709_kyupuh.jpg">
+<meta property="og:updated_time" content="2017-12-25T14:33:48.563Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UEFI番外篇">
-<meta name="twitter:description" content="改传统于UEFI，你知道这些就够了在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的">
-<meta name="twitter:image" content="http://shic.top/images/让电脑飞/引导.png">
+<meta name="twitter:title" content="Ubuntu安装本地软件">
+<meta name="twitter:description" content="安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。感觉又何Java开发类似了，不停地找啥以来直到用上spring">
+<meta name="twitter:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514083063/163_0_mlrvmy.png">
 
 
 
@@ -124,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://shic.top/2017/08/27/UEFI2/"/>
+  <link rel="canonical" href="http://shic.top/2017/12/23/Ubuntu_install_app/"/>
 
 
 
 
 
-  <title>UEFI番外篇 | GeekShi</title>
+  <title>Ubuntu安装本地软件 | GeekShi</title>
   
 
 
@@ -267,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shic.top/2017/08/27/UEFI2/">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/2017/12/23/Ubuntu_install_app/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="this.Shi">
@@ -284,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">UEFI番外篇</h1>
+          <h1 class="post-title" itemprop="name headline">Ubuntu安装本地软件</h1>
         
 
         <div class="post-meta">
@@ -296,8 +303,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-27T00:00:10+08:00">
-                2017-08-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:02+08:00">
+                2017-12-23
               </time>
             
 
@@ -319,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/让电脑飞/" itemprop="url" rel="index">
-                    <span itemprop="name">让电脑飞</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -336,7 +343,7 @@
 
           
           
-             <span id="/2017/08/27/UEFI2/" class="leancloud_visitors" data-flag-title="UEFI番外篇">
+             <span id="/2017/12/23/Ubuntu_install_app/" class="leancloud_visitors" data-flag-title="Ubuntu安装本地软件">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -367,19 +374,20 @@
       
 
       
-        <h2 id="改传统于UEFI，你知道这些就够了"><a href="#改传统于UEFI，你知道这些就够了" class="headerlink" title="改传统于UEFI，你知道这些就够了"></a><center>改传统于UEFI，你知道这些就够了</center></h2><p><em>在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的</em><br><a id="more"></a><br>为了简单明了地弄懂这个问题，我通过自己的总结和举例，帮助读者懂明白。<br>虽然有些可能不是100%的准确，但大致可以这样理解。</p>
-<ul>
-<li><p></p><h4>UEFI采用的不同的开机引导</h4><br>首先我们明白，我们的系统是放在硬盘里的，那些数据是用一个容器来装着的，但硬盘里那么多的数据，计算机怎么知道开机需要哪一块的呢？所以开机的时候需要引导，像一个指挥棒一样，指引着硬件怎么去利用特定的数据。这里的引导模式就有些不同了，这在我们装系统的时候就能看出来，需要一个盘去引导硬件开机。<br><center><img src="/images/让电脑飞/引导.png" alt="引导"></center><br>传统的安装系统，在安装的时候会出现添加引导，其中你把系统装入的分区就是引导分区，如上图一样我把系统装在C盘，添加的引导就是C盘，且推荐也是C盘，意思是要用它来引导开机，而UEFI模式下，从装机时的引导就能看出不一样，需要的引导不是系统所在分区，而是我们建立的ESP分区了。如下图：<br><center><img src="/images/让电脑飞/UEFI引导.png" alt="UEFI引导"></center><br>我把系统装在C盘，但UEFI下的引导并不是C盘的，而是我们之前建立的ESP分区，就是上图所示的E盘。<strong>而从这里我们也明白了为什么要实现UEFI启动必须要有ESP分区了，还要向该分区里手动添加EFI分区文件，因为是需要用来ESP分区来引导系统的启动</strong>，而大家也会发现EFI分区文件和系统镜像文件里的boot文件夹里的EFI很像<p></p>
-</li>
-<li><p></p><h4>不同EFI文件夹里的不同内容</h4><p></p>
-<center><img src="/images/让电脑飞/区别.png" alt="区别"></center><br><center>（上方为EFI分区文件，下方为win10iso里的efi文件夹，当然里面的内容是不同的）</center>   
-</li>
-<li><p></p><h4>UEFI和传统的BIOS启动方式不同</h4><br>我们推荐目前的电脑都采用UEFI启动是因为它开机快，为什么现在的UEFI比传统的BIOS启动快呢？原因还启动的流程不同<br>大概可以这样分：<strong>开机-&gt;UEFI初始化-&gt;引导操作系统-&gt;进入系统</strong><br>而传统模式下：<strong>开机-&gt;BIOS初始化-&gt;BIOS自检-&gt;引导操作系统-&gt;进入系统</strong><br>这么一来UEFI开机就要快些了。所以我们推荐使用UEFI，那么我们之前在改什么硬盘的分区结构又是怎么回事呢？为此我还专门去研究了一下硬盘的分区结构，那可以不改吗？答案是：不行的，必须改。我们需要安装Windows系统，<strong>由于微软的限制，只能将系统安装在GPT硬盘中</strong>。我们以前的传统模式下，BIOS是不能识别GPT的，所以那时我们的硬盘都是MBR的分区结构，这也有了<a href="http://shic.top/2017/08/25/UFEI1/" title="点击查看怎样UEFI启动">《怎样UEFI启动》</a>一文，里面有详细的处理步骤。而经过笔者的亲自测试，如果硬盘是MBR结构，即使使用UEFI版的装机U盘，也只能是传统的启动；如果硬盘是GPT结构的，安装win7会出现“Windows无法安装到这个磁盘,选中的磁盘采用GPT分区形式”，原因是win7没有像以后的系统一样预装efi文件。只有把硬盘格式改成MBR才可以装win7。所以给大家总结一下启动模式和硬盘的分区结构的组合搭配应该是：传统BIOS+MBR硬盘，或者UEFI+GPT硬盘。<p></p>
-</li>
-<li><p></p><h4>后言</h4><br>当然就后者UEFI+GPT硬盘，优势并不只是开机快了点，而UEFI有其他优势，GPT分区结构也有比MBR更强大的地方，因为已经超出了本文的讨论范围，所以就不赘述了。总的来说，<strong>在未来会有越来越多的UEFI+GPT的组合出现在电脑上，这应该是一个趋势所在</strong>。<p></p>
-</li>
-</ul>
-<p><em>欢迎转载，转载注明出处</em></p>
+        <p>安装一个软件都能报出依赖缺失的错，是不是觉得简直了。。。<br>感觉又何Java开发类似了，不停地找啥以来直到用上spring<br><a id="more"></a><br>我们一安装网易云音乐和搜狗拼音为例来进行操作，之后的软件安装都可以类似操作。</p>
+<h3 id="安装网易云音乐"><a href="#安装网易云音乐" class="headerlink" title="安装网易云音乐"></a>安装网易云音乐</h3><ol>
+<li>先从网上下载安装包到本地，然后在下载的文件夹中打开Terminal（右键-打开终端）,输入以下安装本地软件的命令（中括号中请替换成相应软件的名字，包括格式，例如:abc123.deb）<br><code>sudo dpkg -i [your app&#39;s name]</code><br>如下图所示，输入密码后可能会出现很多依赖缺失的情况  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083063/163_0_mlrvmy.png" alt="0"> 那么我们就可以根据提示去做，它说未安装的软件包，我们就去安装就行了。</li>
+<li>当我们输入安装软件包的指令后，他会去我们设定好的软件源去下载：<br><code>sudo apt-get install gconf-service</code><br>会发现依然有很多毛病不能正常安装，它又说没有gconf-service-backend，那是不是又要去安装它呢，万一又缺啥是不是就进入死循环了呢？  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083049/163_1_tdvl9v.png" alt="1">  哈哈，先不急着往下安装，<strong>每一次报错都要仔细看一下提示信息嘛，一般都很有用的</strong></li>
+<li>提示说有未能满足的依赖关系。请尝试不指明软件包的名字来运行apt     –fix-broken install然后给出了一行命令，那么我们就输入它试试                    看：<br><code>apt --fix-broken install</code></li>
+<li>输入之后你会发现它提示权限不够，然而我们在安装系统的时候所设置        的用户就是超级用户了，也就是管理员了。然而很多同学可能就会。想到Windows下有提升用户权限的操作，于是就去搜Ubuntu提升用户。权限的操 作，结果又没有搜到于是就一直卡在这里。 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083057/163_2_hnxtwo.png" alt="2"><br>其实要是懂一点Linux的基本命令就会知道，而且我们之前安装软件都输入了<strong>sudo</strong>的字符，sudo是linux系统管理指令，是允许系统管理员让普通用户执行一些或者全部的root命令的一个工具。简单理解可以是super user do。那么我们尝试一下下面的命令：<br><code>sudo apt --fix-broken install</code></li>
+<li>输入之后你将看到一下的界面  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083070/163_3_s7yjdj.png" alt="3">  输入y点击回车就行了，要是你不放心呢，就去输入命令检查一下，结果也是发现以前缺少的依赖都在了  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083065/163_4_yw7xgw.png" alt="4">  那么你就可以在该软件安装包所在的文件夹里打开Terminal，使用一下命令安装你的软件了：<br><code>sudo dpkg -i [your app&#39;s name]</code><br><br></li>
+</ol>
+<h3 id="安装搜狗拼音"><a href="#安装搜狗拼音" class="headerlink" title="安装搜狗拼音"></a>安装搜狗拼音</h3><p>讲真，自带的中文输入法还真的不好用，于是我们换成了对中文输入更加友好的搜狗拼音。</p>
+<ol>
+<li>和之前的安装步骤一样，遇到问题一样的操作，你自己操作一遍就会熟练了。 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin0_ifoxwf.png" alt="5">  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083053/pinyin1_rbuxxa.png" alt="5"></li>
+<li>安装好之后就如图进行设置 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083059/pinyin3_ws8bsm.png" alt="6"> 选择键盘输入法系统为fcitx，有些电脑可能会出现下面图中定位情况，选择是或者安装就行了 <img src="http://res.cloudinary.com/shi1996/image/upload/v1514083066/pinyin2_l4utx6.png" alt="7"></li>
+<li>最后我们检验一下，发现能用就大功告成啦  <img src="http://res.cloudinary.com/shi1996/image/upload/c_limit,w_1182/v1514037552/IMG_20171222_222709_kyupuh.jpg" alt="8"></li>
+</ol>
 
       
     </div>
@@ -426,7 +434,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/让电脑飞/" rel="tag"># 让电脑飞</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -439,8 +447,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/25/UFEI1/" rel="next" title="UEFI篇">
-                <i class="fa fa-chevron-left"></i> UEFI篇
+              <a href="/2017/12/23/U_Hello_Ubuntu/" rel="next" title="Hello Ubuntu">
+                <i class="fa fa-chevron-left"></i> Hello Ubuntu
               </a>
             
           </div>
@@ -449,8 +457,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/31/C++string/" rel="prev" title="超强string类">
-                超强string类 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/23/Ubuntu_python/" rel="prev" title="在Ubuntu里使用Python">
+                在Ubuntu里使用Python <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -629,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#改传统于UEFI，你知道这些就够了"><span class="nav-number">1.</span> <span class="nav-text">改传统于UEFI，你知道这些就够了</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.1.</span> <span class="nav-text">UEFI采用的不同的开机引导</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.2.</span> <span class="nav-text">不同EFI文件夹里的不同内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.3.</span> <span class="nav-text">UEFI和传统的BIOS启动方式不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.4.</span> <span class="nav-text">后言</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装网易云音乐"><span class="nav-number">1.</span> <span class="nav-text">安装网易云音乐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装搜狗拼音"><span class="nav-number">2.</span> <span class="nav-text">安装搜狗拼音</span></a></li></ol></div>
             
 
           </div>
