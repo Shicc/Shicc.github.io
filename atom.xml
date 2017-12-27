@@ -91,6 +91,38 @@
   </entry>
   
   <entry>
+    <title>Ubuntu更改软件源</title>
+    <link href="http://shic.top/2017/12/23/U_select_appSource/"/>
+    <id>http://shic.top/2017/12/23/U_select_appSource/</id>
+    <published>2017-12-22T16:00:01.000Z</published>
+    <updated>2017-12-27T12:55:10.604Z</updated>
+    
+    <content type="html"><![CDATA[<p>想用Linux系统而因为安装软件一直出错而放弃使用的同学，举个手。。。<br>那么我们现在就来解决软件安装的问题<br><a id="more"></a></p>
+<h3 id="改软件源并更新系统"><a href="#改软件源并更新系统" class="headerlink" title="改软件源并更新系统"></a>改软件源并更新系统</h3><p>很多时候我们都是因为下载软件老是很慢或者根本就下载不了，就直接导致你的系统缺少可用工具而放弃了使用，所以第一步就是要解决软件下载和安装的问题。<br>那么首先就得改一下软件源，搞Java开发且用过Maven的同学多半也改过它的中央长裤仓库地址吧，这里是一个道理，选择一个好的下载点</p>
+<ol>
+<li>如图点击进行操作  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514379127/snipaste_20171224_094711_inpvpq.jpg" alt="0"> 点击下载自这里的框，选择其他站点。</li>
+<li>然后你就会看到如下图所示的界面，选择阿里或者搜狐的就行，也可以让他自己测试一下自己选择最优   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514379191/select_server_jgiyou.png" alt="1"></li>
+<li>操作完成之后，你就可以去更新自己的软件了，点击第一张图所示的软件更新器，更新一下自己的本地软件，避免之后进行某些操作的时候因软件版本过低而无法运行。  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514379193/update1_hpgyqt.png" alt="2">  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514379192/update2_bs1kxw.png" alt="3"></li>
+<li>等待下载完成之后，重启一下就行啦</li>
+<li>这时你再去软件商店看一下，就会发现多了很多软件了，不像之前的就几个。下载一下常用的软件就可以从这里下载。当然也可以在Terminal中进行下载，或者把软件下载到本地然后在Terminal中进行安装</li>
+</ol>
+<p><strong>预告：下一篇会讲一下关于本地安装软件时遇到的坑和解决办法，教你怎么自己去处理出现的错误，绝对实用！</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;想用Linux系统而因为安装软件一直出错而放弃使用的同学，举个手。。。&lt;br&gt;那么我们现在就来解决软件安装的问题&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://shic.top/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://shic.top/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hello Ubuntu</title>
     <link href="http://shic.top/2017/12/23/U_Hello_Ubuntu/"/>
     <id>http://shic.top/2017/12/23/U_Hello_Ubuntu/</id>
@@ -203,9 +235,9 @@
     <link href="http://shic.top/2017/11/24/Battle%20Symphony/"/>
     <id>http://shic.top/2017/11/24/Battle Symphony/</id>
     <published>2017-11-23T16:00:00.000Z</published>
-    <updated>2017-12-25T14:28:14.514Z</updated>
+    <updated>2017-12-27T13:01:45.712Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！</strong><br><a id="more"></a><br>半年前，正是初夏。每天我都会去挤点时间看NBA季后赛，每天看完后都觉得自己又能量满满，他们的精神鼓励了我。每天都会有季后赛的战况宣传片，里面放的歌我记忆犹新。<br><strong>听歌一首，与知己者共赏</strong></p>
+    <content type="html"><![CDATA[<p><strong>不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！</strong><br><a id="more"></a><br>半年前，正是初夏。每天我都会去挤点时间看NBA季后赛，每天看完后都觉得自己又能量满满，他们的精神鼓励了我。每天都会有季后赛的战况宣传片，里面放的歌我记忆犹新。<br><strong>听歌一首，与知己者共赏～</strong></p>
 <h3 id="Battle-Symphony"><a href="#Battle-Symphony" class="headerlink" title="Battle Symphony"></a>Battle Symphony</h3><p><audio src="http://www.0dutv.com/plug/down/up2.php/201068780.mp3" controls="controls"></audio><br>I got a long way to go<br>漫漫路途在我前头<br>And a long memory<br>留下冗长的记忆<br>I been searching for an answer<br>我一直在探索真正的答案<br>Always just out of reach<br>却总差一尺之距<br>Blood on the floor<br>热血地上挥洒过<br>Sirens repeat<br>扰音回荡不停<br>I been searching for the courage<br>我不断地寻找坚毅的勇气<br>To face my enemies<br>以直面我的夙敌<br>When they turn down the lights<br>当他们将光芒熄灭掩盖<br>I hear my battle symphony<br>我听到我的战乐响起<br>All the world in front of me<br>浩航世界呈现在眼底<br>If my armor breaks<br>若我铠甲被打碎<br>I’ll fuse it back together<br>我要将碎片熔铸缝合<br>Battle symphony<br>战斗交响曲<br>Please just don’t give up on me<br>请勿轻易地把我放弃<br>And my eyes are wide awake<br>我的双目依旧清醒<br>For my battle symphony<br>为我的战斗交响曲<br>For my battle symphony<br>为我的战斗交响曲<br>“<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1511440867/Kyrie_Irving_guwppx.png" alt="Kyrie Irving"></center>“</p>
 ]]></content>
     
