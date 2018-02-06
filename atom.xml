@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2017-12-28T02:26:31.137Z</updated>
+  <updated>2018-02-06T13:58:26.663Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,208 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>机器学习识别方圆(1)</title>
+    <link href="http://shic.top/2018/02/06/ML_csv_pretreatment_data/"/>
+    <id>http://shic.top/2018/02/06/ML_csv_pretreatment_data/</id>
+    <published>2018-02-05T16:00:10.000Z</published>
+    <updated>2018-02-06T13:58:26.663Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="想从这个很简单的二分类问题从头实践图像识别吗？"><a href="#想从这个很简单的二分类问题从头实践图像识别吗？" class="headerlink" title="想从这个很简单的二分类问题从头实践图像识别吗？"></a>想从这个很简单的二分类问题从头实践图像识别吗？</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517904003/fang_yuan_qx0ukp.jpg" alt=""></center><br><a id="more"></a></p>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>可能绝大多数机器学习的入门者都用过MNIST数据集，然后第二步自己做实践的时候就卡住了，这一步中往往时相当费时间的，也是学习过程中一个困难的地方。这次博主将分享一个用机器学习来分辨图片的简单例子，带你走进实践，有利于对其工作原理的理解，便于后续的学习和研究。如果你还没有了解什么时机器学习，或者一些常用的算法，那本教程不适合。</p>
+<h3 id="获取数据集"><a href="#获取数据集" class="headerlink" title="获取数据集"></a>获取数据集</h3><ul>
+<li>本次训练我们将用到一组方圆的数据集，每一单位的数据就是一个包含大量噪点的图形，图片表示方形或者圆形，如图所示：<img src="http://res.cloudinary.com/shi1996/image/upload/v1517887539/img_of_data_t4vx8s.jpg" alt=""> </li>
+<li>其中用0表示圆，1表示方形。点击<a href="https://pan.baidu.com/s/1kWpzaS3" target="_blank" rel="external">下载数据集</a> 密码: vr76，<strong>请勿用作商业用途，数据集仅做学习交流</strong></li>
+</ul>
+<h3 id="数据集介绍"><a href="#数据集介绍" class="headerlink" title="数据集介绍"></a>数据集介绍</h3><p>下载数据集并解压后会得到三个csv格式的文件，这是能用Microsoft Excel打开的文件，打开发现数据并不是我们马上能够用于机器学习的数据，我们需要进行分析和预处理。</p>
+<ul>
+<li>该数据集包含：训练集中4000个灰度图像，预测集3550个灰度图像，其中还包含了大量的图像噪点。图像分辨率为40*40。以行向量的形式存放在csv文件里</li>
+<li>打开train.csv，第一行第一个就是id，从上往下0～3999，表示一共4000个数据。id后面一个是p_0_0,一直往右是到p_39_39，一共40*40个数据，每一行中的这1600个数据。分别代表图像(40,40)矩阵中相应位置上的像素点的灰度值。每一行最后一个标签为y，值0或者1，代表该行向量的数据表示的是圆形还是方形。数据集如下所示：<img src="http://res.cloudinary.com/shi1996/image/upload/v1517894328/train_dataSet_cwxs3c.jpg" alt=""></li>
+</ul>
+<h3 id="预处理、准备数据"><a href="#预处理、准备数据" class="headerlink" title="预处理、准备数据"></a>预处理、准备数据</h3><ul>
+<li>我们需要从训练集中分提取出训练的数据和对应的正确结果，从测试集中提出测试数据（去掉id，p_i_j的数据）。请注意数据集文件的位置，此处是和代码文件在一个文件夹中。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line"># 准备训练数据</div><div class="line">train_data_set = pd.read_csv(&apos;train.csv&apos;)</div><div class="line"># 获取训练集输入数据</div><div class="line">train_data = train_data_set.iloc[0:4000,1:1601]</div><div class="line"># 获取训练集的正确标签</div><div class="line">train_labels = train_data_set.iloc[0:4000,[1601]]</div><div class="line"></div><div class="line">#准备测试数据</div><div class="line">test_data_set = pd.read_csv(&apos;test.csv&apos;)</div><div class="line">## 可以查看一下矩阵的维度，方便处理数据</div><div class="line"># print(test_data.shape)</div><div class="line">test_data = test_data_set.iloc[0:3550,1:1601]</div><div class="line">test_labels = pd.read_csv(&apos;sample_submit.csv&apos;).iloc[0:3550,[1]]</div></pre></td></tr></table></figure>
+<ul>
+<li>如果对这里的行向量理解不是很深刻，不相信这能表示图片信息的话，还可以随便找一行输出来看看是什么，图片如上面所示</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import matplotlib.pyplot as plt</div><div class="line"># 这里输出第996个图像观察一下</div><div class="line">plt.imshow(train_data.iloc[995].reshape(40,40), cmap=&apos;gray&apos;)</div><div class="line">plt.title(&apos;%i&apos; % train_labels.iloc[995,0]); plt.show()</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;想从这个很简单的二分类问题从头实践图像识别吗？&quot;&gt;&lt;a href=&quot;#想从这个很简单的二分类问题从头实践图像识别吗？&quot; class=&quot;headerlink&quot; title=&quot;想从这个很简单的二分类问题从头实践图像识别吗？&quot;&gt;&lt;/a&gt;想从这个很简单的二分类问题从头实践图像识别吗？&lt;/h2&gt;&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517904003/fang_yuan_qx0ukp.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习识别方圆(2)</title>
+    <link href="http://shic.top/2018/02/06/ML_csv_build_model/"/>
+    <id>http://shic.top/2018/02/06/ML_csv_build_model/</id>
+    <published>2018-02-05T16:00:09.000Z</published>
+    <updated>2018-02-06T13:45:51.449Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="搭建模型-CNN"><a href="#搭建模型-CNN" class="headerlink" title="搭建模型-CNN"></a>搭建模型-CNN</h2><p>本次先用CNN来搭建神经网络，实现图像的识别</p>
+<p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517897894/cnn_h1tuhm.jpg" alt=""></center><br><a id="more"></a><br><br></p>
+<h3 id="参数、超参数"><a href="#参数、超参数" class="headerlink" title="参数、超参数"></a>参数、超参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">batch_size = 50  # 一批取50个数据</div><div class="line">lr = 0.05       # learning rate</div></pre></td></tr></table></figure>
+<h3 id="选择一部分的测试数据"><a href="#选择一部分的测试数据" class="headerlink" title="选择一部分的测试数据"></a>选择一部分的测试数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">test_data_set = pd.read_csv(&apos;test.csv&apos;)                 # shape:(3550,1601) 没有包含正确结果，和训练集不一样</div><div class="line">test_data = test_data_set.iloc[0:1000,1:1601]           # shape:(1000,1600)</div><div class="line">test_labels = pd.read_csv(</div><div class="line">        &apos;sample_submit.csv&apos;).iloc[0:1000,[1]]           # shape:(1000,1) 一一对应</div></pre></td></tr></table></figure>
+<h3 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_x = tf.placeholder(tf.float32,[None,40*40])   # 每批50个数据，此处暂时不管，为None</div><div class="line">x_img = tf.reshape(tf_x,[-1,40,40,1])            # (batch, height, width, channel)</div><div class="line">tf_y = tf.placeholder(tf.float32,[None,1])</div><div class="line"></div><div class="line">## CNN</div><div class="line">## 激励函数此处选择的是relu</div><div class="line">conv1 = tf.layers.conv2d(           # shape:(40,40,1)</div><div class="line">        inputs = x_img,</div><div class="line">        filters = 10,               # 图像卷积后的深度</div><div class="line">        kernel_size = 5,            # 扫描核5*5大小</div><div class="line">        strides = 1,</div><div class="line">        padding = &apos;same&apos;,</div><div class="line">        activity_regularizer = tf.nn.relu</div><div class="line">)                                   # shape:(40,40,10)</div><div class="line">pool1 = tf.layers.max_pooling2d(</div><div class="line">        inputs = conv1,</div><div class="line">        pool_size = 2,</div><div class="line">        strides = 2</div><div class="line">)                                   # shape:(20,20,10)</div><div class="line">conv2 = tf.layers.conv2d(</div><div class="line">        inputs = pool1,</div><div class="line">        filters = 20,</div><div class="line">        kernel_size = 5,</div><div class="line">        strides = 1,</div><div class="line">        padding = &apos;same&apos;,</div><div class="line">        activity_regularizer = tf.nn.relu</div><div class="line">)                                   # shape:(20,20,20)</div><div class="line">pool2 = tf.layers.max_pooling2d(</div><div class="line">        inputs = conv2,</div><div class="line">        pool_size = 2,</div><div class="line">        strides = 2</div><div class="line">)                                   # shape:(10,10,20)</div><div class="line">flat_data = tf.reshape(pool2,[-1,10*10*20]) #(10*10*20, )</div><div class="line">output = tf.layers.dense(flat_data,1) #用于全连接层，二分类0或者1。输出为某一种特定的类型。</div></pre></td></tr></table></figure>
+<h3 id="定义损失函数"><a href="#定义损失函数" class="headerlink" title="定义损失函数"></a>定义损失函数</h3><p>此处我们选择的是交叉熵损失函数，需要注意的是这里的tf_y不是one_hot形式的，就是一个正确的标签，来自数据集的y，output就是模型的预测值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loss = tf.losses.softmax_cross_entropy(tf_y,logits = output)</div></pre></td></tr></table></figure></p>
+<h3 id="选择优化方法训练"><a href="#选择优化方法训练" class="headerlink" title="选择优化方法训练"></a>选择优化方法训练</h3><p>对于此数据集要选择GradientDescentOptimizer().<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">train_op = tf.train.GradientDescentOptimizer(lr).minimize(loss)</div></pre></td></tr></table></figure></p>
+<p>做了一个小实验，选择AdamOptimizer()作为优化器，但是却学不到结果的。这个二分类问题用GradientDescentOptimizer()的效果还是可以。当然这与初始值还是有点关系，在用RNN的时候也会出现，如有知道这个更深层次的原理，请告诉我:)<img src="http://res.cloudinary.com/shi1996/image/upload/v1517899532/adam_optimizer_vzyv7a.jpg" alt=""></p>
+<h3 id="计算模型精度"><a href="#计算模型精度" class="headerlink" title="计算模型精度"></a>计算模型精度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 用于测试改模型的识别精确度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y),</div><div class="line">        predictions = tf.argmax(output)</div><div class="line">)[1]</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;搭建模型-CNN&quot;&gt;&lt;a href=&quot;#搭建模型-CNN&quot; class=&quot;headerlink&quot; title=&quot;搭建模型-CNN&quot;&gt;&lt;/a&gt;搭建模型-CNN&lt;/h2&gt;&lt;p&gt;本次先用CNN来搭建神经网络，实现图像的识别&lt;/p&gt;
+&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517897894/cnn_h1tuhm.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习识别方圆(3)</title>
+    <link href="http://shic.top/2018/02/06/ML_csv_Run/"/>
+    <id>http://shic.top/2018/02/06/ML_csv_Run/</id>
+    <published>2018-02-05T16:00:08.000Z</published>
+    <updated>2018-02-06T13:46:05.465Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Run-Your-Neural-Network"><a href="#Run-Your-Neural-Network" class="headerlink" title="Run Your Neural Network"></a>Run Your Neural Network</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517903727/neural-net-head_pf5ixb.jpg" alt=""></center><br><a id="more"></a></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><strong>这一步是相当重要的</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sess = tf.Session()</div><div class="line"># 初始化全局和本地变量</div><div class="line">init_op = tf.group(</div><div class="line">        tf.global_variables_initializer(), </div><div class="line">        tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div></pre></td></tr></table></figure></p>
+<h3 id="训练并实时检验"><a href="#训练并实时检验" class="headerlink" title="训练并实时检验"></a>训练并实时检验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 训练，每批50个数据，一共4000个，80批一次数据集循环</div><div class="line">for step in range(1000):                        # step = 0~999,一共1000个</div><div class="line">    b_x = train_data.iloc[step*batch_size:(step+1)*batch_size]  # 取批数据</div><div class="line">    b_y = train_labels.iloc[step*batch_size:(step+1)*batch_size]</div><div class="line">    sess.run(train_op,feed_dict = &#123;tf_x:b_x,tf_y:b_y&#125;)</div><div class="line">    if step % batch_size ==0:</div><div class="line">        accuracy_= sess.run(accuracy,feed_dict = &#123;tf_x:test_data,tf_y:test_labels&#125;)</div><div class="line">        print(&apos;Step:&apos;, step,&apos;| test accuracy: %.8f&apos; % accuracy_)</div></pre></td></tr></table></figure>
+<p>在经过很短的训练后，还是能达到约99%的精确度</p>
+<h3 id="优化及总结"><a href="#优化及总结" class="headerlink" title="优化及总结"></a>优化及总结</h3><ul>
+<li><p>我们首先用的是0.05的学习率进行学习，在达到98%的时候就比较难上到99%，当然经过更多的训练还是可以。那么此处就可以更改一下learning rate，换一个更小的值来试试。</p>
+</li>
+<li><p>当然我们也可以把代码迁移到GPU版的Tensorflow上。这里我训练的时候我的GTX950M出现了爆显存的错误。。当然应该可以通过优化模型，更改每一批的数据来解决。暂时我还没做这一块。<strong>但需要注意的是，目前Tenssorflow的CPU版和GPU版是不能同时安装的</strong>，之后有时间再分享一期有关于这方面的优化加速方法吧。</p>
+</li>
+<li><p>如果是没有GPU，也可以通过源代码安装Tensorflow获取对于AVX，AVX2指令集的支持。当然关于这一条我实验了好几天。因为博主的电脑是Windows 10操作系统的，也没有安装Linux，所以官方就不支持源代码安装到Windows机器上。如果你也用的是Windows电脑，这里给出花了好几天来实验得到经验和信息：</p>
+<ul>
+<li>Tensorflow官方不支持源代码安装到WIndows，所以只有自己操作，需要用到cmake，swigwin，visual studio三个工具，其中vs2015只能编译出支持AVX指令集的wheel文件，<strong>vs2017才能编译出支持AVX和AVX2的</strong></li>
+<li>编译时只支持Python3.5-amd64，不支持Python3.6，用3.6的python会编译出错，最终无法得到wheel文件</li>
+<li>编译时会从git下载一些数据文件，网速非常非常的慢，我挂了六小时才下载完，一直停在下载没有变是正常现象。建议启用VPN全局代理（ssr需要选择代理规则为全局代理，再选PAC才行）</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>我们也可以用到一些迁移学习的思想，我们可以先对模型用一个较大的learning rate进行学习，然后到一定程度后就把学习到的神经网络的参数保存下来，下一次换一个小点的learning rate，把保存的参数读取处理。在此基础上再进行学习。关于这一点，博主之后有时间的话也会写一个帖子分享一下。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Run-Your-Neural-Network&quot;&gt;&lt;a href=&quot;#Run-Your-Neural-Network&quot; class=&quot;headerlink&quot; title=&quot;Run Your Neural Network&quot;&gt;&lt;/a&gt;Run Your Neural Network&lt;/h2&gt;&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517903727/neural-net-head_pf5ixb.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习识别方圆(4)</title>
+    <link href="http://shic.top/2018/02/06/ML_csv_rnn/"/>
+    <id>http://shic.top/2018/02/06/ML_csv_rnn/</id>
+    <published>2018-02-05T16:00:07.000Z</published>
+    <updated>2018-02-06T14:09:08.622Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="RNN照样识别你是方是圆"><a href="#RNN照样识别你是方是圆" class="headerlink" title="RNN照样识别你是方是圆"></a>RNN照样识别你是方是圆</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg" alt=""></center><br><a id="more"></a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>前面用CNN实践了一下，其实用RNN也是可以识别图像的。只是说存在这在于更加大型的模型里的好坏问题，在这个小数据集上，RNN同样也是可以使用做分类处理的，而且这样也能加深理解。<br><br><br>用下图解释一下RNN处理图像时的输入<br><img src="http://res.cloudinary.com/shi1996/image/upload/v1517923518/rnn__s8xouo.jpg" alt=""><br>难点还是在处理数据，调整模型使之与数据维度匹配</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">import tensorflow as tf</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">tf.set_random_seed(1)</div><div class="line">np.random.seed(1)</div><div class="line"></div><div class="line"># 参数，超参数</div><div class="line">batch_size = 50</div><div class="line">time_step = 40</div><div class="line">input_size = 40</div><div class="line">lr = 0.5</div><div class="line">hidden_unit = 50</div><div class="line"></div><div class="line"># 准备数据</div><div class="line">train_data_set = pd.read_csv(&apos;train.csv&apos;)                   # shape:(4000,1602)</div><div class="line">train_data = train_data_set.iloc[0:4000,1:1601]             # shape:(4000,1600)</div><div class="line">train_labels = train_data_set.iloc[0:4000,[1601]]           # shape:(4000,1)</div><div class="line"></div><div class="line"># 选择部分数据集</div><div class="line">test_data_set = pd.read_csv(&apos;test.csv&apos;)                # shape:(3550,1601) 没有包含正确结果，和训练集不一样</div><div class="line">test_data = test_data_set.iloc[0:100,1:1601]           # shape:(1000,1600)</div><div class="line">test_labels = pd.read_csv(</div><div class="line">        &apos;sample_submit.csv&apos;).iloc[0:100,[1]]           # shape:(1000,1) 一一对应</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_x = tf.placeholder(tf.float32,[None,time_step*input_size])</div><div class="line">x_img = tf.reshape(tf_x,[-1,time_step,input_size])</div><div class="line">tf_y = tf.placeholder(tf.int32,[None,1])</div><div class="line"></div><div class="line">## RNN</div><div class="line">rnn_cell = tf.contrib.rnn.BasicLSTMCell(num_units = hidden_unit)</div><div class="line">output_ , states = tf.nn.dynamic_rnn(</div><div class="line">        rnn_cell,               #cell</div><div class="line">        x_img,                  #input</div><div class="line">        initial_state = None,   #初始化隐藏层的状态,表示不初始化</div><div class="line">        dtype = tf.float32,     #和上面那句必须同时出现</div><div class="line">        time_major = False      #False: (batch, time_step, input); True: (time_step, batch, input)</div><div class="line">)</div><div class="line">output = tf.layers.dense(output_[:,-1,:],1) #对输出进行最后的修改</div><div class="line"></div><div class="line">loss = tf.losses.softmax_cross_entropy(tf_y,logits = output)</div><div class="line">train_op = tf.train.AdamOptimizer(lr).minimize(loss)</div><div class="line"></div><div class="line"># 计算精度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y),</div><div class="line">        predictions = tf.argmax(output)</div><div class="line">)[1]</div><div class="line"></div><div class="line">sess = tf.Session()</div><div class="line">init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div><div class="line"></div><div class="line">for step in range(1000):</div><div class="line">    b_x = train_data.iloc[step*batch_size:(step+1)*batch_size]</div><div class="line">    b_y = train_labels.iloc[step*batch_size:(step+1)*batch_size]</div><div class="line">    sess.run(train_op,feed_dict = &#123;tf_x:b_x,tf_y:b_y&#125;)</div><div class="line">    if step % batch_size ==0:</div><div class="line">        accuracy_= sess.run(accuracy,feed_dict = &#123;tf_x:test_data,tf_y:test_labels&#125;)</div><div class="line">        print(&apos;Step:&apos;, step,&apos;| test accuracy: %.8f&apos; % accuracy_)</div></pre></td></tr></table></figure>
+<h3 id="学习情况"><a href="#学习情况" class="headerlink" title="学习情况"></a>学习情况</h3><p><center><iframe height="498" width="510" src="http://player.youku.com/embed/XMzM4NDE0MzAwOA==" frameborder="0" allowfullscreen="allowfullscreen"></iframe></center></p>
+<p><center>（1080P上传，结果优酷这渣画质。。。）</center><br>在设置了随机种子之后，用AdamOptimizer就表现稳定了</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;a href=&quot;#RNN照样识别你是方是圆&quot; class=&quot;headerlink&quot; title=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;/a&gt;RNN照样识别你是方是圆&lt;/h2&gt;&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
+    
+      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>随笔：入门所遇到的坑</title>
+    <link href="http://shic.top/2017/12/23/%E9%9A%8F%E7%AC%94%EF%BC%9A%E5%85%A5%E9%97%A8%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"/>
+    <id>http://shic.top/2017/12/23/随笔：入门所遇到的坑/</id>
+    <published>2017-12-22T16:00:04.000Z</published>
+    <updated>2018-02-06T13:54:46.624Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="真的是随笔，不信算了"><a href="#真的是随笔，不信算了" class="headerlink" title="真的是随笔，不信算了"></a><center>真的是随笔，不信算了</center></h2><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Windows 10 64Bit 1709Pro</li>
+<li>TensorFlow1.4.0</li>
+<li>Python 3.6.3</li>
+<li></li>
+<li></li>
+<li><a id="more"></a>
+</li>
+</ul>
+<ol>
+<li><p>Jupyter安装出问题，不能打开jupyter notebook<br>答：安装提示是找不到markupsafe模块，但是pip list一查看，的确是安装了的，有说法是在Windows终端上的cmd编码有问题，于是就可以换一个终端来使用，比如说在git bash里，卸载markupsafe并重新安装，然后就能顺利打开，运行jupyter notebook浏览器就会自动打开。</p>
+<center><img src="https://res.cloudinary.com/shi1996/image/upload/v1510803291/gitbash_r04neu.png" alt="gitbash"></center><br><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1510803295/jupyter_ibqqjg.png" alt="jupyter"></center><br>但大家会发现这进入的是当前用户的一个文件夹，推荐是在python的模块文件夹下，右键点击git bash here，就能用jupyter打开该文件夹了<br><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1510803930/gitbashhere_zebgzz.png" alt="gitbashhere"></center>
+</li>
+<li><p><a href="https://www.tensorflow.org/install/migration" target="_blank" rel="external">过度到Tensorflow 1.0版本</a>,有些教程用的版本比较低，新版的API与旧版的差别看这</p>
+</li>
+<li></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;真的是随笔，不信算了&quot;&gt;&lt;a href=&quot;#真的是随笔，不信算了&quot; class=&quot;headerlink&quot; title=&quot;真的是随笔，不信算了&quot;&gt;&lt;/a&gt;&lt;center&gt;真的是随笔，不信算了&lt;/center&gt;&lt;/h2&gt;&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Windows 10 64Bit 1709Pro&lt;/li&gt;
+&lt;li&gt;TensorFlow1.4.0&lt;/li&gt;
+&lt;li&gt;Python 3.6.3&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;
+    
+    </summary>
+    
+      <category term="TensorFlow" scheme="http://shic.top/categories/TensorFlow/"/>
+    
+    
+      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+    
+  </entry>
   
   <entry>
     <title>在Ubuntu里使用Python</title>
@@ -1144,215 +1346,6 @@ void String::Stringbig()
     
     
       <category term="C++" scheme="http://shic.top/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UEFI番外篇</title>
-    <link href="http://shic.top/2017/08/27/UEFI2/"/>
-    <id>http://shic.top/2017/08/27/UEFI2/</id>
-    <published>2017-08-26T16:00:10.000Z</published>
-    <updated>2017-08-27T01:28:15.439Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="改传统于UEFI，你知道这些就够了"><a href="#改传统于UEFI，你知道这些就够了" class="headerlink" title="改传统于UEFI，你知道这些就够了"></a><center>改传统于UEFI，你知道这些就够了</center></h2><p><em>在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的</em><br><a id="more"></a><br>为了简单明了地弄懂这个问题，我通过自己的总结和举例，帮助读者懂明白。<br>虽然有些可能不是100%的准确，但大致可以这样理解。</p>
-<ul>
-<li><p></p><h4>UEFI采用的不同的开机引导</h4><br>首先我们明白，我们的系统是放在硬盘里的，那些数据是用一个容器来装着的，但硬盘里那么多的数据，计算机怎么知道开机需要哪一块的呢？所以开机的时候需要引导，像一个指挥棒一样，指引着硬件怎么去利用特定的数据。这里的引导模式就有些不同了，这在我们装系统的时候就能看出来，需要一个盘去引导硬件开机。<br><center><img src="/images/让电脑飞/引导.png" alt="引导"></center><br>传统的安装系统，在安装的时候会出现添加引导，其中你把系统装入的分区就是引导分区，如上图一样我把系统装在C盘，添加的引导就是C盘，且推荐也是C盘，意思是要用它来引导开机，而UEFI模式下，从装机时的引导就能看出不一样，需要的引导不是系统所在分区，而是我们建立的ESP分区了。如下图：<br><center><img src="/images/让电脑飞/UEFI引导.png" alt="UEFI引导"></center><br>我把系统装在C盘，但UEFI下的引导并不是C盘的，而是我们之前建立的ESP分区，就是上图所示的E盘。<strong>而从这里我们也明白了为什么要实现UEFI启动必须要有ESP分区了，还要向该分区里手动添加EFI分区文件，因为是需要用来ESP分区来引导系统的启动</strong>，而大家也会发现EFI分区文件和系统镜像文件里的boot文件夹里的EFI很像<p></p>
-</li>
-<li><p></p><h4>不同EFI文件夹里的不同内容</h4><p></p>
-<center><img src="/images/让电脑飞/区别.png" alt="区别"></center><br><center>（上方为EFI分区文件，下方为win10iso里的efi文件夹，当然里面的内容是不同的）</center>   
-</li>
-<li><p></p><h4>UEFI和传统的BIOS启动方式不同</h4><br>我们推荐目前的电脑都采用UEFI启动是因为它开机快，为什么现在的UEFI比传统的BIOS启动快呢？原因还启动的流程不同<br>大概可以这样分：<strong>开机-&gt;UEFI初始化-&gt;引导操作系统-&gt;进入系统</strong><br>而传统模式下：<strong>开机-&gt;BIOS初始化-&gt;BIOS自检-&gt;引导操作系统-&gt;进入系统</strong><br>这么一来UEFI开机就要快些了。所以我们推荐使用UEFI，那么我们之前在改什么硬盘的分区结构又是怎么回事呢？为此我还专门去研究了一下硬盘的分区结构，那可以不改吗？答案是：不行的，必须改。我们需要安装Windows系统，<strong>由于微软的限制，只能将系统安装在GPT硬盘中</strong>。我们以前的传统模式下，BIOS是不能识别GPT的，所以那时我们的硬盘都是MBR的分区结构，这也有了<a href="http://shic.top/2017/08/25/UFEI1/" title="点击查看怎样UEFI启动">《怎样UEFI启动》</a>一文，里面有详细的处理步骤。而经过笔者的亲自测试，如果硬盘是MBR结构，即使使用UEFI版的装机U盘，也只能是传统的启动；如果硬盘是GPT结构的，安装win7会出现“Windows无法安装到这个磁盘,选中的磁盘采用GPT分区形式”，原因是win7没有像以后的系统一样预装efi文件。只有把硬盘格式改成MBR才可以装win7。所以给大家总结一下启动模式和硬盘的分区结构的组合搭配应该是：传统BIOS+MBR硬盘，或者UEFI+GPT硬盘。<p></p>
-</li>
-<li><p></p><h4>后言</h4><br>当然就后者UEFI+GPT硬盘，优势并不只是开机快了点，而UEFI有其他优势，GPT分区结构也有比MBR更强大的地方，因为已经超出了本文的讨论范围，所以就不赘述了。总的来说，<strong>在未来会有越来越多的UEFI+GPT的组合出现在电脑上，这应该是一个趋势所在</strong>。<p></p>
-</li>
-</ul>
-<p><em>欢迎转载，转载注明出处</em></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;改传统于UEFI，你知道这些就够了&quot;&gt;&lt;a href=&quot;#改传统于UEFI，你知道这些就够了&quot; class=&quot;headerlink&quot; title=&quot;改传统于UEFI，你知道这些就够了&quot;&gt;&lt;/a&gt;&lt;center&gt;改传统于UEFI，你知道这些就够了&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;&lt;em&gt;在跟着上一篇改动了启动模式后是不是觉得UEFI很快呢，那么本篇就来简单讲讲UEFI和传统BIOS的一些区别以及为什么它要快些，作为一个Geek，光用肯定是不舒服吧，要弄清楚道理可能才是最好的&lt;/em&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-    
-      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>UEFI篇</title>
-    <link href="http://shic.top/2017/08/25/UFEI1/"/>
-    <id>http://shic.top/2017/08/25/UFEI1/</id>
-    <published>2017-08-24T16:00:00.000Z</published>
-    <updated>2017-08-26T02:56:15.500Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="电脑快速进入工作状态，你需要UEFI启动"><a href="#电脑快速进入工作状态，你需要UEFI启动" class="headerlink" title="电脑快速进入工作状态，你需要UEFI启动"></a><center>电脑快速进入工作状态，你需要UEFI启动</center></h2><p><em>首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查资料，不断的找原因，还去学习了一些硬盘的分区结构，最后才想了想才把它整理了出来形成了两篇文稿，如果你和我一样喜欢折腾，那就可以继续往下看了。</em><br><a id="more"></a><br>关于为什么UFEI启动这么快，下篇文章会简单说明一下，那么本篇我们就先来操作一番，先把电脑启动模式改成UEFI。</p>
-<ul>
-<li>首先我们要看一下我们电脑是否已经是UEFI启动了，如果是那就别看了。。。<br><center><img src="/images/让电脑飞/滴.jpg" alt="滴"></center><br><em>不对</em>，键盘win+R，调开运行，输入msinfo32，就会打开一个窗口，查看里面的BIOS模式就行了，写的UEFI，那么就是UEFI的的引导模式了。<br><center><img src="/images/让电脑飞/msinfo.png" alt="msinfo"></center><br>如果写的是传统，那就是传统的模式。这时，我们就需要把它改成UEFI，来达到电脑开机比以前快的目的。<br><center><img src="/images/让电脑飞/BIOS_model.png" alt="BIOS_model"></center><br>经过我的测试，不重装系统应该是行不通的。道理也很简单，那么这里再次为下一篇精彩的文章做出预告，欢迎及时关注《改传统于UEFI，你不得不知的这些》一文的更新，好了，废话不多说，我们现在就进行操作。<br>首先，我们做一件事需要一个规划，我们的操作要规划好，才能节约时间且达到满意的效果。首先我们的硬盘里是有重要的数据的，在进行改UEFI的过程中，需要更改硬盘的分区结构，涉及到所有的数据。当然这个在正常情况下是安全的，如果自己的电脑性能真的不好，运行软件容易卡顿，那就更加应该备份了，在运行过程中死机，那强行关机，多半会造成一些数据的损失。如果重要信息备份已经完成，或者没有可保留的数据，那么就往下看。</li>
-</ul>
-<ol>
-<li>准备Windows系统</li>
-<li>制作启动盘</li>
-<li>修改磁盘分区方案</li>
-<li>建立ESP分区</li>
-<li>EFI分区操作</li>
-<li>开始“刷机”    </li>
-</ol>
-<p>那么我们就开始分步开始操作了：</p>
-<p></p><h4>准备Windows系统</h4><p></p>
-<blockquote>
-<p>重装系统先要准备好目标系统，在vista及之后的64位系统都支持UEFI，但是只有win8及之后的系统才预装了UEFI启动所需要的启动文件。如果还想用win7的朋友，就只能自行添加相关的EFI文件到系统包里面了。而就目前的形式来看，首先的系统当然是win10了。   </p>
-</blockquote>
-<center><img src="/images/让电脑飞/efi.png" alt="efi"></center><br>win8.1，efi文件夹里有boot文件里，里面还有相关的efi文件，8以后的系统都有它。<br><center><img src="/images/让电脑飞/efi1.png" alt="efi1"></center><br>Win7的efi文件夹里没有相应的boot文件夹，更没有efi的文件了，也就是没有预装efi文件。<br><br><h4>制作启动盘</h4><br>因为笔者喜欢用U盘装机，装机盘可以随时移动还可以外借，十分方便，所以本文就以U盘装机为例了。<br>大家在网上去搜索相关制作U盘启动盘的软件就行，此处记住，一定要下载UEFI装机版的软件。这些软件的使用在其官网上都有使用方法，笔者在这就不赘述了。<br>按照相关要求，把你要安装的系统放入制作好的U盘里。<br><br><h4>修改磁盘分区方案</h4><br>MBR和GPT是磁盘的两种不同分区方案，传统的启动模式下都是采用的MBR的分区结构，而因为微软限制，想要在UEFI下安装Windows系统只能将系统安装在GPT硬盘中，所以我们此处需要修改磁盘的分区方案。<br>而正好有软件可以让我们把磁盘无损地从MBR转到GPT，除非小概率事件自己机器出毛病卡死造成数据损失，其他时候都是安全的。那么我们就要用到一个名叫diskgenius的软件。如果你制作的U盘启动器里面有此软件，那么选择U盘启动后，在PE里操作。如果里面没有，就下载一个放U盘里，然后U盘启动后安装此软件。进入软件后，大家可以先把系统的分区表备份到U盘中，万一真的操作失败可以将备份分区表重新导入系统盘中。<br>我们点击软件顶部区域的“硬盘”，点击“转换分区表类型为GUID格式”。<br><center><img src="/images/让电脑飞/diskgenius.png" alt="diskgenius"></center><br><center>（点击确认即可）</center>    
-
-<p></p><h4>建立ESP分区</h4><br>我们需要建立EFI system partition分区，这是UEFI GPT模式下必须有的分区，简称ESP分区。有些电脑上会有几百兆的隐藏空间，我们就把它删除了再建立ESP分区，如果电脑上没有这一小块的隐藏空间，那么就需要自己从C盘中分一点空间出来，当然强大的diskgenius可以完成此项任务。鼠标右键点击“调整分区大小”，设置100MB的分区大小就行了，然后选中刚分出来的区域（此时应该为灰色），建立ESP分区，如果是磁盘全部删除或者是新的磁盘，那么就会出现下面的画面<p></p>
-<center><img src="/images/让电脑飞/esp.png" alt="esp"></center><br>选择建立ESP分区而不是MSR分区，设置大小为100MB即可，点击确定。如果磁盘是以前用过的，也没关系，照着上面步骤操作，<em>如果出来的界面和上面不一样，多半是因为以前硬盘引导过系统启动，该盘上已经有了MSR分区了，所以上图就不会出现，但会出现一个分区的详情选择，文件系统默认的可能是NTFS或者FAT32等，此处在选择单里面选择EFI system partition就行了，点击确定。盘符不用管</em>。有些玩家在操作的时候说此时一定不能分配盘符，要重新启动后再来分盘符，不然要出错，其实这里涉及到的4种情况笔者都亲自试过了，不管何时分配的盘符，都能成功装机，也有可能我用的diskgenius版本号是4.9的原因吧，大家看到这篇文章时，可能5.0都出来了，所以大家不用担心，大胆进行操作。<br><br><h4>EFI分区操作</h4><br>建立好ESP分区后，我们需要把EFI分区文件放入ESP分区更目录。此处我建立的ESP盘符是E<br><center><img src="/images/让电脑飞/efi2.png" alt="efi2"></center><br>然后再用UEFI引导修复工具修复，挂载ESP分区，选择要装系统的根目录<br><center><img src="/images/让电脑飞/uefi修复.png" alt="uefi修复"></center> 
-
-<p></p><h4>开始“刷机”</h4><br>先进入BIOS，因为众多的主板设置不太相同，所以大家都根据这自己的情况来。<strong>在boot一项中选择启动模式，改成UEFI，或者有UEFI/Legacy字样的。保存退出。</strong> 再次进入BIOS，选择UEFI：U盘的启动，U盘可能会出现两个，<strong>要选择UEFI字样的</strong>，进入后按照标准装机步骤进行安装系统即可。<p></p>
-<p><center><img src="/images/让电脑飞/efi3.png" alt="efi3"></center><br>装机完成后进入系统按照上述的查看方法查看启动方式，就已经修改了。</p>
-<p><center><img src="/images/让电脑飞/efi4.png" alt="efi4"></center><br>接下来的日子里，你的电脑启动就会比以前快了。那么这个UEFI启动是不是很神奇呢，下一篇文章讲用通俗的语言来讲解一下这一原理，敬请期待吧~    </p>
-<p><em>欢迎转载，转载注明出处</em></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;电脑快速进入工作状态，你需要UEFI启动&quot;&gt;&lt;a href=&quot;#电脑快速进入工作状态，你需要UEFI启动&quot; class=&quot;headerlink&quot; title=&quot;电脑快速进入工作状态，你需要UEFI启动&quot;&gt;&lt;/a&gt;&lt;center&gt;电脑快速进入工作状态，你需要UEFI启动&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;&lt;em&gt;首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查资料，不断的找原因，还去学习了一些硬盘的分区结构，最后才想了想才把它整理了出来形成了两篇文稿，如果你和我一样喜欢折腾，那就可以继续往下看了。&lt;/em&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-    
-      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>准备起飞之SSD</title>
-    <link href="http://shic.top/2017/08/23/SSD%E8%A1%8C%E6%83%85%E6%B5%85%E6%9E%90/"/>
-    <id>http://shic.top/2017/08/23/SSD行情浅析/</id>
-    <published>2017-08-22T16:00:00.000Z</published>
-    <updated>2017-08-23T03:01:18.471Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="涨价风波一年多的SSD行情浅析"><a href="#涨价风波一年多的SSD行情浅析" class="headerlink" title="涨价风波一年多的SSD行情浅析"></a><center>涨价风波一年多的SSD行情浅析</center></h2><p>希望能帮到正要买固态的你<br><a href="http://shic.top" title="你点呀！">shic.top</a>   防哈橙戌员</p>
-<ul>
-<li><strong>简介</strong>：SSD全称是<em>Solid State Drive/Disk</em>，顾名思义意为<em>固态硬盘</em>，不同于机械硬盘，它没有驱动旋转马达，没有磁盘碟片，用NAND闪存颗粒作为存储介质，是一个常见的非易失性存储。且SSD内部还有包括想主控，缓存等东西。<a id="more"></a>
-<blockquote>
-<p>我记得固态硬盘从去年第二季度经历了一次白菜价后，价格就一直处于上升阶段，涨到现在都还在涨，就只有2017年5月左右有一些小幅度价格平缓时期。那是不是价格一直这么涨，是不是现在就不是买的时候呢？情况获取还不是这样的，你在现在依然可以有选择。那么我们先来看一下SSD的主要两个涨价因素：</p>
-<blockquote>
-<p>1.各大闪存颗粒厂商颗粒正处于2D NAND转3D NAND中。<br> 2.移动市场需求火热，eMMC，UFS等都是NAND的闪存颗粒。<br> //3.当然也有主流厂商的抬价</p>
-</blockquote>
-</blockquote>
-</li>
-</ul>
-<p>的确，从现在的行情来看，固态的价格涨了太多了，一年多钱399能买一个一线大厂的240GB盘，现在可能需要600多，看似也不适合出手了，而且就目前形势来看，固态的需求依然旺盛，厂商依然还在产能转型期，所以固态预计的价格平缓和降价至少会在18年Q1，但可以确定的是，短时间不会回到16年上半年的白菜价了。<br>简单的分析一下哪些情况可以买：</p>
-<ol>
-<li>你的电脑有m.2接口</li>
-<li>电脑真的太慢需要出血购买</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">1.对于第一点来说，m.2接口初期都是配合一些高端产品在出售，这类固态通常是走PCI-E通道，走SATA通道的另当别论，这类产品本身就处于高端产品，但在涨价风波中却没有</div><div class="line">过多的上涨，而且因为新技术的普及。整体还有所下降，甚至和涨价后的有些SATA接口的产品一个价位了，这样一来，性能高出好几倍的PCI-E通道的固态是不是就值了呢</div><div class="line">*/</div></pre></td></tr></table></figure>
-<ul>
-<li>注：有m.2接口且支持PCI-E通道电脑的一定要配同样是走PCI-E的SSD，传统的硬盘接口SATA，全称是<em>Serial Advanced Technology Attachment</em>，是一种串行电脑总线，专为机械硬盘而设计的AHCI标准配合SATA接口并不能发挥出固态的全部实力，甚至因为接口性能而出现了速度瓶颈，AHIC+SATA并不适合低延迟的固态，全新的NVMe协议的PCI-E固态才是正确的选择，NVMe是Non-Volatile Memory Express的缩写，非易失性存储器标准，充分利用PCI-E通道的低延时以及并行性，降低了I/O操作等待时间、提升同一时间内的操作数、更大容量的操作队列等。性能可谓是突飞猛进</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">2.你的电脑真的太卡了，已经影响到自己的使用体验了，那么对于没有m.2接口的电脑，选择就2条原则，第一就是选国际一线品牌，有保障，固态硬盘是有使用寿命的。</div><div class="line">  第二就是相同价格选MLC颗粒而不是TLC。</div><div class="line">*/</div></pre></td></tr></table></figure>
-<p><em><center>好了，不多说了，这只是简单的分析，后期还会给大家分享关于固态装机和后期使用的一些很重要的事，敬请期待吧</center></em></p>
-<center><img src="/images/让电脑飞/战术目镜.jpg" alt="战术目镜"></center>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;a href=&quot;#涨价风波一年多的SSD行情浅析&quot; class=&quot;headerlink&quot; title=&quot;涨价风波一年多的SSD行情浅析&quot;&gt;&lt;/a&gt;&lt;center&gt;涨价风波一年多的SSD行情浅析&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;希望能帮到正要买固态的你&lt;br&gt;&lt;a href=&quot;http://shic.top&quot; title=&quot;你点呀！&quot;&gt;shic.top&lt;/a&gt;   防哈橙戌员&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;：SSD全称是&lt;em&gt;Solid State Drive/Disk&lt;/em&gt;，顾名思义意为&lt;em&gt;固态硬盘&lt;/em&gt;，不同于机械硬盘，它没有驱动旋转马达，没有磁盘碟片，用NAND闪存颗粒作为存储介质，是一个常见的非易失性存储。且SSD内部还有包括想主控，缓存等东西。
-    
-    </summary>
-    
-      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-    
-      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>让电脑飞系列开篇</title>
-    <link href="http://shic.top/2017/08/22/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E%E5%89%8D%E8%A8%80/"/>
-    <id>http://shic.top/2017/08/22/让电脑飞前言/</id>
-    <published>2017-08-21T16:01:00.000Z</published>
-    <updated>2017-08-23T02:52:54.298Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="电脑怎么飞"><a href="#电脑怎么飞" class="headerlink" title="电脑怎么飞"></a><center>电脑怎么飞</center></h2><p><code>作者：防哈橙戌员</code> 主页：<a href="http://shic.top" title="你点呀！">shic.top</a></p>
-<p><strong>说实在的，玩机这么久了，也是时候答应小伙伴的要求了，相应你们的号召，先解决一下电脑使用的问题，还你一个高效快速的体验，我也省点心不必每次自己操作，大家去<em>我的主页<a href="http://shic.top" title="没错，这就是我的主页">shic.top</a></em>看<em>让电脑飞</em>相关标签的的帖子，保证你上了这趟车车再也回不去了</strong></p>
-<a id="more"></a>
-<center><img src="/images/让电脑飞/电脑飞开车.jpg" alt="秋名山车神" title="秋名山车神"></center><br><center>会是这样的吗？ </center>   
-
-<p>哈哈，开玩笑啦，首先我们就需要了解两个东西</p>
-<ul>
-<li>固态硬盘<blockquote>
-<p>英文名SSD，在磁盘界是秒天秒地秒空气的存在，特别是现在走PCI-E3.0通道的盘，相信大家都对它很有关注</p>
-</blockquote>
-</li>
-<li>UEFI<blockquote>
-<p>UEFI全称是<em>Unified Extensible Firmware Interface</em>，也就是<strong>统一的可扩展固件接口</strong>的意思，可以说是近几年里要取代电脑传统启动方式BIOS的节奏了</p>
-</blockquote>
-</li>
-</ul>
-<p>看到这里是不是觉得很糊涂了呢，没关系，这还没开始讲嘛，即将发布的教程没什么难度，你只需要动手去跟着操作就行了，没什么看不懂的，要勇于去实践，去探索，去尝试，折腾了半天成功后，你也会有一种满满的自豪感，到时候你就知道电脑开机比电视还快有多爽了，是的，真的</p>
-<h2 id="很爽！！"><a href="#很爽！！" class="headerlink" title="很爽！！"></a><center>很爽！！</center></h2><center>期待噢，等我更新噢~</center><br><center><img src="/images/让电脑飞/会心一笑.jpg" alt="会心一笑" title="会心一笑"></center>
-
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;电脑怎么飞&quot;&gt;&lt;a href=&quot;#电脑怎么飞&quot; class=&quot;headerlink&quot; title=&quot;电脑怎么飞&quot;&gt;&lt;/a&gt;&lt;center&gt;电脑怎么飞&lt;/center&gt;&lt;/h2&gt;&lt;p&gt;&lt;code&gt;作者：防哈橙戌员&lt;/code&gt; 主页：&lt;a href=&quot;http://shic.top&quot; title=&quot;你点呀！&quot;&gt;shic.top&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;说实在的，玩机这么久了，也是时候答应小伙伴的要求了，相应你们的号召，先解决一下电脑使用的问题，还你一个高效快速的体验，我也省点心不必每次自己操作，大家去&lt;em&gt;我的主页&lt;a href=&quot;http://shic.top&quot; title=&quot;没错，这就是我的主页&quot;&gt;shic.top&lt;/a&gt;&lt;/em&gt;看&lt;em&gt;让电脑飞&lt;/em&gt;相关标签的的帖子，保证你上了这趟车车再也回不去了&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="让电脑飞" scheme="http://shic.top/categories/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-    
-      <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于本站</title>
-    <link href="http://shic.top/2017/08/22/aboutSite/"/>
-    <id>http://shic.top/2017/08/22/aboutSite/</id>
-    <published>2017-08-21T16:00:00.000Z</published>
-    <updated>2017-11-23T12:45:16.236Z</updated>
-    
-    <content type="html"><![CDATA[<center><img src="/images/aboutThisSite.jpg" alt="关于" title="关于"></center>
-
-<h2 id="为什么有本站"><a href="#为什么有本站" class="headerlink" title="为什么有本站"></a><center>为什么有本站</center></h2><blockquote>
-<p>首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。</p>
-<blockquote>
-<p><a id="more"></a>而我是那种对于电脑的基础部件很有兴趣的人，所以经常折腾电脑，玩儿久了也有不少的体会，也可以叫做一个小小的极客吧。借着暑假的空闲时间，简单上线了一个博客平台，分享一些关于电脑日常使用和优化的帖子，让大家也能有一个反应快速的生产力工具，提高自己的工作学习效率，这也算是我的一个课外兴趣吧，捣鼓了大半天，研究了一个啥好用的技能，能够通过自己的平台进行分享也是很有乐趣的一件事，毕竟兴趣能冲淡无聊而无线重复的平凡生活，让我们更加有活力。      </p>
-<blockquote>
-<p>本站也只是笔者的一个课外兴趣，也不做过多的修饰和更改，仅仅是一个个人博客，由于<strong>不可抗拒的原因（自己以后可能会把该博客搬到国内，也许不会，因为歪果有些云服务器的确便宜，以后搬回来再备案、所以目前暂不添加评论功能了）</strong>，以后有时间可能会多一个分类，就不光是计算机的东西，我会根据实际的情况和时间节点来给大家分享一些计算机方面的知识，希望能够帮到你，如有什么问题，还可以微博私信我，每一期的文章分享我也会在微博上及时更新，希望它能够第一时间和你见面，下面的 就是我的微博，赶快加一波关注吧～    </p>
-</blockquote>
-</blockquote>
-</blockquote>
-<center><img src="/images/weibo.jpg" alt="微博" title="微博关注"></center>]]></content>
-    
-    <summary type="html">
-    
-      &lt;center&gt;&lt;img src=&quot;/images/aboutThisSite.jpg&quot; alt=&quot;关于&quot; title=&quot;关于&quot;&gt;&lt;/center&gt;
-
-&lt;h2 id=&quot;为什么有本站&quot;&gt;&lt;a href=&quot;#为什么有本站&quot; class=&quot;headerlink&quot; title=&quot;为什么有本站&quot;&gt;&lt;/a&gt;&lt;center&gt;为什么有本站&lt;/center&gt;&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;首先给大家讲一个故事，从前有两个程序员在聊天，A：“我昨天碰到个妹子找我，说是电脑出问题了，我觉得肯定不是只修个电脑这么简单，然后……”，B：“什么？她电脑CPU是什么型号的？”。。。很显然重点不是在CPU型号上。但有时候想想，电脑的这些配置，还真的是我们这一群人可以讨论一天的话题，虽说会修电脑的程序员应该是很少的，在我的同学中，对电脑的这些配置也了解很少，因为我们都不是学维修的，也不会学很多硬件上的东西，大多数还是软件，涉及到编程写代码。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;
-    
-    </summary>
-    
-      <category term="Others" scheme="http://shic.top/categories/Others/"/>
-    
-    
-      <category term="Others" scheme="http://shic.top/tags/Others/"/>
     
   </entry>
   
