@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning,TensorFlow," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="RNN照样识别你是方是圆">
-<meta name="keywords" content="Machine Learning,TensorFlow">
+<meta name="description" content="喜欢音乐请支持正版，代码仅作学习交流。">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习识别方圆(4)">
-<meta property="og:url" content="http://shic.top/2018/02/06/ML_csv_rnn/index.html">
+<meta property="og:title" content="爬爬音乐">
+<meta property="og:url" content="http://shic.top/2018/02/21/爬爬音乐/index.html">
 <meta property="og:site_name" content="GeekShi">
-<meta property="og:description" content="RNN照样识别你是方是圆">
+<meta property="og:description" content="喜欢音乐请支持正版，代码仅作学习交流。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg">
-<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1517923518/rnn__s8xouo.jpg">
-<meta property="og:updated_time" content="2018-02-06T14:09:08.622Z">
+<meta property="og:updated_time" content="2018-02-21T09:55:05.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习识别方圆(4)">
-<meta name="twitter:description" content="RNN照样识别你是方是圆">
-<meta name="twitter:image" content="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg">
+<meta name="twitter:title" content="爬爬音乐">
+<meta name="twitter:description" content="喜欢音乐请支持正版，代码仅作学习交流。">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://shic.top/2018/02/06/ML_csv_rnn/"/>
+  <link rel="canonical" href="http://shic.top/2018/02/21/爬爬音乐/"/>
 
 
 
 
 
-  <title>机器学习识别方圆(4) | GeekShi</title>
+  <title>爬爬音乐 | GeekShi</title>
   
 
 
@@ -266,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shic.top/2018/02/06/ML_csv_rnn/">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/2018/02/21/爬爬音乐/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="this.Shi">
@@ -283,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习识别方圆(4)</h1>
+          <h1 class="post-title" itemprop="name headline">爬爬音乐</h1>
         
 
         <div class="post-meta">
@@ -295,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-06T00:00:07+08:00">
-                2018-02-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T00:00:01+08:00">
+                2018-02-21
               </time>
             
 
@@ -318,19 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/TensorFlow/" itemprop="url" rel="index">
-                    <span itemprop="name">TensorFlow</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -346,7 +332,7 @@
 
           
           
-             <span id="/2018/02/06/ML_csv_rnn/" class="leancloud_visitors" data-flag-title="机器学习识别方圆(4)">
+             <span id="/2018/02/21/爬爬音乐/" class="leancloud_visitors" data-flag-title="爬爬音乐">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -377,12 +363,24 @@
       
 
       
-        <h2 id="RNN照样识别你是方是圆"><a href="#RNN照样识别你是方是圆" class="headerlink" title="RNN照样识别你是方是圆"></a>RNN照样识别你是方是圆</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg" alt=""></center><br><a id="more"></a></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>前面用CNN实践了一下，其实用RNN也是可以识别图像的。只是说存在这在于更加大型的模型里的好坏问题，在这个小数据集上，RNN同样也是可以使用做分类处理的，而且这样也能加深理解。<br><br><br>用下图解释一下RNN处理图像时的输入<br><img src="http://res.cloudinary.com/shi1996/image/upload/v1517923518/rnn__s8xouo.jpg" alt=""><br>难点还是在处理数据，调整模型使之与数据维度匹配</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">import tensorflow as tf</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">tf.set_random_seed(1)</div><div class="line">np.random.seed(1)</div><div class="line"></div><div class="line"># 参数，超参数</div><div class="line">batch_size = 50</div><div class="line">time_step = 40</div><div class="line">input_size = 40</div><div class="line">lr = 0.5</div><div class="line">hidden_unit = 50</div><div class="line"></div><div class="line"># 准备数据</div><div class="line">train_data_set = pd.read_csv(&apos;train.csv&apos;)                   # shape:(4000,1602)</div><div class="line">train_data = train_data_set.iloc[0:4000,1:1601]             # shape:(4000,1600)</div><div class="line">train_labels = train_data_set.iloc[0:4000,[1601]]           # shape:(4000,1)</div><div class="line"></div><div class="line"># 选择部分数据集</div><div class="line">test_data_set = pd.read_csv(&apos;test.csv&apos;)                # shape:(3550,1601) 没有包含正确结果，和训练集不一样</div><div class="line">test_data = test_data_set.iloc[0:100,1:1601]           # shape:(1000,1600)</div><div class="line">test_labels = pd.read_csv(</div><div class="line">        &apos;sample_submit.csv&apos;).iloc[0:100,[1]]           # shape:(1000,1) 一一对应</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_x = tf.placeholder(tf.float32,[None,time_step*input_size])</div><div class="line">x_img = tf.reshape(tf_x,[-1,time_step,input_size])</div><div class="line">tf_y = tf.placeholder(tf.int32,[None,1])</div><div class="line"></div><div class="line">## RNN</div><div class="line">rnn_cell = tf.contrib.rnn.BasicLSTMCell(num_units = hidden_unit)</div><div class="line">output_ , states = tf.nn.dynamic_rnn(</div><div class="line">        rnn_cell,               #cell</div><div class="line">        x_img,                  #input</div><div class="line">        initial_state = None,   #初始化隐藏层的状态,表示不初始化</div><div class="line">        dtype = tf.float32,     #和上面那句必须同时出现</div><div class="line">        time_major = False      #False: (batch, time_step, input); True: (time_step, batch, input)</div><div class="line">)</div><div class="line">output = tf.layers.dense(output_[:,-1,:],1) #对输出进行最后的修改</div><div class="line"></div><div class="line">loss = tf.losses.softmax_cross_entropy(tf_y,logits = output)</div><div class="line">train_op = tf.train.AdamOptimizer(lr).minimize(loss)</div><div class="line"></div><div class="line"># 计算精度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y),</div><div class="line">        predictions = tf.argmax(output)</div><div class="line">)[1]</div><div class="line"></div><div class="line">sess = tf.Session()</div><div class="line">init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div><div class="line"></div><div class="line">for step in range(1000):</div><div class="line">    b_x = train_data.iloc[step*batch_size:(step+1)*batch_size]</div><div class="line">    b_y = train_labels.iloc[step*batch_size:(step+1)*batch_size]</div><div class="line">    sess.run(train_op,feed_dict = &#123;tf_x:b_x,tf_y:b_y&#125;)</div><div class="line">    if step % batch_size ==0:</div><div class="line">        accuracy_= sess.run(accuracy,feed_dict = &#123;tf_x:test_data,tf_y:test_labels&#125;)</div><div class="line">        print(&apos;Step:&apos;, step,&apos;| test accuracy: %.8f&apos; % accuracy_)</div></pre></td></tr></table></figure>
-<h3 id="学习情况"><a href="#学习情况" class="headerlink" title="学习情况"></a>学习情况</h3><p><center><iframe height="498" width="510" src="http://player.youku.com/embed/XMzM4NDE0MzAwOA==" frameborder="0" allowfullscreen="allowfullscreen"></iframe></center></p>
-<p><center>（1080P上传，结果优酷这渣画质。。。）</center><br>在设置了随机种子之后，用AdamOptimizer就表现稳定了</p>
-
+        <p>喜欢音乐请支持正版，代码仅作学习交流。<br><a id="more"></a><br>意外发现国内某知名音乐网站很好爬，也没有做什么反爬机制。电脑太卡已经容不下一个任何一个多余软件了。。。于是直接下载音乐吧，就不要软件了，用一个Python写的爬虫自己播放音乐，自己下载。（喜欢音乐请支持正版（￣。。￣）。。。）</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li>Python3.6 <a href="https://www.python.org/" target="_blank" rel="external">点击下载Python并自行安装</a><br>  所需格外的模块：<ul>
+<li>BeautifulSoup4</li>
+<li>selenium</li>
+<li>requests</li>
+<li>Jupyter Notebook 关于win10安装jupyter有些坑，<a href="http://shic.top/2017/12/23/%E9%9A%8F%E7%AC%94%EF%BC%9A%E5%85%A5%E9%97%A8%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">详情请点击</a></li>
+</ul>
+</li>
+<li>Windows 10 电脑，<a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/" target="_blank" rel="external">点击下载浏览器驱动</a></li>
+</ul>
+<h3 id="爬虫脚本"><a href="#爬虫脚本" class="headerlink" title="爬虫脚本"></a>爬虫脚本</h3><p>去一下国内某知名音乐网站看看，让脚本自己播放音乐并下载到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 为爬取下载做好准备工作</div><div class="line">from selenium import webdriver</div><div class="line">from bs4 import BeautifulSoup</div><div class="line">import requests</div><div class="line">import time</div><div class="line">import os</div><div class="line">from selenium.webdriver.chrome.options import Options</div><div class="line"></div><div class="line">os.makedirs(&apos;./download_music/&apos;, exist_ok=True) # 下载文件夹就在该脚本所在的目录</div><div class="line">base_url = &quot;http://www.kugou.com/yy/html/search.html#searchType=song&amp;searchKeyWord=&quot;</div></pre></td></tr></table></figure></p>
+<p>在代码里模拟输入，你就当作是一个可视化的窗口输入就行了，这里分享一下核心代码就行了嘻嘻~<br>注意：</p>
+<ul>
+<li>请根据自己存放的浏览器驱动MicrosoftWebDriver.exe更改下面代码第五行的位置。</li>
+<li>如果网络不好，适当调大一些下面代码中的time.sleep(x)的x的数值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"># 搜索-爬取-下载</div><div class="line">search = &quot;烈酒 屈原&quot;  #模拟输入要搜索的歌曲</div><div class="line">url = base_url+search</div><div class="line"></div><div class="line">driver = webdriver.Edge(executable_path=&quot;.\MicrosoftWebDriver.exe&quot;,)</div><div class="line">driver.get(url)</div><div class="line">time.sleep(2)</div><div class="line"></div><div class="line"># 获取搜索列表里的第一首单曲的名字，这样就实现了模糊匹配了</div><div class="line">html_search = driver.page_source</div><div class="line">soup_search = BeautifulSoup(html_search, &apos;lxml&apos;)</div><div class="line">music_a_table = soup_search.find(&apos;a&apos;,&#123;&quot;class&quot;:&quot;song_name&quot;&#125;)</div><div class="line">music_name = music_a_table[&apos;title&apos;] # 酷狗中的单曲名字是在该音乐a标签里的title属性值里的</div><div class="line"></div><div class="line">print(music_name)</div><div class="line"># 这里还有模糊匹配，下面代码是匹配含有次字符串的链接</div><div class="line"># driver.find_element_by_partial_link_text(music_name).click()</div><div class="line">driver.find_element_by_link_text(music_name).click() #当然这里就没必要模糊匹配了</div><div class="line"></div><div class="line"># 获取浏览器窗口句柄</div><div class="line">handles = driver.window_handles</div><div class="line"># print(handles,type(handles))</div><div class="line">driver.switch_to_window(handles[-1])</div><div class="line"></div><div class="line">#之前一直找不到链接，还是要让爬虫缓几秒。不知为何，page_source应该都下载好了的。。</div><div class="line">time.sleep(2)</div><div class="line"></div><div class="line">html = driver.page_source</div><div class="line">soup = BeautifulSoup(html, &apos;lxml&apos;)</div><div class="line">audio = soup.find(&apos;audio&apos;,&#123;&quot;class&quot;:&quot;music&quot;&#125;)  #只有一个audio标签，且该网站里的audio类型是music</div><div class="line">music_src = audio[&apos;src&apos;]</div><div class="line"></div><div class="line">r = requests.get(music_src,stream=True)</div><div class="line">image_name = music_name+&apos;.&apos;+music_src.split(&apos;.&apos;)[-1]</div><div class="line">with open(&apos;./download_music/%s&apos; % image_name, &apos;wb&apos;) as f:</div><div class="line">    for chunk in r.iter_content(chunk_size = 512):</div><div class="line">        f.write(chunk)</div><div class="line">    print(&apos;已保存文件： %s&apos; % image_name)</div></pre></td></tr></table></figure>
       
     </div>
     
@@ -428,9 +426,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-          
-            <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+            <a href="/tags/Python/" rel="tag"># Python</a>
           
         </div>
       
@@ -443,8 +439,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/23/随笔：入门所遇到的坑/" rel="next" title="随笔：入门所遇到的坑">
-                <i class="fa fa-chevron-left"></i> 随笔：入门所遇到的坑
+              <a href="/2018/02/21/use_git/" rel="next" title="代码本地管理之Git">
+                <i class="fa fa-chevron-left"></i> 代码本地管理之Git
               </a>
             
           </div>
@@ -452,10 +448,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/06/ML_csv_Run/" rel="prev" title="机器学习识别方圆(3)">
-                机器学习识别方圆(3) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -541,7 +533,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -552,7 +544,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -563,7 +555,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -633,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN照样识别你是方是圆"><span class="nav-number">1.</span> <span class="nav-text">RNN照样识别你是方是圆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习情况"><span class="nav-number">1.3.</span> <span class="nav-text">学习情况</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫脚本"><span class="nav-number">2.</span> <span class="nav-text">爬虫脚本</span></a></li></ol></div>
             
 
           </div>
