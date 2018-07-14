@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2018-03-08T05:52:47.094Z</updated>
+  <updated>2018-07-14T01:48:20.930Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>和这段IP说再见了</title>
+    <link href="http://shic.top/2018/07/08/10-322/"/>
+    <id>http://shic.top/2018/07/08/10-322/</id>
+    <published>2018-07-07T16:00:00.000Z</published>
+    <updated>2018-07-14T01:48:20.930Z</updated>
+    
+    <content type="html"><![CDATA[<p>实验室要换地方了，搬走前还是很留念的。。。<br><a id="more"></a><br>在那这段IP合个影吧，还记得我常用的211/233主机号，还记得在这里敲过的代码，322再见了。</p>
+<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1531532439/IMG_20180714_093659_mc2zbo.jpg" alt=""></center><br><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1531532435/IMG_20180714_093723_f0ahwc.jpg" alt=""></center>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;实验室要换地方了，搬走前还是很留念的。。。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Others" scheme="http://shic.top/categories/Others/"/>
+    
+    
+      <category term="Others" scheme="http://shic.top/tags/Others/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(一)</title>
@@ -719,43 +742,6 @@
     
     
       <category term="Others" scheme="http://shic.top/tags/Others/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于Java Web的小呆萌</title>
-    <link href="http://shic.top/2017/11/19/smallDemoAboutJavaWeb/"/>
-    <id>http://shic.top/2017/11/19/smallDemoAboutJavaWeb/</id>
-    <published>2017-11-18T16:00:00.000Z</published>
-    <updated>2017-11-19T06:49:54.921Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="login-demo-power-by-spring-boot"><a href="#login-demo-power-by-spring-boot" class="headerlink" title="login-demo power by spring boot "></a><center>login-demo power by spring boot </center></h1><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
-<li>Java web是目前很火的一个方向，大量的计算机专业的同学都在学习它，而其中最重要的开发框架就是Spring<a id="more"></a>。而Spring Boot是当前Spring生态当中的一个新生力量，有着颠覆Java web开发的趋势。可谓是形式大好。而目前市面上的教程较少，很多也不能直接给同学们讲解清楚，所以作为钻研过该技术的我们，深知它的强大，希望用一种最有效的方式，想大家介绍一下它，感受一下Java web开发的魅力。</li>
-<li>本次视频以一个用户登录注册的例子来进行讲解，搭建好开发的基础骨架，有利于同学们的后续学习和研究。在此基础上进行开发就会变得特别简单而不用为很多不懂的东西烦恼。</li>
-<li>由于没有写过稿子直接讲解和录制的，所以难免在会有点语误，还希望大家理解</li>
-</ul>
-<h2 id="发车"><a href="#发车" class="headerlink" title="发车"></a>发车</h2><center><iframe height="498" width="510" src="http://player.youku.com/embed/XMzE2ODMyODg5Ng==" frameborder="0" allowfullscreen="allowfullscreen"></iframe></center><br><center>(建议在电脑端观看，点击高清画质效果会好些,密码是password。优酷竟然要放广告，大家见谅。。)</center>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>关于这个小栗子的源代码我已经放在github上面了，需要就点击Fork,尽管checkout，要是觉得不错还可以Star哦。<a href="https://github.com/Shicc/login-student" target="_blank" rel="external">点击获取</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;login-demo-power-by-spring-boot&quot;&gt;&lt;a href=&quot;#login-demo-power-by-spring-boot&quot; class=&quot;headerlink&quot; title=&quot;login-demo power by spring boot &quot;&gt;&lt;/a&gt;&lt;center&gt;login-demo power by spring boot &lt;/center&gt;&lt;/h1&gt;&lt;h2 id=&quot;目的&quot;&gt;&lt;a href=&quot;#目的&quot; class=&quot;headerlink&quot; title=&quot;目的&quot;&gt;&lt;/a&gt;目的&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Java web是目前很火的一个方向，大量的计算机专业的同学都在学习它，而其中最重要的开发框架就是Spring
-    
-    </summary>
-    
-      <category term="IntelliJ IDEA" scheme="http://shic.top/categories/IntelliJ-IDEA/"/>
-    
-      <category term="Spring Boot" scheme="http://shic.top/categories/IntelliJ-IDEA/Spring-Boot/"/>
-    
-    
-      <category term="IntelliJ IDEA" scheme="http://shic.top/tags/IntelliJ-IDEA/"/>
-    
-      <category term="Spring Boot" scheme="http://shic.top/tags/Spring-Boot/"/>
     
   </entry>
   
