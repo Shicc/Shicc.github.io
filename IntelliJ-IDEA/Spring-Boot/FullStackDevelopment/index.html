@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="IntelliJ IDEA,Spring Boot," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta name="keywords" content="IntelliJ IDEA,Spring Boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
+<meta property="og:url" content="http://shic.top/IntelliJ-IDEA/Spring-Boot/FullStackDevelopment/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-29T13:07:37.759Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="争取写一个就我能看懂的笔记 嘻嘻～">
+<meta name="twitter:description" content="Full Stack Development with Spring Boot环境 Windows 10 64Bit 1703Pro JDK 1.8  IntelliJ IDEA 2017.1.1 Maven 3.5 MySQL 5.5 Spring Boot 1.5.7.RELEASE">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/IntelliJ-IDEA/Spring-Boot/FullStackDevelopment/"/>
+
+
+
+
+
+  <title>争取写一个就我能看懂的笔记 嘻嘻～ | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/IntelliJ-IDEA/Spring-Boot/FullStackDevelopment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">争取写一个就我能看懂的笔记 嘻嘻～</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T00:00:00+08:00">
+                2017-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IntelliJ-IDEA/" itemprop="url" rel="index">
+                    <span itemprop="name">IntelliJ IDEA</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IntelliJ-IDEA/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/IntelliJ-IDEA/Spring-Boot/FullStackDevelopment/" class="leancloud_visitors" data-flag-title="争取写一个就我能看懂的笔记 嘻嘻～">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Full-Stack-Development-with-Spring-Boot"><a href="#Full-Stack-Development-with-Spring-Boot" class="headerlink" title="Full Stack Development with Spring Boot"></a><center>Full Stack Development with Spring Boot</center></h2><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Windows 10 64Bit 1703Pro</li>
+<li>JDK 1.8 </li>
+<li>IntelliJ IDEA 2017.1.1</li>
+<li>Maven 3.5</li>
+<li>MySQL 5.5</li>
+<li>Spring Boot 1.5.7.RELEASE<a id="more"></a>
+</li>
+</ul>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ul>
+<li>打开IntelliJ-&gt;New Project-&gt;Spring Initializr-&gt;[正确输出GroupID，Artifact等参数,此处选择的jar方式]-&gt;为项目添加依赖(此处选择web即可，之后的框架可以通过手动添加pom文件的方式，或者直接点击之后就不用之后在pom里写了)-&gt;点击next，点击Finlishi完成项目的创建</li>
+<li><p>给pom.xml手动添加以依赖(此处分享一下我自己添加的依赖，是可以共用的，只是dependency)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 包含jpa，mysql驱动，hibernate-entitymanager，thymeleaf模板库 --&gt;</div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.hibernate&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line"></div><div class="line">	&lt;dependency&gt;</div><div class="line">		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">		&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</div><div class="line">	&lt;/dependency&gt;</div><div class="line">		</div><div class="line">	&lt;dependency&gt;</div><div class="line">			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">			&lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;</div><div class="line">			&lt;version&gt;1.5.6.RELEASE&lt;/version&gt;</div><div class="line">		&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改spring配置文件application.properties(建议改成application.yml)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">spring:</div><div class="line">  datasource:</div><div class="line">    driver-class-name: com.mysql.jdbc.Driver</div><div class="line">    url: jdbc:mysql://127.0.0.1:3306/[your db]</div><div class="line">    username: [your username]</div><div class="line">    password: [your password]</div><div class="line"></div><div class="line">  thymeleaf:</div><div class="line">    encoding: utf-8</div><div class="line">    cache: false  #关闭缓存，不然没法看见实时页面？</div><div class="line">    mode: HTML5</div><div class="line">    content-type: text/html</div><div class="line"></div><div class="line">  jpa:</div><div class="line">    hibernate:</div><div class="line">      ddl-auto: update[create/...]</div><div class="line">    show-sql: true</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实体类映射表"><a href="#实体类映射表" class="headerlink" title="实体类映射表"></a>实体类映射表</h2><ul>
+<li>写实体类反向建立数据表（top.shic.domain/entity）<ul>
+<li>@Entity 对整个类进行实体类注解</li>
+<li>@Id和@GeneratedValue  用于主键id的注解</li>
+<li>对于其他字段用到@Column(length = [?],nullable = false),还有其他属性</li>
+<li>对于某些数字的控制，注解@Min(value = 18,message = “未成年不得入内”)</li>
+<li>对于某些字符串长度的控制 @Size(min=2, max=30)</li>
+<li>不能为空，并写出错误时的提示  @NotNull(message = “该字段不能缺”)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>测试运行，查看数据库是否正确生成了实体类表</li>
+</ul>
+<h2 id="Repository层"><a href="#Repository层" class="headerlink" title="Repository层"></a>Repository层</h2><ul>
+<li><p>接口：</p>
+<ul>
+<li>Repository 空接口</li>
+<li>CrudRepository 继承Repository，实现CRUD<ul>
+<li>PagingAndSortingRepository 继承CrudRepository，实现分页和排序相关的方法<ul>
+<li>JpaRepository 继承PagingAndSortingRepository，实现JPA规范相关的方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>定义查询方法</p>
+<ul>
+<li>使用Repository中定义过规范格式的方法名进行查询</li>
+<li>在方法体上，使用注解@Query([？查询条件？])<ul>
+<li>@Query只能进行查询操作，要进行删除和更新操作就必须使用到另外两个注解，@Modifying和@Transactional</li>
+<li>@Modifying写在@Query上面，@Transactional写在服务层（下一大点会讲）</li>
+</ul>
+</li>
+<li>特别注意两点：<ul>
+<li>在测试类前不写@RunWith(SpringRunner.class)和@SpringBootTest就会报空指针的错误</li>
+<li>@Modifying的注解只能返回void，int，和Integer类型的返回值，成功修改就返回1（错误时，推测是0），可能就只能判断是否正确修改了。如果返回类型是其他的话就要报错。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Service层"><a href="#Service层" class="headerlink" title="Service层"></a>Service层</h2><p><em>service层通常是放一些对数据库进行更改和删除的操作，之前测试的Repository层的一些功能测试比如说保存，添加等，在正式编码时就可以把操作的方法写在service层</em></p>
+<ul>
+<li>Service层的类前加@Service注解</li>
+<li>在方法前加@Transactional，//这里的注解是javax.transaction.Transactional</li>
+<li>Service层注入Repository层的对象，然后在@Transactional事务管理所注释的方法里调用Repository层的方法进行数据库操作。</li>
+</ul>
+<h2 id="测试：RepositoryTest"><a href="#测试：RepositoryTest" class="headerlink" title="测试：RepositoryTest"></a>测试：RepositoryTest</h2><ul>
+<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
+<li>@Autowired自动注入Repository层对象</li>
+<li>测试方法前添加@Test注解</li>
+</ul>
+<h2 id="测试：ServiceTest"><a href="#测试：ServiceTest" class="headerlink" title="测试：ServiceTest"></a>测试：ServiceTest</h2><ul>
+<li>测试类前添加@RunWith(SpringRunner.class)和@SpringBootTest注解</li>
+<li>@Autowired自动注入Service层对象</li>
+<li>测试方法前添加@Test注解</li>
+</ul>
+<h2 id="Controller层"><a href="#Controller层" class="headerlink" title="Controller层"></a>Controller层</h2><ul>
+<li>在Controller层调用Service层的方法进行业务逻辑的控制</li>
+<li>@RestController和@Controller的区别<ul>
+<li>@RestController添加到类前后，直接在方法体上添加访问路径的注解</li>
+<li>@Controller在做后端访问控制时有点区别，<a href="http://shic.top/2017/10/07/springBootController/">详情请点击</a></li>
+</ul>
+</li>
+<li><strong>什么情况下需要对同一个url同时编写@GetMapping和@PostMapping：</strong><ul>
+<li>例如：当需要登录的时候，访问/login时，如果只有post模式，那我第一次直接访问需要进入页面进行登录的时候是不是就直接通过post把参数传给处理方法了，而此时我并没有输出任何参数也不是通过post方法进行访问的，所以后台会报错。<ul>
+<li>解决方法1：那么我们就对同一个url，比如这里的<code>/login</code>同时进行@GetMapping和@PostMapping的方法编写，<strong>保证在第一次访问登录表单时不是直接将结果传回给给服务器而时请求一个页面，这是一个逻辑问题！</strong></li>
+<li>解决方法2：请求登录表单时用<code>&quot;/login&quot;</code>，控制方法注解为@GetMapping，登录表单中的<code>&lt;form&gt;</code>标签的提交url就换一个，比如说”/toLogin”，然后用post模式，这样就区分开了到底是请求页面还是提交参数了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在做和前端交互时需要用到@Controller，并使该类继承WebMvcConfigurerAdapter类</li>
+<li>重写一个方法addViewControllers(ViewControllerRegistry registry)</li>
+<li>处理方法前用注释标标注，传参时：<ul>
+<li>单独参数：参数前加@RequestParam(“前端参数名字”)，id用(主键?)用@PathVariable(“id”)</li>
+<li>对象参数：@Valid</li>
+<li><strong>需要向前端进行传值时加上Model model 参数</strong></li>
+<li>参数中加上BindingResult类对象bindingResult，进行错误严重，if(bindingResult.hasErrors())，就进行错误处理</li>
+</ul>
+</li>
+<li>方法返回一个字符串，官方定义是取点”.html”字样的模板文件名，用来匹配要想客户端显示的内容</li>
+<li><strong>后台要向前端传值，在方法参数里面加上Model model，然后在方法体中用model.addAttribute(String attributeName, Object attributeValue); 第一个参数是写入model的对象的名字，类型String，这个名字是前端要通过对象名进行访问时所要用到的名字，也可以理解是bean的名字，第二个参数就是该对象了</strong></li>
+</ul>
+<h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><ul>
+<li>在main/resource/templates下编写模板文件，此处用到thymeleaf，当然也可以用其他的，<code>&lt;html&gt;</code>标签内不需要任何命名空间都能够进行渲染，写了一些其他教程上提到的官方命名空间还要出错。。。<ul>
+<li>之前的就这样写：<code>&lt;form th:action=&quot;@『/login』&quot; th:object=&quot;$『user}』&quot; method=&quot;post&quot;&gt;</code></li>
+<li>输入的值关联到form里的什么值就<code>th:field=&quot;*『username』&quot;</code>，<code>*</code>号代表th:object的对象，这里就是表示该输入的时user.username的值,<strong>官方文档提示表单传值需要th:object和th:field配合使用</strong></li>
+<li><strong>即使前端自写的模板html中有这些thymeleaf的标签，但是到前端渲染后的且直接时静态的值，已经被替换掉了，所以不可能在浏览器调试里面改一个标签的th:field就出bug了</strong></li>
+<li>在前端获取后台传值时，例如：<code>&lt;span th:text=&quot;$『user.username』&quot;&gt;&lt;/span&gt;</code>，这里的user就是后台写入model中的字符串的值，名字一一对应。</li>
+<li><strong>另外一个很重要的就是<code>&lt;a&gt;</code>标签进行跳转，不需要th:action=”@『/url』”，直接href=”/url”</strong></li>
+</ul>
+</li>
+<li>浏览器测试</li>
+</ul>
+<h2 id="附录1：异常处理记录（会持续更新）"><a href="#附录1：异常处理记录（会持续更新）" class="headerlink" title="附录1：异常处理记录（会持续更新）"></a>附录1：异常处理记录（会持续更新）</h2><ol>
+<li>Repository接口按照规定方法命名规则进行查询时，JapRepository时继承了Repository接口的，肯定能实验Repository的功能，但如果方法名没有按照规范写，就会出现该接口的bean创建失败，进一步导致自动注入了该bean的其他类创建失败，一般提示某个bean创建失败就是该类里面有错</li>
+<li>常见的HTTP错误：<ul>
+<li>400：请求出错</li>
+<li>404：找不到页面</li>
+<li>405：不允许此方法，比如说不支持post而用了post</li>
+<li>500：内部服务器出错，在控制台会抛出异常</li>
+<li>502：网关出错：比如说19大期间访问谷歌。。。</li>
+</ul>
+</li>
+<li><p>Thymeleaf渲染出错，表示前端标签有问题，报错的提醒是Neither BindingResult nor plain target object for bean name “[这就是你的bean的名字]” available as request attribute，也就是说前端表单提交的的信息汇总成一个bean就出错，怎么解决</p>
+<ul>
+<li>试了很多次，第一次的/login也没有写过参数，但也没有报错，但是在提交很多信息的表单的时候就要报错</li>
+<li><strong>*所以在某一个页面有啥对象的时候，还是在进入这个页面的的控制方法中加一个某对象在方法参数列表里为好。</strong></li>
+</ul>
+</li>
+<li><p>出现啥BindingResult的错误，提示是An Errors/BindingResult argument is expected to be declared immediately after the model attribute</p>
+<ul>
+<li>自己写的文件没有错，但是就有这个错，把参数列表里的BindingResult类去掉就行了</li>
+</ul>
+</li>
+<li>出现405错误的解决方案<ul>
+<li>@PostMaping互改@GetMapping就行。</li>
+<li>也有可能是转发(forward)造成的，有一种情况就是@GetMapping向@PostMapping转发的时候，比如说自己写的分页，删除，这里就需要重新进行首页的查询，代码量比较大，且有重复。</li>
+</ul>
+</li>
+</ol>
+<h2 id="附录2：更新提示"><a href="#附录2：更新提示" class="headerlink" title="附录2：更新提示"></a>附录2：更新提示</h2><p>beta V2.0</p>
+<ol>
+<li>完善Controller层的url访问，后台接受参数，传参笔记的编写</li>
+<li>新增视图层的笔记</li>
+<li>新增附录，添加第一条Thymeleaf的常用标签</li>
+<li>新增异常处理记录</li>
+<li>修改部分代码块的缩进问题，把英文大括号改成中文状态下，避免语法错误。</li>
+<li>©2017 <a href="http://shic.top/">shic.top</a> All Rights Reserved</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IntelliJ-IDEA/" rel="tag"># IntelliJ IDEA</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/IntelliJ-IDEA/Spring-Boot/UnitTest/" rel="next" title="单元测试">
+                <i class="fa fa-chevron-left"></i> 单元测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/IntelliJ-IDEA/Spring-Boot/FrontAndBackInteraction/" rel="prev" title="Model与ModelMap">
+                Model与ModelMap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://yzmean.site/" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Full-Stack-Development-with-Spring-Boot"><span class="nav-number">1.</span> <span class="nav-text">Full Stack Development with Spring Boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体类映射表"><span class="nav-number">4.</span> <span class="nav-text">实体类映射表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository层"><span class="nav-number">5.</span> <span class="nav-text">Repository层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service层"><span class="nav-number">6.</span> <span class="nav-text">Service层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：RepositoryTest"><span class="nav-number">7.</span> <span class="nav-text">测试：RepositoryTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试：ServiceTest"><span class="nav-number">8.</span> <span class="nav-text">测试：ServiceTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller层"><span class="nav-number">9.</span> <span class="nav-text">Controller层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图层"><span class="nav-number">10.</span> <span class="nav-text">视图层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录1：异常处理记录（会持续更新）"><span class="nav-number">11.</span> <span class="nav-text">附录1：异常处理记录（会持续更新）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录2：更新提示"><span class="nav-number">12.</span> <span class="nav-text">附录2：更新提示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("r5MekvoPHCRYg67KaqVgoIki-gzGzoHsz", "cG6vd4svOJLhajWpW3DubnUu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

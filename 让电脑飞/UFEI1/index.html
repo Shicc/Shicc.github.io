@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="让电脑飞," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
+<meta name="keywords" content="让电脑飞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UEFI篇">
+<meta property="og:url" content="http://shic.top/让电脑飞/UFEI1/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/滴.jpg">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/msinfo.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/BIOS_model.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi1.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/diskgenius.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/esp.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi2.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/uefi修复.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi3.png">
+<meta property="og:image" content="http://shic.top/images/让电脑飞/efi4.png">
+<meta property="og:updated_time" content="2017-08-26T02:56:15.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UEFI篇">
+<meta name="twitter:description" content="电脑快速进入工作状态，你需要UEFI启动首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查">
+<meta name="twitter:image" content="http://shic.top/images/让电脑飞/滴.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/让电脑飞/UFEI1/"/>
+
+
+
+
+
+  <title>UEFI篇 | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/让电脑飞/UFEI1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UEFI篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T00:00:00+08:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/让电脑飞/" itemprop="url" rel="index">
+                    <span itemprop="name">让电脑飞</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/让电脑飞/UFEI1/" class="leancloud_visitors" data-flag-title="UEFI篇">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="电脑快速进入工作状态，你需要UEFI启动"><a href="#电脑快速进入工作状态，你需要UEFI启动" class="headerlink" title="电脑快速进入工作状态，你需要UEFI启动"></a><center>电脑快速进入工作状态，你需要UEFI启动</center></h2><p><em>首先要给大家讲一个故事，我朋友的原装win8.1笔记本，APU平台+机械硬盘，说实话那台属于低端产品，但每次开机都是12秒左右，老流氓就显示开机已完成，打败99%的电脑，这就是UEFI启动，不同与传统的BIOS。要是能让电脑更快，我绝对会去折腾。17年寒假的时候我真的去折腾了，把家里的电脑拿来连着重装了5，6次，最后一次才成的，前面都没有成功，于是就不断的查资料，不断的找原因，还去学习了一些硬盘的分区结构，最后才想了想才把它整理了出来形成了两篇文稿，如果你和我一样喜欢折腾，那就可以继续往下看了。</em><br><a id="more"></a><br>关于为什么UFEI启动这么快，下篇文章会简单说明一下，那么本篇我们就先来操作一番，先把电脑启动模式改成UEFI。</p>
+<ul>
+<li>首先我们要看一下我们电脑是否已经是UEFI启动了，如果是那就别看了。。。<br><center><img src="/images/让电脑飞/滴.jpg" alt="滴"></center><br><em>不对</em>，键盘win+R，调开运行，输入msinfo32，就会打开一个窗口，查看里面的BIOS模式就行了，写的UEFI，那么就是UEFI的的引导模式了。<br><center><img src="/images/让电脑飞/msinfo.png" alt="msinfo"></center><br>如果写的是传统，那就是传统的模式。这时，我们就需要把它改成UEFI，来达到电脑开机比以前快的目的。<br><center><img src="/images/让电脑飞/BIOS_model.png" alt="BIOS_model"></center><br>经过我的测试，不重装系统应该是行不通的。道理也很简单，那么这里再次为下一篇精彩的文章做出预告，欢迎及时关注《改传统于UEFI，你不得不知的这些》一文的更新，好了，废话不多说，我们现在就进行操作。<br>首先，我们做一件事需要一个规划，我们的操作要规划好，才能节约时间且达到满意的效果。首先我们的硬盘里是有重要的数据的，在进行改UEFI的过程中，需要更改硬盘的分区结构，涉及到所有的数据。当然这个在正常情况下是安全的，如果自己的电脑性能真的不好，运行软件容易卡顿，那就更加应该备份了，在运行过程中死机，那强行关机，多半会造成一些数据的损失。如果重要信息备份已经完成，或者没有可保留的数据，那么就往下看。</li>
+</ul>
+<ol>
+<li>准备Windows系统</li>
+<li>制作启动盘</li>
+<li>修改磁盘分区方案</li>
+<li>建立ESP分区</li>
+<li>EFI分区操作</li>
+<li>开始“刷机”    </li>
+</ol>
+<p>那么我们就开始分步开始操作了：</p>
+<p></p><h4>准备Windows系统</h4><p></p>
+<blockquote>
+<p>重装系统先要准备好目标系统，在vista及之后的64位系统都支持UEFI，但是只有win8及之后的系统才预装了UEFI启动所需要的启动文件。如果还想用win7的朋友，就只能自行添加相关的EFI文件到系统包里面了。而就目前的形式来看，首先的系统当然是win10了。   </p>
+</blockquote>
+<center><img src="/images/让电脑飞/efi.png" alt="efi"></center><br>win8.1，efi文件夹里有boot文件里，里面还有相关的efi文件，8以后的系统都有它。<br><center><img src="/images/让电脑飞/efi1.png" alt="efi1"></center><br>Win7的efi文件夹里没有相应的boot文件夹，更没有efi的文件了，也就是没有预装efi文件。<br><br><h4>制作启动盘</h4><br>因为笔者喜欢用U盘装机，装机盘可以随时移动还可以外借，十分方便，所以本文就以U盘装机为例了。<br>大家在网上去搜索相关制作U盘启动盘的软件就行，此处记住，一定要下载UEFI装机版的软件。这些软件的使用在其官网上都有使用方法，笔者在这就不赘述了。<br>按照相关要求，把你要安装的系统放入制作好的U盘里。<br><br><h4>修改磁盘分区方案</h4><br>MBR和GPT是磁盘的两种不同分区方案，传统的启动模式下都是采用的MBR的分区结构，而因为微软限制，想要在UEFI下安装Windows系统只能将系统安装在GPT硬盘中，所以我们此处需要修改磁盘的分区方案。<br>而正好有软件可以让我们把磁盘无损地从MBR转到GPT，除非小概率事件自己机器出毛病卡死造成数据损失，其他时候都是安全的。那么我们就要用到一个名叫diskgenius的软件。如果你制作的U盘启动器里面有此软件，那么选择U盘启动后，在PE里操作。如果里面没有，就下载一个放U盘里，然后U盘启动后安装此软件。进入软件后，大家可以先把系统的分区表备份到U盘中，万一真的操作失败可以将备份分区表重新导入系统盘中。<br>我们点击软件顶部区域的“硬盘”，点击“转换分区表类型为GUID格式”。<br><center><img src="/images/让电脑飞/diskgenius.png" alt="diskgenius"></center><br><center>（点击确认即可）</center>    
+
+<p></p><h4>建立ESP分区</h4><br>我们需要建立EFI system partition分区，这是UEFI GPT模式下必须有的分区，简称ESP分区。有些电脑上会有几百兆的隐藏空间，我们就把它删除了再建立ESP分区，如果电脑上没有这一小块的隐藏空间，那么就需要自己从C盘中分一点空间出来，当然强大的diskgenius可以完成此项任务。鼠标右键点击“调整分区大小”，设置100MB的分区大小就行了，然后选中刚分出来的区域（此时应该为灰色），建立ESP分区，如果是磁盘全部删除或者是新的磁盘，那么就会出现下面的画面<p></p>
+<center><img src="/images/让电脑飞/esp.png" alt="esp"></center><br>选择建立ESP分区而不是MSR分区，设置大小为100MB即可，点击确定。如果磁盘是以前用过的，也没关系，照着上面步骤操作，<em>如果出来的界面和上面不一样，多半是因为以前硬盘引导过系统启动，该盘上已经有了MSR分区了，所以上图就不会出现，但会出现一个分区的详情选择，文件系统默认的可能是NTFS或者FAT32等，此处在选择单里面选择EFI system partition就行了，点击确定。盘符不用管</em>。有些玩家在操作的时候说此时一定不能分配盘符，要重新启动后再来分盘符，不然要出错，其实这里涉及到的4种情况笔者都亲自试过了，不管何时分配的盘符，都能成功装机，也有可能我用的diskgenius版本号是4.9的原因吧，大家看到这篇文章时，可能5.0都出来了，所以大家不用担心，大胆进行操作。<br><br><h4>EFI分区操作</h4><br>建立好ESP分区后，我们需要把EFI分区文件放入ESP分区更目录。此处我建立的ESP盘符是E<br><center><img src="/images/让电脑飞/efi2.png" alt="efi2"></center><br>然后再用UEFI引导修复工具修复，挂载ESP分区，选择要装系统的根目录<br><center><img src="/images/让电脑飞/uefi修复.png" alt="uefi修复"></center> 
+
+<p></p><h4>开始“刷机”</h4><br>先进入BIOS，因为众多的主板设置不太相同，所以大家都根据这自己的情况来。<strong>在boot一项中选择启动模式，改成UEFI，或者有UEFI/Legacy字样的。保存退出。</strong> 再次进入BIOS，选择UEFI：U盘的启动，U盘可能会出现两个，<strong>要选择UEFI字样的</strong>，进入后按照标准装机步骤进行安装系统即可。<p></p>
+<p><center><img src="/images/让电脑飞/efi3.png" alt="efi3"></center><br>装机完成后进入系统按照上述的查看方法查看启动方式，就已经修改了。</p>
+<p><center><img src="/images/让电脑飞/efi4.png" alt="efi4"></center><br>接下来的日子里，你的电脑启动就会比以前快了。那么这个UEFI启动是不是很神奇呢，下一篇文章讲用通俗的语言来讲解一下这一原理，敬请期待吧~    </p>
+<p><em>欢迎转载，转载注明出处</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/让电脑飞/" rel="tag"># 让电脑飞</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/让电脑飞/SSD行情浅析/" rel="next" title="准备起飞之SSD">
+                <i class="fa fa-chevron-left"></i> 准备起飞之SSD
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/让电脑飞/UEFI2/" rel="prev" title="UEFI番外篇">
+                UEFI番外篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://yzmean.site/" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#电脑快速进入工作状态，你需要UEFI启动"><span class="nav-number">1.</span> <span class="nav-text">电脑快速进入工作状态，你需要UEFI启动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.1.</span> <span class="nav-text">准备Windows系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.2.</span> <span class="nav-text">制作启动盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.3.</span> <span class="nav-text">修改磁盘分区方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.4.</span> <span class="nav-text">建立ESP分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.5.</span> <span class="nav-text">EFI分区操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.0.6.</span> <span class="nav-text">开始“刷机”</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("r5MekvoPHCRYg67KaqVgoIki-gzGzoHsz", "cG6vd4svOJLhajWpW3DubnUu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

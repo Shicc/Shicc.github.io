@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Ubuntu Install|Hello Ubuntu我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Ubuntu">
+<meta property="og:url" content="http://shic.top/Linux/U_Hello_Ubuntu/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="Ubuntu Install|Hello Ubuntu我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514043169/Ubuntu_tp58kw.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514039570/UltraISO_qybgeo.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltraISO1_h4vuzs.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltrISO2_jmk94s.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514037550/IMG_20171222_205806_HHT_w7evil.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514037553/IMG_20171222_210902_eusnqe.jpg">
+<meta property="og:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514032606/update0_xd4tbi.png">
+<meta property="og:updated_time" content="2017-12-23T15:35:16.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello Ubuntu">
+<meta name="twitter:description" content="Ubuntu Install|Hello Ubuntu我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧">
+<meta name="twitter:image" content="http://res.cloudinary.com/shi1996/image/upload/v1514043169/Ubuntu_tp58kw.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/Linux/U_Hello_Ubuntu/"/>
+
+
+
+
+
+  <title>Hello Ubuntu | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/Linux/U_Hello_Ubuntu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hello Ubuntu</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
+                2017-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Linux/U_Hello_Ubuntu/" class="leancloud_visitors" data-flag-title="Hello Ubuntu">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Ubuntu-Install-Hello-Ubuntu"><a href="#Ubuntu-Install-Hello-Ubuntu" class="headerlink" title="Ubuntu Install|Hello Ubuntu"></a><center>Ubuntu Install|Hello Ubuntu</center></h2><p>我就知道你需要用到Linux，不然为什么想去安装使用它，肯定是学习上，搞开发，做实践等有需求，那我们就进入Linux的世界吧</p>
+<p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1514043169/Ubuntu_tp58kw.jpg" alt="00"></center><br><a id="more"></a></p>
+<ul>
+<li>以Ubuntu 17.10为例，<a href="https://www.ubuntu.com/desktop/1710" target="_blank" rel="external">下载地址</a><ul>
+<li>在电脑硬盘上安装。</li>
+<li>做即插即用的U盘Ubuntu，随身携带。</li>
+</ul>
+</li>
+<li>测试怎么即插即用<br><br></li>
+</ul>
+<h3 id="制作U盘启动盘"><a href="#制作U盘启动盘" class="headerlink" title="制作U盘启动盘"></a>制作U盘启动盘</h3><p>当你下载好了Ubuntu系统后，可以用一个大于2GB的U盘来做启动盘。这样这个U盘既可以做临时的系统使用盘，也可以给其他电脑装系统。当然之后我们会制作专门的U盘系统盘，而且是在任意一台电脑上都能运行的。<br><br></p>
+<ol>
+<li>使用软件<strong>UltralISO</strong>把刚才下载的Ubuntu的镜像文件写入U盘。这个操作会清空U盘里的所有东西，<strong>请注意数据备份</strong>。而有些UltralISO版本可能导致这一步出错，我用的是9.5.5，可以用这个版本进行操作。**点击图中的文件，点击打开，然后找到事先下载好的ISO文件，点击确认   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039570/UltraISO_qybgeo.jpg" alt="0"></li>
+<li>打开之后就会是这样的界面，按照图中指示操作   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltraISO1_h4vuzs.jpg" alt="1"></li>
+<li>之后就进入了这个界面，继续按照图中指示操作,然后就会提示你引导扇区写入成功！，在点击写入，点击是，完成之后直接关掉窗口和该软件就行，这时U盘启动器就制作好啦   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514039571/UltrISO2_jmk94s.jpg" alt="2"><br><br></li>
+</ol>
+<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ol>
+<li>准备安装的硬盘位置<ul>
+<li>装在电脑上<ul>
+<li>与Windows同在一个硬盘，事先分一部分磁盘空间出去，具体方法网上可查</li>
+<li>在同一台电脑上的另一个空硬盘上</li>
+</ul>
+</li>
+<li>装在可移动的U盘里，其实这个和空硬盘一样，只是U盘是插在UBS接口上的</li>
+</ul>
+</li>
+<li>U盘插上电脑，进入电脑的BIOS，具体机型按键不同，可以去网上查一下你的机型怎么进去。当然不相查的话，可以ESC，F2，F12等常用按键一起按，然后就进去了。再去设置你的U盘为第一启动项，保存关机，重启电脑。</li>
+<li>然后你应该会看到这个界面，很多同学就会以为没有正确选择U盘为第一启动项，然后一直都卡在这里，其实不是的，这表示已经进入U盘了，你只需要输入<strong>live</strong>，点击回车，等待几秒钟就会进入Ubuntu的安装界面。   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514037550/IMG_20171222_205806_HHT_w7evil.jpg" alt="3"></li>
+<li>第一步是<strong>断网！</strong>因为之后在更改软件源后再更新系统和软件这样快些，在安装时更新或者一不小心选择了更新就会特别慢。其次是选择系统语言，然后是一些不重要的操作，当到了问你安装在哪个磁盘里的时候，可能有些同学就犯傻了。<ul>
+<li>如果安装在有windows的硬盘上，会有提醒，请选择与Windows共存，不然你的Windows系统就没了。</li>
+<li>如果是<strong>在另一块空硬盘或者想把系统装在U盘里</strong>就不用这样选，但是安装时还是会提醒让你选择，也会出现与Windows共存的选择，估计是默认安装到的是有Windows的盘里，大家可以进行安装位置的选择，因为安装时不方便保留截图，所以具体方法可以网上查一下。<strong>其实也不用这么麻烦，不用去查，直接换一种方案，把有Windows的硬盘从电脑中拔掉就行了，这样就不会让你选择了，就只会有这个空余的盘。就会出现如下的图，也不会有过多的分区挂载的操作</strong> 然后一路继续点起走～  <img src="http://res.cloudinary.com/shi1996/image/upload/v1514037553/IMG_20171222_210902_eusnqe.jpg" alt="4"></li>
+</ul>
+</li>
+<li>等到系统安装完成后，点击继续，确认等肯定的选择后就重启电脑进入新安装的Ubuntu系统了，重启时等到屏幕黑屏就可以拔掉启动盘了<br><br></li>
+</ol>
+<h3 id="进入新系统"><a href="#进入新系统" class="headerlink" title="进入新系统"></a>进入新系统</h3><p>重启电脑进入系统后，就能看见这个全新安装的Ubuntu OS了。是不是很有新鲜感呢～   <img src="http://res.cloudinary.com/shi1996/image/upload/v1514032606/update0_xd4tbi.png" alt="5"> <strong>之后还有关于Ubuntu安装常用软件，远程操作等教程，其实很多同学就是因为不能成功安装软件而导致系统无法使用而放弃它，下一篇讲介绍一些软件的安装和需要注意的坑，请持续关注更新吧～</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/让电脑飞/keep_fast_compt/" rel="next" title="维持你电脑的快速">
+                <i class="fa fa-chevron-left"></i> 维持你电脑的快速
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Linux/U_select_appSource/" rel="prev" title="Ubuntu更改软件源">
+                Ubuntu更改软件源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://yzmean.site/" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu-Install-Hello-Ubuntu"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu Install|Hello Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#制作U盘启动盘"><span class="nav-number">1.1.</span> <span class="nav-text">制作U盘启动盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装系统"><span class="nav-number">1.2.</span> <span class="nav-text">安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入新系统"><span class="nav-number">1.3.</span> <span class="nav-text">进入新系统</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("r5MekvoPHCRYg67KaqVgoIki-gzGzoHsz", "cG6vd4svOJLhajWpW3DubnUu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

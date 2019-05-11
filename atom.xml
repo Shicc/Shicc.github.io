@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shic.top/"/>
-  <updated>2018-03-08T05:52:47.094Z</updated>
+  <updated>2019-05-11T12:54:23.698Z</updated>
   <id>http://shic.top/</id>
   
   <author>
@@ -16,9 +16,72 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Finetuning-classification</title>
+    <link href="http://shic.top/Deep-Learning/finetune-classification/"/>
+    <id>http://shic.top/Deep-Learning/finetune-classification/</id>
+    <published>2019-05-10T16:00:00.000Z</published>
+    <updated>2019-05-11T12:54:23.698Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="从头训练or微调模型：迁移学习快速实战"><a href="#从头训练or微调模型：迁移学习快速实战" class="headerlink" title="从头训练or微调模型：迁移学习快速实战"></a>从头训练or微调模型：迁移学习快速实战</h1><h2 id="为什么要做？"><a href="#为什么要做？" class="headerlink" title="为什么要做？"></a>为什么要做？</h2><p>还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。<br><a id="more"></a></p>
+<h2 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h2><p>在计算机视觉上，如果从头训练一个模型，我们不经需要足量的数据集来满足训练要求，也需要足够多的计算资源，显然这不是每一个人都能达到的，有一种办法那就是迁移学习（transfer learning），它将从源数据集学到的知识迁移到目标数据集上，预训练模型可以抽取较为通用的图像特征，只需更改模型的输出层并重新训练，使之满足目标数据集的要求。微调（fine tuning）是迁移学习中的一种常用技术。微调的意思就是对于目的模型的features采用预训练模型的features并用很小的学习率微调或者就固定不变，而输出层采用随机初始化并从头开始训练。</p>
+<h2 id="数据集介绍"><a href="#数据集介绍" class="headerlink" title="数据集介绍"></a>数据集介绍</h2><p>在kaggle上，合适的数据集就是<a href="https://www.kaggle.com/prathmeshgodse/food101-zip" target="_blank" rel="external">food101</a>了。但神奇的是9GB大的数据集中，训练集和测试集内容都是一样的。严格意义上讲，测试集只能在模型的各种参数确定后用来测试模型的精度，但训练集和测试集一样的话，那相当于还是用的训练集在做测试，这样得出的泛化误差那就是训练误差，是不对的。当时做的时候也没管，用CPU去跑这个庞大的数据集也没能体验到fine-tuning的魅力，对于最后一个101类的分类器也不好训练，其实fing-tuning没啥东西，但有时候懂算法就是那一个全新的任务不好上手，跑不好模型还是时有发生的，这次闲着无聊整了一个5个类的小数据集，且正确划分了训练集和测试集。冥冥之中觉得又一个上手fing-tuning的好例子，小型数据集：<a href="https://pan.baidu.com/s/1Oaf8m5IZiwLOBqc9gJ4aDw" target="_blank" rel="external">网盘</a> 提取码: 8u46</p>
+<p>训练集各类各700张，测试集各类各300张，其文件结构如下：</p>
+<ul>
+<li>food5<ul>
+<li>train<ul>
+<li>apple_pie</li>
+<li>baby_back_ribs</li>
+<li>baklava</li>
+<li>beef_carpaccio</li>
+<li>beef_tartare</li>
+</ul>
+</li>
+<li>test<ul>
+<li>apple_pie</li>
+<li>baby_back_ribs</li>
+<li>baklava</li>
+<li>beef_carpaccio</li>
+<li>beef_tartare</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> d2lzh <span class="keyword">as</span> d2l</div><div class="line"><span class="keyword">from</span> mxnet <span class="keyword">import</span> gluon, init</div><div class="line"><span class="keyword">from</span> mxnet.gluon <span class="keyword">import</span> data <span class="keyword">as</span> gdata, loss <span class="keyword">as</span> gloss, model_zoo</div><div class="line"><span class="keyword">import</span> os</div></pre></td></tr></table></figure>
+<h2 id="读取数据"><a href="#读取数据" class="headerlink" title="读取数据"></a>读取数据</h2><p>gluon提供了一个读取用文件夹名字分好类的图像数据集接口，同一类别的数据都放在同一文件夹中，文件夹名就是类别名。函数会自动生成相应的label。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">train_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, <span class="string">'train'</span>))</div><div class="line">test_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, <span class="string">'test'</span>))</div></pre></td></tr></table></figure>
+<p>得到的train_imgs和test_imgs就是一个<code>ImageFolderDataset</code>类，通过<code>__len__()</code>可以得到其长度，即包含多少个样本， <code>.__getitem__(x)</code>会返回第x个样本和其类别。</p>
+<p>处理数据时，我们对RGB三个颜色通道的数值做标准化，每个数值减去该通道所有数值的平均值，再除以该通道所有数值的标准差作为输出。当图片大小不一样时，我们先从图像中裁剪出随机大小和随机高宽比的一块随机区域，然后将该区域缩放为高和宽均为224像素的输入。测试时，我们将图像的高和宽均缩放为256像素，然后从中裁剪出高和宽均为224像素的中心区域作为输入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 指定RGB三个通道的均值和方差来将图像通道归一化</span></div><div class="line"><span class="comment"># 此数据是ImageNet上的数据算出来的数值</span></div><div class="line">normalize = gdata.vision.transforms.Normalize(</div><div class="line">    [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</div><div class="line"></div><div class="line">train_augs = gdata.vision.transforms.Compose([</div><div class="line">    gdata.vision.transforms.RandomResizedCrop(<span class="number">224</span>),</div><div class="line">    gdata.vision.transforms.RandomFlipLeftRight(),</div><div class="line">    gdata.vision.transforms.ToTensor(),</div><div class="line">    normalize])</div><div class="line"></div><div class="line">test_augs = gdata.vision.transforms.Compose([</div><div class="line">    gdata.vision.transforms.Resize(<span class="number">256</span>),</div><div class="line">    gdata.vision.transforms.CenterCrop(<span class="number">224</span>),</div><div class="line">    gdata.vision.transforms.ToTensor(),</div><div class="line">    normalize])</div></pre></td></tr></table></figure>
+<p>调用<code>ImageFolderDataset</code>类的<code>transform_first(train_augs)</code>函数，传入变化的规则，它会把数据集的全部输入按照规则来变化而保留label不动，这就得到了我们数据处理后的可以拿来训练的数据集。在通过gluon提供的<code>DataLoader</code>类来获取批量数据，<code>DataLoader</code>类接受三个参数，第一个是数据集，第二个是<code>batch_size</code>，会把数据集按照<code>batch_size</code>来划分，第三个指定是否随机读取的，<code>shuffle=True</code>表示随机读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">train_iter = gdata.DataLoader(train_imgs.transform_first(train_augs), batch_size, shuffle=<span class="keyword">True</span>)</div><div class="line">test_iter = gdata.DataLoader(test_imgs.transform_first(test_augs), batch_size)</div></pre></td></tr></table></figure>
+<h2 id="搭建模型"><a href="#搭建模型" class="headerlink" title="搭建模型"></a>搭建模型</h2><p>以前使用的<code>NumPy</code>的<code>vgg</code>参数文件基于<code>TensorFlow</code>1.x的代码做fine tuning很麻烦，代码臃肿还不好理解，详情请看这个<a href="https://github.com/Shicc/food101" target="_blank" rel="external">repo</a>。<code>mxnet</code>的<code>Gluon</code>前端出来后，便利上也广受好评，本次就放弃原先的代码，用<code>Gluon</code>3行代码快速做好fine tuning。</p>
+<h3 id="定义微调模型"><a href="#定义微调模型" class="headerlink" title="定义微调模型"></a>定义微调模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 采用在ImageNet上预训练的resnet34_v2网络</span></div><div class="line">pretrained_net = model_zoo.vision.resnet34_v2(pretrained=<span class="keyword">True</span>)</div><div class="line"></div><div class="line">finetune_net = model_zoo.vision.resnet34_v2(classes=<span class="number">5</span>) <span class="comment">#classes表示类别数</span></div><div class="line"><span class="comment"># 固定features中的参数：</span></div><div class="line"><span class="comment"># finetune_net.features.collect_params().setattr('grad_req', 'null')</span></div><div class="line">finetune_net.features = pretrained_net.features</div><div class="line">finetune_net.output.initialize(init.Xavier())</div><div class="line"><span class="comment"># output中的模型参数将在迭代中使用10倍大的学习率</span></div><div class="line">finetune_net.output.collect_params().setattr(<span class="string">'lr_mult'</span>, <span class="number">10</span>)</div></pre></td></tr></table></figure>
+<h3 id="微调模型"><a href="#微调模型" class="headerlink" title="微调模型"></a>微调模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_fine_tuning</span><span class="params">(net, learning_rate, batch_size=<span class="number">200</span>, num_epochs=<span class="number">20</span>)</span>:</span></div><div class="line">    ctx = d2l.try_all_gpus()</div><div class="line">    net.collect_params().reset_ctx(ctx) <span class="comment"># 把数据复制到gpu上</span></div><div class="line">    net.hybridize()</div><div class="line">    loss = gloss.SoftmaxCrossEntropyLoss()</div><div class="line">    trainer = gluon.Trainer(net.collect_params(), <span class="string">'sgd'</span>, &#123;</div><div class="line">        <span class="string">'learning_rate'</span>: learning_rate, <span class="string">'wd'</span>: <span class="number">0.001</span>&#125;)</div><div class="line">    d2l.train(train_iter, test_iter, net, loss, trainer, ctx, num_epochs)</div><div class="line"></div><div class="line">train_fine_tuning(finetune_net, <span class="number">0.01</span>) <span class="comment">#用0.01的小学习率微调features</span></div></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>简单跑了一下结果也还能接受，但从最后几个epochs看来，还有优化空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">training on [gpu(0)]</div><div class="line">epoch 1, loss 3.8275, train acc 0.401, test acc 0.652, time 1299.6 sec</div><div class="line">epoch 2, loss 1.1384, train acc 0.680, test acc 0.772, time 50.4 sec</div><div class="line">epoch 3, loss 0.5352, train acc 0.817, test acc 0.801, time 51.5 sec</div><div class="line">epoch 4, loss 0.4826, train acc 0.828, test acc 0.842, time 50.4 sec</div><div class="line">epoch 5, loss 0.4427, train acc 0.842, test acc 0.813, time 49.8 sec</div><div class="line">epoch 6, loss 0.3969, train acc 0.858, test acc 0.856, time 50.5 sec</div><div class="line">epoch 7, loss 0.3310, train acc 0.879, test acc 0.867, time 49.6 sec</div><div class="line">epoch 8, loss 0.3035, train acc 0.893, test acc 0.818, time 50.7 sec</div><div class="line">epoch 9, loss 0.2848, train acc 0.895, test acc 0.865, time 51.3 sec</div><div class="line">epoch 10, loss 0.3183, train acc 0.883, test acc 0.865, time 49.4 sec</div><div class="line">epoch 11, loss 0.2798, train acc 0.895, test acc 0.875, time 50.3 sec</div><div class="line">epoch 12, loss 0.2640, train acc 0.902, test acc 0.861, time 51.0 sec</div><div class="line">epoch 13, loss 0.2406, train acc 0.915, test acc 0.877, time 49.7 sec</div><div class="line">epoch 14, loss 0.2262, train acc 0.918, test acc 0.875, time 50.3 sec</div><div class="line">epoch 15, loss 0.1985, train acc 0.929, test acc 0.869, time 50.4 sec</div><div class="line">epoch 16, loss 0.2123, train acc 0.923, test acc 0.883, time 50.4 sec</div><div class="line">epoch 17, loss 0.1978, train acc 0.925, test acc 0.886, time 50.3 sec</div><div class="line">epoch 18, loss 0.1935, train acc 0.929, test acc 0.884, time 49.9 sec</div><div class="line">epoch 19, loss 0.1899, train acc 0.934, test acc 0.878, time 50.4 sec</div><div class="line">epoch 20, loss 0.1936, train acc 0.931, test acc 0.894, time 50.5 sec</div></pre></td></tr></table></figure>
+<h3 id="gpu使用情况"><a href="#gpu使用情况" class="headerlink" title="gpu使用情况"></a>gpu使用情况</h3><p>只是没想到这么少的数据都占了这么多显存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+-----------------------------------------------------------------------------+</div><div class="line">| NVIDIA-SMI 418.56       Driver Version: 410.79       CUDA Version: 10.0     |</div><div class="line">|-------------------------------+----------------------+----------------------+</div><div class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</div><div class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</div><div class="line">|===============================+======================+======================|</div><div class="line">|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |</div><div class="line">| N/A   77C    P0    31W /  70W |  15071MiB / 15079MiB |      0%      Default |</div><div class="line">+-------------------------------+----------------------+----------------------+</div><div class="line">+-----------------------------------------------------------------------------+</div><div class="line">| Processes:                                                       GPU Memory |</div><div class="line">|  GPU       PID   Type   Process name                             Usage      |</div><div class="line">|=============================================================================|</div><div class="line">+-----------------------------------------------------------------------------+</div></pre></td></tr></table></figure>
+<p>而finetuning_net的输出层则被改成了5个类</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;pretrained_net.output</div><div class="line">Dense(2048 -&gt; 5, linear)</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;从头训练or微调模型：迁移学习快速实战&quot;&gt;&lt;a href=&quot;#从头训练or微调模型：迁移学习快速实战&quot; class=&quot;headerlink&quot; title=&quot;从头训练or微调模型：迁移学习快速实战&quot;&gt;&lt;/a&gt;从头训练or微调模型：迁移学习快速实战&lt;/h1&gt;&lt;h2 id=&quot;为什么要做？&quot;&gt;&lt;a href=&quot;#为什么要做？&quot; class=&quot;headerlink&quot; title=&quot;为什么要做？&quot;&gt;&lt;/a&gt;为什么要做？&lt;/h2&gt;&lt;p&gt;还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Deep Learning" scheme="http://shic.top/categories/Deep-Learning/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://shic.top/tags/Deep-Learning/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(一)</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot1/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot1/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot1/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot1/</id>
     <published>2018-03-07T16:00:10.000Z</published>
     <updated>2018-03-08T05:52:47.094Z</updated>
     
@@ -52,8 +115,8 @@
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(二)</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot2/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot2/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot2/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot2/</id>
     <published>2018-03-07T16:00:09.000Z</published>
     <updated>2018-03-08T05:30:26.716Z</updated>
     
@@ -83,8 +146,8 @@
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(三)</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot3/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot3/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot3/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot3/</id>
     <published>2018-03-07T16:00:08.000Z</published>
     <updated>2018-03-08T05:30:22.205Z</updated>
     
@@ -114,8 +177,8 @@
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(四)</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot4/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot4/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot4/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot4/</id>
     <published>2018-03-07T16:00:07.000Z</published>
     <updated>2018-03-08T05:30:17.452Z</updated>
     
@@ -145,8 +208,8 @@
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(五）</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot5/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot5/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot5/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot5/</id>
     <published>2018-03-07T16:00:06.000Z</published>
     <updated>2018-03-08T06:00:37.445Z</updated>
     
@@ -176,8 +239,8 @@
   
   <entry>
     <title>Spring Boot+Spring Data JPA+Thymeleaf(六)</title>
-    <link href="http://shic.top/2018/03/08/Spring%20Boot6/"/>
-    <id>http://shic.top/2018/03/08/Spring Boot6/</id>
+    <link href="http://shic.top/Spring-Boot/Spring%20Boot6/"/>
+    <id>http://shic.top/Spring-Boot/Spring Boot6/</id>
     <published>2018-03-07T16:00:05.000Z</published>
     <updated>2018-03-08T06:33:18.551Z</updated>
     
@@ -207,8 +270,8 @@
   
   <entry>
     <title>爬爬音乐</title>
-    <link href="http://shic.top/2018/02/21/%E7%88%AC%E7%88%AC%E9%9F%B3%E4%B9%90/"/>
-    <id>http://shic.top/2018/02/21/爬爬音乐/</id>
+    <link href="http://shic.top/Python/%E7%88%AC%E7%88%AC%E9%9F%B3%E4%B9%90/"/>
+    <id>http://shic.top/Python/爬爬音乐/</id>
     <published>2018-02-20T16:00:01.000Z</published>
     <updated>2018-02-21T09:55:05.393Z</updated>
     
@@ -246,8 +309,8 @@
   
   <entry>
     <title>代码本地管理之Git</title>
-    <link href="http://shic.top/2018/02/21/use_git/"/>
-    <id>http://shic.top/2018/02/21/use_git/</id>
+    <link href="http://shic.top/Python/Git/use_git/"/>
+    <id>http://shic.top/Python/Git/use_git/</id>
     <published>2018-02-20T16:00:00.000Z</published>
     <updated>2018-02-21T09:17:28.337Z</updated>
     
@@ -281,8 +344,8 @@
   
   <entry>
     <title>2017 念念不忘 必有回响</title>
-    <link href="http://shic.top/2018/02/15/2017recollect/"/>
-    <id>http://shic.top/2018/02/15/2017recollect/</id>
+    <link href="http://shic.top/Others/2017recollect/"/>
+    <id>http://shic.top/Others/2017recollect/</id>
     <published>2018-02-14T16:00:00.000Z</published>
     <updated>2018-02-16T05:33:18.595Z</updated>
     
@@ -311,10 +374,10 @@
   
   <entry>
     <title>机器学习识别方圆(1)</title>
-    <link href="http://shic.top/2018/02/06/ML_csv_pretreatment_data/"/>
-    <id>http://shic.top/2018/02/06/ML_csv_pretreatment_data/</id>
+    <link href="http://shic.top/Deep-Learning/ML_csv_pretreatment_data/"/>
+    <id>http://shic.top/Deep-Learning/ML_csv_pretreatment_data/</id>
     <published>2018-02-05T16:00:10.000Z</published>
-    <updated>2018-02-20T14:52:02.267Z</updated>
+    <updated>2019-05-11T12:54:42.222Z</updated>
     
     <content type="html"><![CDATA[<h2 id="想从这个很简单的二分类问题实践机器学习吗？"><a href="#想从这个很简单的二分类问题实践机器学习吗？" class="headerlink" title="想从这个很简单的二分类问题实践机器学习吗？"></a>想从这个很简单的二分类问题实践机器学习吗？</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517904003/fang_yuan_qx0ukp.jpg" alt=""></center><br><a id="more"></a></p>
 <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p>可能绝大多数机器学习的入门者都用过MNIST数据集，然后第二步自己做实践的时候就卡住了，这一步中往往时相当费时间的，也是学习过程中一个困难的地方。这次博主将分享一个用机器学习来分辨图片的简单例子，带你走进实践，有利于对其工作原理的理解，便于后续的学习和研究。如果你还没有了解什么时机器学习，或者一些常用的算法，那本教程不适合。</p>
@@ -348,58 +411,25 @@
     
     </summary>
     
-      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+      <category term="Deep Learning" scheme="http://shic.top/categories/Deep-Learning/"/>
     
     
-      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习识别方圆(4)</title>
-    <link href="http://shic.top/2018/02/06/ML_csv_rnn/"/>
-    <id>http://shic.top/2018/02/06/ML_csv_rnn/</id>
-    <published>2018-02-05T16:00:09.000Z</published>
-    <updated>2019-04-17T03:20:36.788Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="RNN照样识别你是方是圆"><a href="#RNN照样识别你是方是圆" class="headerlink" title="RNN照样识别你是方是圆"></a>RNN照样识别你是方是圆</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg" alt=""></center><br><a id="more"></a></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>前面用CNN实践了一下，其实用RNN也是可以识别图像的。只是说存在这在于更加大型的模型里的好坏问题，在这个小数据集上，RNN同样也是可以使用做分类处理的，而且这样也能加深理解。<br><br><br>用下图解释一下RNN处理图像时的输入<br><img src="http://res.cloudinary.com/shi1996/image/upload/v1517923518/rnn__s8xouo.jpg" alt=""><br>难点还是在处理数据，调整模型使之与数据维度匹配</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">import numpy as np</div><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"># 超参数</div><div class="line">batch_size = 50</div><div class="line">time_step = 40</div><div class="line">input_size = 40</div><div class="line">lr = 0.005</div><div class="line">hidden_unit = 256</div><div class="line"></div><div class="line">def to_onehot(y):</div><div class="line">    for i in range(len(y)):</div><div class="line">        if y.iloc[i,1600]==0:</div><div class="line">            y.iloc[i,1600] = &apos;y&apos;</div><div class="line">        else:</div><div class="line">            y.iloc[i,1600] = &apos;f&apos;</div><div class="line">    return pd.get_dummies(y)</div><div class="line"></div><div class="line"># 准备数据</div><div class="line">data_set = pd.read_csv(&apos;train.csv&apos;).iloc[:,1:]</div><div class="line"># 仅把标签转化成onehot</div><div class="line">data_set = to_onehot(data_set)</div><div class="line"></div><div class="line"># 打乱数据，使数据随机</div><div class="line">data_set = data_set.values.astype(np.float32)</div><div class="line">np.random.shuffle(data_set)</div><div class="line"></div><div class="line"># 划分训练集和验证集</div><div class="line">sep = int(0.7*len(data_set))</div><div class="line">train_data = data_set[:sep]</div><div class="line">test_data = data_set[sep:]</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_input = tf.placeholder(tf.float32,[None,1602])</div><div class="line">tf_x = tf_input[:,:1600]</div><div class="line">x_img = tf.reshape(tf_x,[-1,time_step,input_size])</div><div class="line">tf_y = tf_input[:,1600:]            # onehot</div><div class="line"></div><div class="line">## RNN</div><div class="line">rnn_cell = tf.contrib.rnn.BasicLSTMCell(num_units = hidden_unit)</div><div class="line">output_ , states = tf.nn.dynamic_rnn(</div><div class="line">        rnn_cell,               #cell</div><div class="line">        x_img,                  #input</div><div class="line">        initial_state = None,   #初始化隐藏层的状态,表示不初始化</div><div class="line">        dtype = tf.float32,     #和上面那句必须同时出现</div><div class="line">        time_major = False      #False: (batch, time_step, input); True: (time_step, batch, input)</div><div class="line">)</div><div class="line"></div><div class="line">output = tf.layers.dense(output_[:,-1,:],2) #对输出进行最后的修改</div><div class="line"></div><div class="line">loss = tf.losses.softmax_cross_entropy(onehot_labels = tf_y,logits = output)</div><div class="line">train_op = tf.train.AdamOptimizer(lr).minimize(loss)</div><div class="line"></div><div class="line"># 计算精度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y,axis = 1),</div><div class="line">        predictions = tf.argmax(output,axis = 1)</div><div class="line">)[1]</div><div class="line"></div><div class="line"># 重要步骤！！初始化</div><div class="line">sess = tf.Session()</div><div class="line">#初始化全局和本地变量</div><div class="line">init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div><div class="line"></div><div class="line"># 训练</div><div class="line">print(&quot;RNN模型，learning rate：&quot;,lr)</div><div class="line">for step in range(1201):</div><div class="line">    batch_index = np.random.randint(len(train_data), size = batch_size)</div><div class="line">    sess.run(train_op,&#123;tf_input:train_data[batch_index]&#125;)</div><div class="line">    if step % 50 ==0:</div><div class="line">        acc_, loss_ = sess.run([accuracy, loss], &#123;tf_input: test_data&#125;)</div><div class="line">        print(&quot;Step: %i&quot; % step, &quot;| Accurate: %.8f&quot; % acc_, &quot;| Loss: %.2f&quot; % loss_ )</div><div class="line"></div><div class="line">    if step == 1200:</div><div class="line">        predictions_2 = tf.argmax(output,axis = 1)</div><div class="line">        test_data_ = test_data[:50]</div><div class="line">        acc_,predictions_2_ ,output_= sess.run([accuracy,predictions_2,output], feed_dict = &#123;tf_input: test_data_&#125;)</div><div class="line">        print(&apos;predictions_2:&apos;, predictions_2_,&apos;output:&apos;,output_)</div><div class="line">        print(&apos;accuracy:&apos;,acc_)</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;a href=&quot;#RNN照样识别你是方是圆&quot; class=&quot;headerlink&quot; title=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;/a&gt;RNN照样识别你是方是圆&lt;/h2&gt;&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
-    
-    
-      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+      <category term="Deep Learning" scheme="http://shic.top/tags/Deep-Learning/"/>
     
   </entry>
   
   <entry>
     <title>机器学习识别方圆(2)</title>
-    <link href="http://shic.top/2018/02/06/ML_csv_build_model/"/>
-    <id>http://shic.top/2018/02/06/ML_csv_build_model/</id>
+    <link href="http://shic.top/Deep-Learning/ML_csv_build_model/"/>
+    <id>http://shic.top/Deep-Learning/ML_csv_build_model/</id>
     <published>2018-02-05T16:00:09.000Z</published>
-    <updated>2018-02-20T15:17:34.205Z</updated>
+    <updated>2019-05-11T12:55:51.230Z</updated>
     
     <content type="html"><![CDATA[<h2 id="搭建模型-CNN"><a href="#搭建模型-CNN" class="headerlink" title="搭建模型-CNN"></a>搭建模型-CNN</h2><p>本次先用CNN来搭建神经网络，实现图像的识别</p>
 <p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517897894/cnn_h1tuhm.jpg" alt=""></center><br><a id="more"></a><br><br></p>
 <h3 id="参数、超参数"><a href="#参数、超参数" class="headerlink" title="参数、超参数"></a>参数、超参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">batch_size = 50  # 一批取50个数据</div><div class="line">lr = 0.5         # learning rate</div></pre></td></tr></table></figure>
 <h3 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_input = tf.placeholder(tf.float32,[None,1602])</div><div class="line">tf_x = tf_input[:,:1600]</div><div class="line">x_img = tf.reshape(tf_x,[-1,40,40,1])</div><div class="line">tf_y = tf_input[:,1600:]            # onehot</div><div class="line"></div><div class="line">## CNN</div><div class="line">conv1 = tf.layers.conv2d(           # shape:(40,40,1)</div><div class="line">        inputs = x_img,</div><div class="line">        filters = 10,               # 图像卷积后的深度</div><div class="line">        kernel_size = 5,            # 扫描核5*5大小</div><div class="line">        padding = &apos;same&apos;,</div><div class="line">        activity_regularizer = tf.nn.relu</div><div class="line">)                                   # shape:(40,40,10)</div><div class="line">pool1 = tf.layers.max_pooling2d(</div><div class="line">        inputs = conv1,</div><div class="line">        pool_size = [2,2],</div><div class="line">        strides = 2</div><div class="line">)                                   # shape:(20,20,10)</div><div class="line">conv2 = tf.layers.conv2d(</div><div class="line">        inputs = pool1,</div><div class="line">        filters = 20,</div><div class="line">        kernel_size = 5,</div><div class="line">        padding = &apos;same&apos;,</div><div class="line">        activity_regularizer = tf.nn.relu</div><div class="line">)                                   # shape:(20,20,20)</div><div class="line">pool2 = tf.layers.max_pooling2d(</div><div class="line">        inputs = conv2,</div><div class="line">        pool_size = [2,2],</div><div class="line">        strides = 2</div><div class="line">)                                   # shape:(10,10,20)</div><div class="line"></div><div class="line">shape = pool2.get_shape().as_list() # (ง •_•)ง</div><div class="line">flat_data = tf.reshape(pool2,[-1,shape[1]*shape[2]*shape[3]])</div><div class="line">output = tf.layers.dense(flat_data,2) #用于全连接层，二分类0或者1。</div></pre></td></tr></table></figure>
-<h3 id="定义损失函数"><a href="#定义损失函数" class="headerlink" title="定义损失函数"></a>定义损失函数</h3><p>此处我们选择的是交叉熵损失函数，需要注意的是这里的tf_yone_hot形式的，来自数据集的y，output就是模型的预测值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">loss = tf.losses.softmax_cross_entropy(</div><div class="line">	onehot_labels = tf_y,</div><div class="line">	logits = output</div><div class="line">)</div></pre></td></tr></table></figure></p>
+<h3 id="定义损失函数"><a href="#定义损失函数" class="headerlink" title="定义损失函数"></a>定义损失函数</h3><p>此处我们选择的是交叉熵损失函数，需要注意的是这里的tf_yone_hot形式的，来自数据集的y，output就是模型的预测值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">loss = tf.losses.softmax_cross_entropy(</div><div class="line">		onehot_labels = tf_y,</div><div class="line">		logits = output</div><div class="line">)</div></pre></td></tr></table></figure></p>
 <h3 id="选择优化方法训练"><a href="#选择优化方法训练" class="headerlink" title="选择优化方法训练"></a>选择优化方法训练</h3><p>此处我们选择的是AdamOptimizer，当然也可以尝试其他优化器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">train_op = tf.train.AdamOptimizer(lr).minimize(loss)</div></pre></td></tr></table></figure></p>
 <h3 id="计算模型精度"><a href="#计算模型精度" class="headerlink" title="计算模型精度"></a>计算模型精度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 用于测试该模型的识别精确度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y,axis = 1),</div><div class="line">        predictions = tf.argmax(output,axis = 1)</div><div class="line">)[1]</div></pre></td></tr></table></figure>]]></content>
     
@@ -410,27 +440,23 @@
     
     </summary>
     
-      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+      <category term="Deep Learning" scheme="http://shic.top/categories/Deep-Learning/"/>
     
     
-      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+      <category term="Deep Learning" scheme="http://shic.top/tags/Deep-Learning/"/>
     
   </entry>
   
   <entry>
     <title>机器学习识别方圆(3)</title>
-    <link href="http://shic.top/2018/02/06/ML_csv_Run/"/>
-    <id>http://shic.top/2018/02/06/ML_csv_Run/</id>
+    <link href="http://shic.top/Deep-Learning/ML_csv_Run/"/>
+    <id>http://shic.top/Deep-Learning/ML_csv_Run/</id>
     <published>2018-02-05T16:00:08.000Z</published>
-    <updated>2018-02-20T15:16:33.111Z</updated>
+    <updated>2019-05-11T12:55:47.444Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Run-Your-Neural-Network"><a href="#Run-Your-Neural-Network" class="headerlink" title="Run Your Neural Network"></a>Run Your Neural Network</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517903727/neural-net-head_pf5ixb.jpg" alt=""></center><br><a id="more"></a></p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><strong>这一步是相当重要的</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sess = tf.Session()</div><div class="line"># 初始化全局和本地变量</div><div class="line">init_op = tf.group(</div><div class="line">        tf.global_variables_initializer(), </div><div class="line">        tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div></pre></td></tr></table></figure></p>
-<h3 id="训练并实时检验"><a href="#训练并实时检验" class="headerlink" title="训练并实时检验"></a>训练并实时检验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># 训练</div><div class="line">for step in range(1201):</div><div class="line">    batch_index = np.random.randint(len(train_data), size = batch_size)</div><div class="line">    sess.run(train_op,&#123;tf_input:train_data[batch_index]&#125;)</div><div class="line">    if step % 50 ==0:</div><div class="line">        acc_, loss_ = sess.run([accuracy, loss], &#123;tf_input: test_data&#125;)</div><div class="line">        print(&quot;Step: %i&quot; % step, &quot;| Accurate: %.8f&quot; % acc_, &quot;| Loss: %.2f&quot; % loss_ )</div><div class="line">	</div><div class="line">    # 检验一下是否输出正常</div><div class="line">    if step == 1200:</div><div class="line">        predictions_2 = tf.argmax(output,axis = 1)</div><div class="line">        test_data_ = test_data[:50]</div><div class="line">        acc_,predictions_2_ ,output_= sess.run([accuracy,predictions_2,output], feed_dict = &#123;tf_input: test_data_&#125;)</div><div class="line">        print(&apos;predictions_2:&apos;, predictions_2_,&apos;output:&apos;,output_)</div><div class="line">        print(&apos;accuracy:&apos;,acc_)</div></pre></td></tr></table></figure>
+<h3 id="训练并实时检验"><a href="#训练并实时检验" class="headerlink" title="训练并实时检验"></a>训练并实时检验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># 训练</div><div class="line">for step in range(1201):</div><div class="line">    batch_index = np.random.randint(len(train_data), size = batch_size)</div><div class="line">    sess.run(train_op,&#123;tf_input:train_data[batch_index]&#125;)</div><div class="line">    if step % 50 ==0:</div><div class="line">        acc_, loss_ = sess.run([accuracy, loss], &#123;tf_input: test_data&#125;)</div><div class="line">        print(&quot;Step: %i&quot; % step, &quot;| Accurate: %.8f&quot; % acc_, &quot;| Loss: %.2f&quot; % loss_ )</div><div class="line">	</div><div class="line">	# 检验一下是否输出正常</div><div class="line">    if step == 1200:</div><div class="line">        predictions_2 = tf.argmax(output,axis = 1)</div><div class="line">        test_data_ = test_data[:50]</div><div class="line">        acc_,predictions_2_ ,output_= sess.run([accuracy,predictions_2,output], feed_dict = &#123;tf_input: test_data_&#125;)</div><div class="line">        print(&apos;predictions_2:&apos;, predictions_2_,&apos;output:&apos;,output_)</div><div class="line">        print(&apos;accuracy:&apos;,acc_)</div></pre></td></tr></table></figure>
 <p>在经过很短的训练后，还是能达到约99%的精确度（step = 1200，accuracy = 92.5%，图像噪点较多）</p>
 <h3 id="优化及总结"><a href="#优化及总结" class="headerlink" title="优化及总结"></a>优化及总结</h3><ul>
 <li><p>我们首先用的是0.05的学习率进行学习，在达到98%的时候就比较难上到99%，当然经过更多的训练还是可以。那么此处就可以更改一下learning rate，换一个更小的值来试试。</p>
@@ -456,21 +482,42 @@
     
     </summary>
     
-      <category term="Machine Learning" scheme="http://shic.top/categories/Machine-Learning/"/>
-    
-      <category term="TensorFlow" scheme="http://shic.top/categories/Machine-Learning/TensorFlow/"/>
+      <category term="Deep Learning" scheme="http://shic.top/categories/Deep-Learning/"/>
     
     
-      <category term="Machine Learning" scheme="http://shic.top/tags/Machine-Learning/"/>
+      <category term="Deep Learning" scheme="http://shic.top/tags/Deep-Learning/"/>
     
-      <category term="TensorFlow" scheme="http://shic.top/tags/TensorFlow/"/>
+  </entry>
+  
+  <entry>
+    <title>机器学习识别方圆(4)</title>
+    <link href="http://shic.top/Deep-Learning/ML_csv_rnn/"/>
+    <id>http://shic.top/Deep-Learning/ML_csv_rnn/</id>
+    <published>2018-02-05T16:00:07.000Z</published>
+    <updated>2019-05-11T12:50:17.223Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="RNN照样识别你是方是圆"><a href="#RNN照样识别你是方是圆" class="headerlink" title="RNN照样识别你是方是圆"></a>RNN照样识别你是方是圆</h2><p><center><img src="http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg" alt=""></center><br><a id="more"></a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>前面用CNN实践了一下，其实用RNN也是可以识别图像的。只是说存在这在于更加大型的模型里的好坏问题，在这个小数据集上，RNN同样也是可以使用做分类处理的，而且这样也能加深理解。<br><br><br>用下图解释一下RNN处理图像时的输入<br><img src="http://res.cloudinary.com/shi1996/image/upload/v1517923518/rnn__s8xouo.jpg" alt=""><br>难点还是在处理数据，调整模型使之与数据维度匹配</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">import pandas as pd</div><div class="line">import numpy as np</div><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"># 超参数</div><div class="line">batch_size = 50</div><div class="line">time_step = 40</div><div class="line">input_size = 40</div><div class="line">lr = 0.005</div><div class="line">hidden_unit = 256</div><div class="line"></div><div class="line">def to_onehot(y):</div><div class="line">    for i in range(len(y)):</div><div class="line">        if y.iloc[i,1600]==0:</div><div class="line">            y.iloc[i,1600] = &apos;y&apos;</div><div class="line">        else:</div><div class="line">            y.iloc[i,1600] = &apos;f&apos;</div><div class="line">    return pd.get_dummies(y)</div><div class="line"></div><div class="line"># 准备数据</div><div class="line">data_set = pd.read_csv(&apos;train.csv&apos;).iloc[:,1:]</div><div class="line"># 仅把标签转化成onehot</div><div class="line">data_set = to_onehot(data_set)</div><div class="line"></div><div class="line"># 打乱数据，使数据随机</div><div class="line">data_set = data_set.values.astype(np.float32)</div><div class="line">np.random.shuffle(data_set)</div><div class="line"></div><div class="line"># 划分训练集和验证集</div><div class="line">sep = int(0.7*len(data_set))</div><div class="line">train_data = data_set[:sep]</div><div class="line">test_data = data_set[sep:]</div><div class="line"></div><div class="line"># 创建模型</div><div class="line">tf_input = tf.placeholder(tf.float32,[None,1602])</div><div class="line">tf_x = tf_input[:,:1600]</div><div class="line">x_img = tf.reshape(tf_x,[-1,time_step,input_size])</div><div class="line">tf_y = tf_input[:,1600:]            # onehot</div><div class="line"></div><div class="line">## RNN</div><div class="line">rnn_cell = tf.contrib.rnn.BasicLSTMCell(num_units = hidden_unit)</div><div class="line">output_ , states = tf.nn.dynamic_rnn(</div><div class="line">        rnn_cell,               #cell</div><div class="line">        x_img,                  #input</div><div class="line">        initial_state = None,   #初始化隐藏层的状态,表示不初始化</div><div class="line">        dtype = tf.float32,     #和上面那句必须同时出现</div><div class="line">        time_major = False      #False: (batch, time_step, input); True: (time_step, batch, input)</div><div class="line">)</div><div class="line"></div><div class="line">output = tf.layers.dense(output_[:,-1,:],2) #对输出进行最后的修改</div><div class="line"></div><div class="line">loss = tf.losses.softmax_cross_entropy(onehot_labels = tf_y,logits = output)</div><div class="line">train_op = tf.train.AdamOptimizer(lr).minimize(loss)</div><div class="line"></div><div class="line"># 计算精度</div><div class="line">accuracy = tf.metrics.accuracy(</div><div class="line">        labels = tf.argmax(tf_y,axis = 1),</div><div class="line">        predictions = tf.argmax(output,axis = 1)</div><div class="line">)[1]</div><div class="line"></div><div class="line"># 重要步骤！！初始化</div><div class="line">sess = tf.Session()</div><div class="line">#初始化全局和本地变量</div><div class="line">init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())</div><div class="line">sess.run(init_op)</div><div class="line"></div><div class="line"># 训练</div><div class="line">print(&quot;RNN模型，learning rate：&quot;,lr)</div><div class="line">for step in range(1201):</div><div class="line">    batch_index = np.random.randint(len(train_data), size = batch_size)</div><div class="line">    sess.run(train_op,&#123;tf_input:train_data[batch_index]&#125;)</div><div class="line">    if step % 50 ==0:</div><div class="line">        acc_, loss_ = sess.run([accuracy, loss], &#123;tf_input: test_data&#125;)</div><div class="line">        print(&quot;Step: %i&quot; % step, &quot;| Accurate: %.8f&quot; % acc_, &quot;| Loss: %.2f&quot; % loss_ )</div><div class="line"></div><div class="line">    if step == 1200:</div><div class="line">        predictions_2 = tf.argmax(output,axis = 1)</div><div class="line">        test_data_ = test_data[:50]</div><div class="line">        acc_,predictions_2_ ,output_= sess.run([accuracy,predictions_2,output], feed_dict = &#123;tf_input: test_data_&#125;)</div><div class="line">        print(&apos;predictions_2:&apos;, predictions_2_,&apos;output:&apos;,output_)</div><div class="line">        print(&apos;accuracy:&apos;,acc_)</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;a href=&quot;#RNN照样识别你是方是圆&quot; class=&quot;headerlink&quot; title=&quot;RNN照样识别你是方是圆&quot;&gt;&lt;/a&gt;RNN照样识别你是方是圆&lt;/h2&gt;&lt;p&gt;&lt;center&gt;&lt;img src=&quot;http://res.cloudinary.com/shi1996/image/upload/v1517922013/rnn_c77e5f.jpg&quot; alt=&quot;&quot;&gt;&lt;/center&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Deep Learning" scheme="http://shic.top/categories/Deep-Learning/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://shic.top/tags/Deep-Learning/"/>
     
   </entry>
   
   <entry>
     <title>随笔：入门所遇到的坑</title>
-    <link href="http://shic.top/2017/12/23/%E9%9A%8F%E7%AC%94%EF%BC%9A%E5%85%A5%E9%97%A8%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"/>
-    <id>http://shic.top/2017/12/23/随笔：入门所遇到的坑/</id>
+    <link href="http://shic.top/TensorFlow/%E9%9A%8F%E7%AC%94%EF%BC%9A%E5%85%A5%E9%97%A8%E6%89%80%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/"/>
+    <id>http://shic.top/TensorFlow/随笔：入门所遇到的坑/</id>
     <published>2017-12-22T16:00:04.000Z</published>
     <updated>2018-02-06T13:54:46.624Z</updated>
     
@@ -514,8 +561,8 @@
   
   <entry>
     <title>在Ubuntu里使用Python</title>
-    <link href="http://shic.top/2017/12/23/Ubuntu_python/"/>
-    <id>http://shic.top/2017/12/23/Ubuntu_python/</id>
+    <link href="http://shic.top/Linux/Ubuntu_python/"/>
+    <id>http://shic.top/Linux/Ubuntu_python/</id>
     <published>2017-12-22T16:00:03.000Z</published>
     <updated>2017-12-28T02:26:31.137Z</updated>
     
@@ -553,8 +600,8 @@
   
   <entry>
     <title>Ubuntu安装本地软件</title>
-    <link href="http://shic.top/2017/12/23/Ubuntu_install_app/"/>
-    <id>http://shic.top/2017/12/23/Ubuntu_install_app/</id>
+    <link href="http://shic.top/Linux/Ubuntu_install_app/"/>
+    <id>http://shic.top/Linux/Ubuntu_install_app/</id>
     <published>2017-12-22T16:00:02.000Z</published>
     <updated>2017-12-25T14:33:48.563Z</updated>
     
@@ -589,8 +636,8 @@
   
   <entry>
     <title>Ubuntu更改软件源</title>
-    <link href="http://shic.top/2017/12/23/U_select_appSource/"/>
-    <id>http://shic.top/2017/12/23/U_select_appSource/</id>
+    <link href="http://shic.top/Linux/U_select_appSource/"/>
+    <id>http://shic.top/Linux/U_select_appSource/</id>
     <published>2017-12-22T16:00:01.000Z</published>
     <updated>2017-12-27T12:55:10.604Z</updated>
     
@@ -621,8 +668,8 @@
   
   <entry>
     <title>Hello Ubuntu</title>
-    <link href="http://shic.top/2017/12/23/U_Hello_Ubuntu/"/>
-    <id>http://shic.top/2017/12/23/U_Hello_Ubuntu/</id>
+    <link href="http://shic.top/Linux/U_Hello_Ubuntu/"/>
+    <id>http://shic.top/Linux/U_Hello_Ubuntu/</id>
     <published>2017-12-22T16:00:00.000Z</published>
     <updated>2017-12-23T15:35:16.842Z</updated>
     
@@ -680,8 +727,8 @@
   
   <entry>
     <title>维持你电脑的快速</title>
-    <link href="http://shic.top/2017/12/21/keep_fast_compt/"/>
-    <id>http://shic.top/2017/12/21/keep_fast_compt/</id>
+    <link href="http://shic.top/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/keep_fast_compt/"/>
+    <id>http://shic.top/让电脑飞/keep_fast_compt/</id>
     <published>2017-12-20T16:00:00.000Z</published>
     <updated>2017-12-21T09:33:18.382Z</updated>
     
@@ -724,30 +771,6 @@
     
     
       <category term="让电脑飞" scheme="http://shic.top/tags/%E8%AE%A9%E7%94%B5%E8%84%91%E9%A3%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Battle Symphony</title>
-    <link href="http://shic.top/2017/11/24/Battle%20Symphony/"/>
-    <id>http://shic.top/2017/11/24/Battle Symphony/</id>
-    <published>2017-11-23T16:00:00.000Z</published>
-    <updated>2017-12-27T13:01:45.712Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！</strong><br><a id="more"></a><br>半年前，正是初夏。每天我都会去挤点时间看NBA季后赛，每天看完后都觉得自己又能量满满，他们的精神鼓励了我。每天都会有季后赛的战况宣传片，里面放的歌我记忆犹新。<br><strong>听歌一首，与知己者共赏～</strong></p>
-<h3 id="Battle-Symphony"><a href="#Battle-Symphony" class="headerlink" title="Battle Symphony"></a>Battle Symphony</h3><p><audio src="http://www.0dutv.com/plug/down/up2.php/201068780.mp3" controls="controls"></audio><br>I got a long way to go<br>漫漫路途在我前头<br>And a long memory<br>留下冗长的记忆<br>I been searching for an answer<br>我一直在探索真正的答案<br>Always just out of reach<br>却总差一尺之距<br>Blood on the floor<br>热血地上挥洒过<br>Sirens repeat<br>扰音回荡不停<br>I been searching for the courage<br>我不断地寻找坚毅的勇气<br>To face my enemies<br>以直面我的夙敌<br>When they turn down the lights<br>当他们将光芒熄灭掩盖<br>I hear my battle symphony<br>我听到我的战乐响起<br>All the world in front of me<br>浩航世界呈现在眼底<br>If my armor breaks<br>若我铠甲被打碎<br>I’ll fuse it back together<br>我要将碎片熔铸缝合<br>Battle symphony<br>战斗交响曲<br>Please just don’t give up on me<br>请勿轻易地把我放弃<br>And my eyes are wide awake<br>我的双目依旧清醒<br>For my battle symphony<br>为我的战斗交响曲<br>For my battle symphony<br>为我的战斗交响曲<br>“<center><img src="http://res.cloudinary.com/shi1996/image/upload/v1511440867/Kyrie_Irving_guwppx.png" alt="Kyrie Irving"></center>“</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;不管你现在有多痛苦，都要加油好好干，都希望你以后能够好好的，都不要被别人左右了你前进的方向，不管前方的路有多艰辛，都不要放弃！&lt;/strong&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Others" scheme="http://shic.top/categories/Others/"/>
-    
-    
-      <category term="Others" scheme="http://shic.top/tags/Others/"/>
     
   </entry>
   

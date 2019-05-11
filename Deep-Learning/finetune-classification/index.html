@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="从头训练or微调模型：迁移学习快速实战为什么要做？还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Finetuning-classification">
+<meta property="og:url" content="http://shic.top/Deep-Learning/finetune-classification/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="从头训练or微调模型：迁移学习快速实战为什么要做？还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-11T12:54:23.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Finetuning-classification">
+<meta name="twitter:description" content="从头训练or微调模型：迁移学习快速实战为什么要做？还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/Deep-Learning/finetune-classification/"/>
+
+
+
+
+
+  <title>Finetuning-classification | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/Deep-Learning/finetune-classification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Finetuning-classification</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T00:00:00+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/Deep-Learning/finetune-classification/" class="leancloud_visitors" data-flag-title="Finetuning-classification">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="从头训练or微调模型：迁移学习快速实战"><a href="#从头训练or微调模型：迁移学习快速实战" class="headerlink" title="从头训练or微调模型：迁移学习快速实战"></a>从头训练or微调模型：迁移学习快速实战</h1><h2 id="为什么要做？"><a href="#为什么要做？" class="headerlink" title="为什么要做？"></a>为什么要做？</h2><p>还记得2018年微软创新杯上，我和我同学牛牛的项目中需要训练一个智能识别食物种类的模型。当时没有计算资源的我们，写完代码用CPU跑了跑就提交了，止步复赛。今年一大段无法活动的时间里，整理了以前的代码，我捉摸着观察这一神奇的数据集，看着未训练的模型，心想着这东西必须得整一下，也为之后的某次盘问收集点会议资料，待到半年后大伤初愈后，估计又得上路了。<br><a id="more"></a></p>
+<h2 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h2><p>在计算机视觉上，如果从头训练一个模型，我们不经需要足量的数据集来满足训练要求，也需要足够多的计算资源，显然这不是每一个人都能达到的，有一种办法那就是迁移学习（transfer learning），它将从源数据集学到的知识迁移到目标数据集上，预训练模型可以抽取较为通用的图像特征，只需更改模型的输出层并重新训练，使之满足目标数据集的要求。微调（fine tuning）是迁移学习中的一种常用技术。微调的意思就是对于目的模型的features采用预训练模型的features并用很小的学习率微调或者就固定不变，而输出层采用随机初始化并从头开始训练。</p>
+<h2 id="数据集介绍"><a href="#数据集介绍" class="headerlink" title="数据集介绍"></a>数据集介绍</h2><p>在kaggle上，合适的数据集就是<a href="https://www.kaggle.com/prathmeshgodse/food101-zip" target="_blank" rel="external">food101</a>了。但神奇的是9GB大的数据集中，训练集和测试集内容都是一样的。严格意义上讲，测试集只能在模型的各种参数确定后用来测试模型的精度，但训练集和测试集一样的话，那相当于还是用的训练集在做测试，这样得出的泛化误差那就是训练误差，是不对的。当时做的时候也没管，用CPU去跑这个庞大的数据集也没能体验到fine-tuning的魅力，对于最后一个101类的分类器也不好训练，其实fing-tuning没啥东西，但有时候懂算法就是那一个全新的任务不好上手，跑不好模型还是时有发生的，这次闲着无聊整了一个5个类的小数据集，且正确划分了训练集和测试集。冥冥之中觉得又一个上手fing-tuning的好例子，小型数据集：<a href="https://pan.baidu.com/s/1Oaf8m5IZiwLOBqc9gJ4aDw" target="_blank" rel="external">网盘</a> 提取码: 8u46</p>
+<p>训练集各类各700张，测试集各类各300张，其文件结构如下：</p>
+<ul>
+<li>food5<ul>
+<li>train<ul>
+<li>apple_pie</li>
+<li>baby_back_ribs</li>
+<li>baklava</li>
+<li>beef_carpaccio</li>
+<li>beef_tartare</li>
+</ul>
+</li>
+<li>test<ul>
+<li>apple_pie</li>
+<li>baby_back_ribs</li>
+<li>baklava</li>
+<li>beef_carpaccio</li>
+<li>beef_tartare</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> d2lzh <span class="keyword">as</span> d2l</div><div class="line"><span class="keyword">from</span> mxnet <span class="keyword">import</span> gluon, init</div><div class="line"><span class="keyword">from</span> mxnet.gluon <span class="keyword">import</span> data <span class="keyword">as</span> gdata, loss <span class="keyword">as</span> gloss, model_zoo</div><div class="line"><span class="keyword">import</span> os</div></pre></td></tr></table></figure>
+<h2 id="读取数据"><a href="#读取数据" class="headerlink" title="读取数据"></a>读取数据</h2><p>gluon提供了一个读取用文件夹名字分好类的图像数据集接口，同一类别的数据都放在同一文件夹中，文件夹名就是类别名。函数会自动生成相应的label。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">train_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, <span class="string">'train'</span>))</div><div class="line">test_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, <span class="string">'test'</span>))</div></pre></td></tr></table></figure>
+<p>得到的train_imgs和test_imgs就是一个<code>ImageFolderDataset</code>类，通过<code>__len__()</code>可以得到其长度，即包含多少个样本， <code>.__getitem__(x)</code>会返回第x个样本和其类别。</p>
+<p>处理数据时，我们对RGB三个颜色通道的数值做标准化，每个数值减去该通道所有数值的平均值，再除以该通道所有数值的标准差作为输出。当图片大小不一样时，我们先从图像中裁剪出随机大小和随机高宽比的一块随机区域，然后将该区域缩放为高和宽均为224像素的输入。测试时，我们将图像的高和宽均缩放为256像素，然后从中裁剪出高和宽均为224像素的中心区域作为输入。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 指定RGB三个通道的均值和方差来将图像通道归一化</span></div><div class="line"><span class="comment"># 此数据是ImageNet上的数据算出来的数值</span></div><div class="line">normalize = gdata.vision.transforms.Normalize(</div><div class="line">    [<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</div><div class="line"></div><div class="line">train_augs = gdata.vision.transforms.Compose([</div><div class="line">    gdata.vision.transforms.RandomResizedCrop(<span class="number">224</span>),</div><div class="line">    gdata.vision.transforms.RandomFlipLeftRight(),</div><div class="line">    gdata.vision.transforms.ToTensor(),</div><div class="line">    normalize])</div><div class="line"></div><div class="line">test_augs = gdata.vision.transforms.Compose([</div><div class="line">    gdata.vision.transforms.Resize(<span class="number">256</span>),</div><div class="line">    gdata.vision.transforms.CenterCrop(<span class="number">224</span>),</div><div class="line">    gdata.vision.transforms.ToTensor(),</div><div class="line">    normalize])</div></pre></td></tr></table></figure>
+<p>调用<code>ImageFolderDataset</code>类的<code>transform_first(train_augs)</code>函数，传入变化的规则，它会把数据集的全部输入按照规则来变化而保留label不动，这就得到了我们数据处理后的可以拿来训练的数据集。在通过gluon提供的<code>DataLoader</code>类来获取批量数据，<code>DataLoader</code>类接受三个参数，第一个是数据集，第二个是<code>batch_size</code>，会把数据集按照<code>batch_size</code>来划分，第三个指定是否随机读取的，<code>shuffle=True</code>表示随机读取</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">train_iter = gdata.DataLoader(train_imgs.transform_first(train_augs), batch_size, shuffle=<span class="keyword">True</span>)</div><div class="line">test_iter = gdata.DataLoader(test_imgs.transform_first(test_augs), batch_size)</div></pre></td></tr></table></figure>
+<h2 id="搭建模型"><a href="#搭建模型" class="headerlink" title="搭建模型"></a>搭建模型</h2><p>以前使用的<code>NumPy</code>的<code>vgg</code>参数文件基于<code>TensorFlow</code>1.x的代码做fine tuning很麻烦，代码臃肿还不好理解，详情请看这个<a href="https://github.com/Shicc/food101" target="_blank" rel="external">repo</a>。<code>mxnet</code>的<code>Gluon</code>前端出来后，便利上也广受好评，本次就放弃原先的代码，用<code>Gluon</code>3行代码快速做好fine tuning。</p>
+<h3 id="定义微调模型"><a href="#定义微调模型" class="headerlink" title="定义微调模型"></a>定义微调模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 采用在ImageNet上预训练的resnet34_v2网络</span></div><div class="line">pretrained_net = model_zoo.vision.resnet34_v2(pretrained=<span class="keyword">True</span>)</div><div class="line"></div><div class="line">finetune_net = model_zoo.vision.resnet34_v2(classes=<span class="number">5</span>) <span class="comment">#classes表示类别数</span></div><div class="line"><span class="comment"># 固定features中的参数：</span></div><div class="line"><span class="comment"># finetune_net.features.collect_params().setattr('grad_req', 'null')</span></div><div class="line">finetune_net.features = pretrained_net.features</div><div class="line">finetune_net.output.initialize(init.Xavier())</div><div class="line"><span class="comment"># output中的模型参数将在迭代中使用10倍大的学习率</span></div><div class="line">finetune_net.output.collect_params().setattr(<span class="string">'lr_mult'</span>, <span class="number">10</span>)</div></pre></td></tr></table></figure>
+<h3 id="微调模型"><a href="#微调模型" class="headerlink" title="微调模型"></a>微调模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_fine_tuning</span><span class="params">(net, learning_rate, batch_size=<span class="number">200</span>, num_epochs=<span class="number">20</span>)</span>:</span></div><div class="line">    ctx = d2l.try_all_gpus()</div><div class="line">    net.collect_params().reset_ctx(ctx) <span class="comment"># 把数据复制到gpu上</span></div><div class="line">    net.hybridize()</div><div class="line">    loss = gloss.SoftmaxCrossEntropyLoss()</div><div class="line">    trainer = gluon.Trainer(net.collect_params(), <span class="string">'sgd'</span>, &#123;</div><div class="line">        <span class="string">'learning_rate'</span>: learning_rate, <span class="string">'wd'</span>: <span class="number">0.001</span>&#125;)</div><div class="line">    d2l.train(train_iter, test_iter, net, loss, trainer, ctx, num_epochs)</div><div class="line"></div><div class="line">train_fine_tuning(finetune_net, <span class="number">0.01</span>) <span class="comment">#用0.01的小学习率微调features</span></div></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>简单跑了一下结果也还能接受，但从最后几个epochs看来，还有优化空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">training on [gpu(0)]</div><div class="line">epoch 1, loss 3.8275, train acc 0.401, test acc 0.652, time 1299.6 sec</div><div class="line">epoch 2, loss 1.1384, train acc 0.680, test acc 0.772, time 50.4 sec</div><div class="line">epoch 3, loss 0.5352, train acc 0.817, test acc 0.801, time 51.5 sec</div><div class="line">epoch 4, loss 0.4826, train acc 0.828, test acc 0.842, time 50.4 sec</div><div class="line">epoch 5, loss 0.4427, train acc 0.842, test acc 0.813, time 49.8 sec</div><div class="line">epoch 6, loss 0.3969, train acc 0.858, test acc 0.856, time 50.5 sec</div><div class="line">epoch 7, loss 0.3310, train acc 0.879, test acc 0.867, time 49.6 sec</div><div class="line">epoch 8, loss 0.3035, train acc 0.893, test acc 0.818, time 50.7 sec</div><div class="line">epoch 9, loss 0.2848, train acc 0.895, test acc 0.865, time 51.3 sec</div><div class="line">epoch 10, loss 0.3183, train acc 0.883, test acc 0.865, time 49.4 sec</div><div class="line">epoch 11, loss 0.2798, train acc 0.895, test acc 0.875, time 50.3 sec</div><div class="line">epoch 12, loss 0.2640, train acc 0.902, test acc 0.861, time 51.0 sec</div><div class="line">epoch 13, loss 0.2406, train acc 0.915, test acc 0.877, time 49.7 sec</div><div class="line">epoch 14, loss 0.2262, train acc 0.918, test acc 0.875, time 50.3 sec</div><div class="line">epoch 15, loss 0.1985, train acc 0.929, test acc 0.869, time 50.4 sec</div><div class="line">epoch 16, loss 0.2123, train acc 0.923, test acc 0.883, time 50.4 sec</div><div class="line">epoch 17, loss 0.1978, train acc 0.925, test acc 0.886, time 50.3 sec</div><div class="line">epoch 18, loss 0.1935, train acc 0.929, test acc 0.884, time 49.9 sec</div><div class="line">epoch 19, loss 0.1899, train acc 0.934, test acc 0.878, time 50.4 sec</div><div class="line">epoch 20, loss 0.1936, train acc 0.931, test acc 0.894, time 50.5 sec</div></pre></td></tr></table></figure>
+<h3 id="gpu使用情况"><a href="#gpu使用情况" class="headerlink" title="gpu使用情况"></a>gpu使用情况</h3><p>只是没想到这么少的数据都占了这么多显存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+-----------------------------------------------------------------------------+</div><div class="line">| NVIDIA-SMI 418.56       Driver Version: 410.79       CUDA Version: 10.0     |</div><div class="line">|-------------------------------+----------------------+----------------------+</div><div class="line">| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |</div><div class="line">| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |</div><div class="line">|===============================+======================+======================|</div><div class="line">|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |</div><div class="line">| N/A   77C    P0    31W /  70W |  15071MiB / 15079MiB |      0%      Default |</div><div class="line">+-------------------------------+----------------------+----------------------+</div><div class="line">+-----------------------------------------------------------------------------+</div><div class="line">| Processes:                                                       GPU Memory |</div><div class="line">|  GPU       PID   Type   Process name                             Usage      |</div><div class="line">|=============================================================================|</div><div class="line">+-----------------------------------------------------------------------------+</div></pre></td></tr></table></figure>
+<p>而finetuning_net的输出层则被改成了5个类</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;pretrained_net.output</div><div class="line">Dense(2048 -&gt; 5, linear)</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Spring-Boot/Spring Boot1/" rel="next" title="Spring Boot+Spring Data JPA+Thymeleaf(一)">
+                <i class="fa fa-chevron-left"></i> Spring Boot+Spring Data JPA+Thymeleaf(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://yzmean.site/" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从头训练or微调模型：迁移学习快速实战"><span class="nav-number">1.</span> <span class="nav-text">从头训练or微调模型：迁移学习快速实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要做？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要做？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微调"><span class="nav-number">1.2.</span> <span class="nav-text">微调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集介绍"><span class="nav-number">1.3.</span> <span class="nav-text">数据集介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖"><span class="nav-number">1.4.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取数据"><span class="nav-number">1.5.</span> <span class="nav-text">读取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建模型"><span class="nav-number">1.6.</span> <span class="nav-text">搭建模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义微调模型"><span class="nav-number">1.6.1.</span> <span class="nav-text">定义微调模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微调模型"><span class="nav-number">1.6.2.</span> <span class="nav-text">微调模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结果"><span class="nav-number">1.7.</span> <span class="nav-text">结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gpu使用情况"><span class="nav-number">1.7.1.</span> <span class="nav-text">gpu使用情况</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("r5MekvoPHCRYg67KaqVgoIki-gzGzoHsz", "cG6vd4svOJLhajWpW3DubnUu");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
