@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="单发多框检测在目标检查的任务中，单发多框检测（single shot multibox detection，SSD）是一个计算量和性能都居中的算法，容易理解且实现不算复杂，广泛应用于很多检测模型中。">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object Detection with SSD">
+<meta property="og:url" content="http://shic.top/Deep-Learning/od-ssd/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="单发多框检测在目标检查的任务中，单发多框检测（single shot multibox detection，SSD）是一个计算量和性能都居中的算法，容易理解且实现不算复杂，广泛应用于很多检测模型中。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/Shicc/webrecourse/raw/master/img/voc_dect%5B0%5D.png">
+<meta property="og:updated_time" content="2019-05-24T08:56:30.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object Detection with SSD">
+<meta name="twitter:description" content="单发多框检测在目标检查的任务中，单发多框检测（single shot multibox detection，SSD）是一个计算量和性能都居中的算法，容易理解且实现不算复杂，广泛应用于很多检测模型中。">
+<meta name="twitter:image" content="https://github.com/Shicc/webrecourse/raw/master/img/voc_dect%5B0%5D.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/Deep-Learning/od-ssd/"/>
+
+
+
+
+
+  <title>Object Detection with SSD | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/Deep-Learning/od-ssd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Object Detection with SSD</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T00:00:00+08:00">
+                2019-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="单发多框检测"><a href="#单发多框检测" class="headerlink" title="单发多框检测"></a>单发多框检测</h1><p>在目标检查的任务中，单发多框检测（single shot multibox detection，SSD）是一个计算量和性能都居中的算法，容易理解且实现不算复杂，广泛应用于很多检测模型中。<br><a id="more"></a></p>
+<h2 id="SSD网络"><a href="#SSD网络" class="headerlink" title="SSD网络"></a>SSD网络</h2><p>正如名字描述那样，SSD由一个提取图像特征的基础卷积网络和若干个多尺度的特征块串联而成。首先由基础网络提取图像的特征，输出其特征图，再由一个锚框生成算法（@后续补充）得到该特征图上的锚框，再针对每一个锚框做类别和边界框偏移量的预测。</p>
+<p>假设有c类，那么每一个锚框的类别就是c+1类。在基础网络块后面分别串联上若干个长宽减半的卷积层，逐渐缩小特征图的大小，每一个长宽减半卷积层的输出上又会和前面一样生成很多个锚框，再分别做对类别和边界框的预测，该缩小后的特征块又是下一个长宽减半的卷积层的输入。这样一来，位于网络前面的特征块较大，特征块中每一个单元的感受野较小，所以适合够检测出一下较小的目标，而越往后，特征块越来越小，其每个单元的感受野越来越大，就适合检测较大的目标。</p>
+<p><a href="https://gluon-cv.mxnet.io/" target="_blank" rel="external">gluoncv</a>的<code>model_zoo</code>里提供了很多可用的模型，可以选择是否加载预训练的权重，也可以重新设置模型的输出类别或者设置自己需要的权重，这一点是十分的方便的。我们首先通过下面一行代码得到我们需要的网络，具体有哪些网络可选可以参考<a href="https://gluon-cv.mxnet.io/model_zoo/index.html" target="_blank" rel="external">官网</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net = model_zoo.get_model(<span class="string">'ssd_512_resnet50_v1_voc'</span>, pretrained_base = <span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<p><code>pretrained_base = False</code>表示不加载预训练的权重，返回的<code>net</code>只是一个空的框架且，设置<code>True</code>则会下载该模型的预训练的权重参数，如果使用<code>pretrained=True/False</code>则都会下载权重，只是设置是否加载权重到模型。</p>
+<p>比如说之前我接触到一个项目是训练一个能定位乌龟在哪里，这个乌龟是怎么回事呢？是工作室里其他小伙伴的智能孵化项目孵化出来的乌龟，我们需要隔几小时就要对它拍一张照片然后定位它在培养箱的哪个位置。如果远离了乌龟灯的光照区就发出一条警告给我们。那么我们在这个项目里面只需要检测一个类，即使是乌龟类别不在其预训练的类别中，也可以通过一行代码进行设置。当然预训练的网络中基础网络模块基本都是基于<code>ImageNet</code>训练的分类网络，也可以直接用到自己项目中，毕竟提取特征的权重参数还是很有用的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">my_net = model_zoo.get_model(<span class="string">'ssd_512_resnet50_v1_voc'</span>, pretrained_base = <span class="keyword">True</span>)</div><div class="line">my_net.reset_class(classes=[<span class="string">'tortoise'</span>])</div></pre></td></tr></table></figure>
+<h2 id="Pascal-VOC2012数据集"><a href="#Pascal-VOC2012数据集" class="headerlink" title="Pascal VOC2012数据集"></a>Pascal VOC2012数据集</h2><h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><p><a href="http://host.robots.ox.ac.uk/pascal/VOC/voc2012/" target="_blank" rel="external">Pascal VOC2012数据集</a>是一个用于目标检测和语义分割的著名数据集，是VOC2007的续集，VOC数据集系列的文件结构如下：</p>
+<ul>
+<li>VOCdevkit<ul>
+<li>VOC2007<ul>
+<li>…</li>
+</ul>
+</li>
+<li>VOC2012<ul>
+<li>Annotations：存放目标检测的标签</li>
+<li>ImageSets：存放各种用途文件的名字</li>
+<li>JPEGImages：图片文件</li>
+<li>SegmentationClass：语义分割的标注</li>
+<li>SegmentationObject：实例分割的标注</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在官网下载好数据集解压后，我们可以按照自己的任务需求来使用数据集，其中VOC2012\ImageSets\Main里面就有目标检测所需要的文件名字信息。mxnet的计算机视觉工具包gluoncv提供了一个直接读取VOC目标检测样本的类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> gluoncv.data <span class="keyword">import</span> VOCDetection</div><div class="line"><span class="comment"># root为文件路径，splits指定的是VOC的类别和需要用到的文件名</span></div><div class="line">train_dataset = VOCDetection(root = <span class="string">'../data/VOCdevkit'</span>,splits=[(<span class="number">2012</span>, <span class="string">'trainval'</span>)])</div><div class="line">print(<span class="string">'Training images:'</span>, len(train_dataset))</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>Training images: <span class="number">11540</span></div></pre></td></tr></table></figure>
+<p><code>train_dataset</code>是一个<code>gluoncv.data.pascal_voc.detection.VOCDetection</code>的类对象，可以通过<code>__getitem__(idx)</code>或者<code>[idx]</code>访问第<code>idx</code>个元素，其中前面的大矩阵中存放的是图片信息，后面较小矩阵中有几行就有几个类，一行中前四个是边界框的值，第五个是该框中的类别，第六个值暂不知是什么</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">train_dataset.__getitem__(<span class="number">0</span>)</div><div class="line"></div><div class="line">&gt;&gt;&gt;</div><div class="line">(</div><div class="line"> [[[<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</div><div class="line">   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</div><div class="line">   [<span class="number">255</span> <span class="number">255</span> <span class="number">255</span>]</div><div class="line">   ...</div><div class="line">   [<span class="number">202</span> <span class="number">205</span> <span class="number">248</span>]</div><div class="line">   [<span class="number">203</span> <span class="number">206</span> <span class="number">249</span>]</div><div class="line">   [<span class="number">204</span> <span class="number">207</span> <span class="number">250</span>]]</div><div class="line">   ...</div><div class="line">   &lt;NDArray <span class="number">442</span>x500x3 @cpu(<span class="number">0</span>)&gt;,</div><div class="line">   array(</div><div class="line">       [[ <span class="number">52.</span>,  <span class="number">86.</span>, <span class="number">470.</span>, <span class="number">419.</span>,  <span class="number">12.</span>,   <span class="number">0.</span>],</div><div class="line">        [<span class="number">157.</span>,  <span class="number">43.</span>, <span class="number">288.</span>, <span class="number">166.</span>,  <span class="number">14.</span>,   <span class="number">0.</span>]]</div><div class="line">        )</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>打印出该图片看看</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">img0, label0 = train_dataset.__getitem__(<span class="number">0</span>)</div><div class="line">bboxes = label0[:,:<span class="number">4</span>] <span class="comment"># 也就是上面的52.,  86., 470., 419和157.,  43., 288., 166.</span></div><div class="line">cids = label0[:,<span class="number">4</span>:<span class="number">5</span>] <span class="comment"># 就是上面的类别12和14</span></div><div class="line"></div><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> gluoncv.utils <span class="keyword">import</span> viz</div><div class="line"></div><div class="line">ax = viz.plot_bbox(</div><div class="line">    img0.asnumpy(),</div><div class="line">    bboxes,</div><div class="line">    labels=cids,</div><div class="line">    class_names=train_dataset.classes)</div><div class="line">plt.show()</div><div class="line"></div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/Shicc/webrecourse/raw/master/img/voc_dect%5B0%5D.png" alt="train_dataset[0]"></p>
+<h3 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h3><p>先引入后续需要的模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> gluoncv <span class="keyword">import</span> model_zoo</div><div class="line"><span class="keyword">from</span> gluoncv.data.transforms <span class="keyword">import</span> presets</div><div class="line"><span class="keyword">from</span> gluoncv <span class="keyword">import</span> utils</div><div class="line"><span class="keyword">from</span> mxnet <span class="keyword">import</span> nd, gluon, autograd, init</div><div class="line"><span class="keyword">from</span> gluoncv.data.batchify <span class="keyword">import</span> Tuple, Stack</div><div class="line"><span class="keyword">from</span> mxnet.gluon.data <span class="keyword">import</span> DataLoader</div><div class="line"><span class="keyword">import</span> mxnet <span class="keyword">as</span> mx</div><div class="line"><span class="keyword">from</span> gluoncv.loss <span class="keyword">import</span> SSDMultiBoxLoss</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
+<p>gluoncv提供了数据转换和图像增广的类<code>SSDDefaultTrainTransform</code>，在该类的<code>__init__</code>函数就会把图像标准化。该类是一个数据转换的类，规定的是一个怎么做数据转化的规则，传入两个int参数<code>width, height</code>就会把图像转化成<code>(batch_size, channels, 512, 512)</code>, （@忘记查看_label0了，之后补上）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">width, height = <span class="number">512</span>, <span class="number">512</span>  <span class="comment"># 设置训练图片的长宽</span></div><div class="line"></div><div class="line">train_transform0 = presets.ssd.SSDDefaultTrainTransform(width, height)</div><div class="line">_img0, _label0 = train_transform(img0, label0)</div><div class="line">print(<span class="string">'tensor shape:'</span>, _img0.shape) <span class="comment"># 这里传入的一张图片，故没有batch_size</span></div><div class="line">print(<span class="string">'原来：'</span>, img0.shape)</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>tensor shape: (<span class="number">3</span>, <span class="number">512</span>, <span class="number">512</span>)</div><div class="line">    原来： (<span class="number">442</span>, <span class="number">500</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure>
+<p>而<code>_img0</code>已经是被标准化的数据了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">print(_img0)</div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>[[[ <span class="number">2.1276248</span>   <span class="number">2.1440527</span>   <span class="number">2.1421344</span>  ...  <span class="number">1.4059145</span>   <span class="number">1.3767488</span></div><div class="line">    <span class="number">1.3458692</span> ]</div><div class="line">    [ <span class="number">2.1166914</span>   <span class="number">2.1349118</span>   <span class="number">2.143327</span>   ...  <span class="number">1.3894821</span>   <span class="number">1.3782884</span></div><div class="line">    <span class="number">1.3341411</span> ]</div><div class="line">    [ <span class="number">2.1036239</span>   <span class="number">2.1237183</span>   <span class="number">2.1413574</span>  ...  <span class="number">1.3673979</span>   <span class="number">1.3768137</span></div><div class="line">    <span class="number">1.3274454</span> ]</div><div class="line">    ...]]]</div><div class="line">    &lt;NDArray <span class="number">3</span>x512x512 @cpu(<span class="number">0</span>)&gt;</div></pre></td></tr></table></figure>
+<h3 id="数据集加载"><a href="#数据集加载" class="headerlink" title="数据集加载"></a>数据集加载</h3><p>在SSD的默认数据转化的类<code>SSDDefaultTrainTransform</code>中，有一个<code>anchors</code>的参数可选，上面是没有该参数的情况，如果加上该参数，可以再数据转化中生成训练目标从而加速训练过程，意思是在数据转化的时候就通过CPU生成好锚框用于检测，而不用等到在GPU上训练的时候再去选框检测。根据源代码中的提示：<code>Anchors generated from SSD networks, the shape must be (1, N, 4)</code>,即这个SSD数据转化类的<code>anchors</code>需要用SSD网络来生成，这里的SSD是基于mxnet的<code>HybridBlock</code>，在预测状态下输出为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cids, scores, bboxes = net(x) <span class="comment"># 类标签，预测置信分数，边界框</span></div></pre></td></tr></table></figure>
+<p>而在训练模式下的输出则不用，<code>cls_preds</code>是<code>softmax</code>的类预测， <code>box_preds</code>是与锚点一一对应的边界框偏移，<code>anchors</code>是相应锚点框的绝对坐标，通过下面的语句，我们便获取了我们需要的<code>anchors</code>的值了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">with</span> autograd.train_mode():</div><div class="line">    cls_preds, box_preds, anchors = net(x)</div></pre></td></tr></table></figure>
+<p>有别于前面的数据加载，现在的加载器里传入的<code>transform</code>函数不同了。（@有空解释一下批量处理的函数<code>batchify_fn</code>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">train_transform = presets.ssd.SSDDefaultTrainTransform(width, height, anchors)</div><div class="line">batchify_fn = Tuple(Stack(), Stack(), Stack())</div><div class="line">train_loader = DataLoader(</div><div class="line">    train_dataset.transform(train_transform),</div><div class="line">    batch_size, <span class="comment"># 记得提前定义好batch_size和num_workers</span></div><div class="line">    shuffle=<span class="keyword">True</span>,</div><div class="line">    batchify_fn=batchify_fn,</div><div class="line">    last_batch=<span class="string">'rollover'</span>,</div><div class="line">    num_workers=num_workers)</div><div class="line"></div><div class="line"><span class="keyword">for</span> ib, batch <span class="keyword">in</span> enumerate(train_loader):</div><div class="line">    <span class="keyword">if</span> ib &gt; <span class="number">0</span>:</div><div class="line">        <span class="keyword">break</span></div><div class="line">    <span class="comment"># 这里得到的batch就是批数据</span></div><div class="line">    <span class="comment"># batch[0]是数据本身(batch_size,channels,width, height)</span></div><div class="line">    <span class="comment"># batch[1]是要预测的类别(batch_size,框数),框数就是网络输出的anchors数</span></div><div class="line">    <span class="comment"># batch[2]是要预测的框(batch_size,框数,4)</span></div></pre></td></tr></table></figure>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>mxnet都提供了很好用的api，使得本来复杂的目标检测loss很好编写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">mbox_loss = SSDMultiBoxLoss()</div><div class="line">ce_metric = mx.metric.Loss(<span class="string">'CrossEntropy'</span>)</div><div class="line">smoothl1_metric = mx.metric.Loss(<span class="string">'SmoothL1'</span>)</div><div class="line"></div><div class="line">ctx = [mx.gpu()]</div><div class="line">net.initialize(init=init.Xavier(), ctx = ctx, force_reinit=<span class="keyword">True</span>) <span class="comment"># force_reinit=True 表示强制初始化</span></div><div class="line"></div><div class="line">trainer = gluon.Trainer(</div><div class="line">    net.collect_params(), <span class="string">'sgd'</span>,</div><div class="line">    &#123;<span class="string">'learning_rate'</span>: <span class="number">0.001</span>, <span class="string">'wd'</span>: <span class="number">0.0005</span>, <span class="string">'momentum'</span>: <span class="number">0.9</span>&#125;)</div><div class="line"></div><div class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">40</span>):</div><div class="line">    ce_metric.reset()</div><div class="line">    smoothl1_metric.reset()</div><div class="line">    net.hybridize(static_alloc=<span class="keyword">True</span>, static_shape=<span class="keyword">True</span>)</div><div class="line">    <span class="keyword">for</span> ib, batch <span class="keyword">in</span> enumerate(train_loader):</div><div class="line">        batch_size = batch[<span class="number">0</span>].shape[<span class="number">0</span>]</div><div class="line">        <span class="comment"># 通过访问batch[idx]来获取三种数据</span></div><div class="line">        data = gluon.utils.split_and_load(batch[<span class="number">0</span>], ctx_list=ctx, batch_axis=<span class="number">0</span>)</div><div class="line">        cls_targets = gluon.utils.split_and_load(batch[<span class="number">1</span>], ctx_list=ctx, batch_axis=<span class="number">0</span>)</div><div class="line">        box_targets = gluon.utils.split_and_load(batch[<span class="number">2</span>], ctx_list=ctx, batch_axis=<span class="number">0</span>)</div><div class="line">        <span class="keyword">with</span> autograd.record():</div><div class="line">           cls_preds = []</div><div class="line">           box_preds = []</div><div class="line">           <span class="keyword">for</span> x <span class="keyword">in</span> data:</div><div class="line">               cls_pred, box_pred, _ = net(x)</div><div class="line">               cls_preds.append(cls_pred)</div><div class="line">               box_preds.append(box_pred)</div><div class="line">           sum_loss, cls_loss, box_loss = mbox_loss(</div><div class="line">                    cls_preds, box_preds, cls_targets, box_targets)</div><div class="line">           autograd.backward(sum_loss)</div><div class="line">        trainer.step(<span class="number">1</span>)</div><div class="line">        ce_metric.update(<span class="number">0</span>, [l * batch_size <span class="keyword">for</span> l <span class="keyword">in</span> cls_loss])</div><div class="line">        smoothl1_metric.update(<span class="number">0</span>, [l * batch_size <span class="keyword">for</span> l <span class="keyword">in</span> box_loss])</div><div class="line">        name1, loss1 = ce_metric.get()</div><div class="line">        name2, loss2 = smoothl1_metric.get()</div><div class="line">    print(<span class="string">'epoch:'</span>, epoch, <span class="string">'class loss:'</span>, loss1, <span class="string">'bbox loss:'</span>, loss2)</div></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>总的来说，就这种复杂网络，官方基本都是基于4~8块顶级GPU进行训练，详情可见其官网<code>log</code>，更加复杂的甚至几十块，所以对于平民同学来说，更多的还是基于预训练的网络进行微调，在自己的小一些的数据集上做特定的应用，比如说定期检测乌龟跑到培养箱的哪个位置去了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Deep-Learning/finetune-classification/" rel="next" title="Finetuning-classification">
+                <i class="fa fa-chevron-left"></i> Finetuning-classification
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Deep-Learning/fcn/" rel="prev" title="Semantic Segmentation with FCN">
+                Semantic Segmentation with FCN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yzmean.github.io" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单发多框检测"><span class="nav-number">1.</span> <span class="nav-text">单发多框检测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSD网络"><span class="nav-number">1.1.</span> <span class="nav-text">SSD网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pascal-VOC2012数据集"><span class="nav-number">1.2.</span> <span class="nav-text">Pascal VOC2012数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取"><span class="nav-number">1.2.1.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据转换"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集加载"><span class="nav-number">1.2.3.</span> <span class="nav-text">数据集加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练"><span class="nav-number">1.3.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
