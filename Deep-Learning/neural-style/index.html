@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Deep Learning," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="GeekShi" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="神经网络 样式迁移计算机视觉当中，一个比较有趣的模型就是样式迁移了。">
+<meta name="keywords" content="Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="neural-style">
+<meta property="og:url" content="http://shic.top/Deep-Learning/neural-style/index.html">
+<meta property="og:site_name" content="GeekShi">
+<meta property="og:description" content="神经网络 样式迁移计算机视觉当中，一个比较有趣的模型就是样式迁移了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/Shicc/webrecourse/raw/master/img/s-t.png">
+<meta property="og:image" content="https://github.com/Shicc/webrecourse/raw/master/img/feature-map.jpg">
+<meta property="og:image" content="https://github.com/Shicc/webrecourse/raw/master/img/s-t1.jpg">
+<meta property="og:updated_time" content="2019-05-27T03:09:09.373Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="neural-style">
+<meta name="twitter:description" content="神经网络 样式迁移计算机视觉当中，一个比较有趣的模型就是样式迁移了。">
+<meta name="twitter:image" content="https://github.com/Shicc/webrecourse/raw/master/img/s-t.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'this.Shi'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shic.top/Deep-Learning/neural-style/"/>
+
+
+
+
+
+  <title>neural-style | GeekShi</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7f36ebed6cac3df33f83e31d407bf2a8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GeekShi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shic.top/Deep-Learning/neural-style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="this.Shi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeekShi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">neural-style</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-27T00:00:00+08:00">
+                2019-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="神经网络-样式迁移"><a href="#神经网络-样式迁移" class="headerlink" title="神经网络 样式迁移"></a>神经网络 样式迁移</h1><p>计算机视觉当中，一个比较有趣的模型就是样式迁移了。<br><img src="https://github.com/Shicc/webrecourse/raw/master/img/s-t.png" alt="style-transfer"><br><a id="more"></a><br>二维卷积层输出的二维数组，是输入在空间维度（宽和高）上的某一级的表征，也叫特征图（feature map）。设特征图上某一个位置的元素为x，那么影响x的前向计算的所有可能输入区域（可能大于输入的实际尺寸）叫做 x 的感受野（receptive field）。随着卷积层的加深，得到的特征图越来越小且越来越厚，特征图上的一个单位元素所对应原始图片上的区域就会更大，也就是其感受野更大，更加容易捕捉到更大尺寸的特征，而靠近输入的一些卷积层所输出的特征图上的元素的单位元素的感受野就很小，更适合提取图像的细节信息。</p>
+<p>例如下图，在①处和在②处，相同大小的特征块在原始图像上的感受野是不同的。所以我们可以利用这个特性，通过深度卷积神经网络的不同层，来提取我们需要的信息。<br><img src="https://github.com/Shicc/webrecourse/raw/master/img/feature-map.jpg" alt="freature map"></p>
+<h2 id="内容和样式图像"><a href="#内容和样式图像" class="headerlink" title="内容和样式图像"></a>内容和样式图像</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">d2l.set_figsize()</div><div class="line">content_img = image.imread(<span class="string">'/style-trans-img/2.jpg'</span>) <span class="comment"># 内容图像位置</span></div><div class="line">d2l.plt.imshow(content_img.asnumpy())</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">style_img = image.imread(<span class="string">'/style-trans-img/star.jpg'</span>) <span class="comment"># 样式图像位置</span></div><div class="line">d2l.plt.imshow(style_img.asnumpy());</div></pre></td></tr></table></figure>
+<p>定义图像预处理函数对输入的图像在RGB三个通道分别做标准化，并将转化数据格式，把通道数放在第一维度，变成mxnet里的卷积神经网络的通用输入格式。后处理函数是把合成图像的神经网络的输出变回标准化之前的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">rgb_mean = nd.array([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>]) <span class="comment"># ImageNet上的图片的RGB均值</span></div><div class="line">rgb_std = nd.array([<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])  <span class="comment"># ImageNet上的图片的RGB标准差</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess</span><span class="params">(img, image_shape)</span>:</span></div><div class="line">    img = image.imresize(img, *image_shape)</div><div class="line">    img = (img.astype(<span class="string">'float32'</span>) / <span class="number">255</span> - rgb_mean) / rgb_std</div><div class="line">    <span class="keyword">return</span> img.transpose((<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>)).expand_dims(axis=<span class="number">0</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">postprocess</span><span class="params">(img)</span>:</span></div><div class="line">    img = img[<span class="number">0</span>].as_in_context(rgb_std.context)</div><div class="line">    <span class="keyword">return</span> (img.transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)) * rgb_std + rgb_mean).clip(<span class="number">0</span>, <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>在预训练的深度卷积神经网络中，选择靠近输出的层，也称内容层，来输出图像的内容特征。选择不同层的输出来匹配局部和全局的样式，这些层也叫样式层。先引入所有需要使用的模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">%matplotlib inline</div><div class="line"><span class="keyword">import</span> d2lzh <span class="keyword">as</span> d2l</div><div class="line"><span class="keyword">from</span> mxnet <span class="keyword">import</span> autograd, gluon, image, init, nd</div><div class="line"><span class="keyword">from</span> mxnet.gluon <span class="keyword">import</span> model_zoo, nn</div><div class="line"><span class="keyword">import</span> time</div></pre></td></tr></table></figure>
+<h3 id="抽取特征"><a href="#抽取特征" class="headerlink" title="抽取特征"></a>抽取特征</h3><p>我们可以选择在ImageNet上训练好的VGG，ResNet等网络中的某些层来抽取图像的内容特征和样式特征。原论文中选择了VGG19，在VGG网络中，使用了5个卷积块。我们可以随意选择一些层，可以得到不同的效果。以下选择会得到不错的效果，内容层选择第四卷积块的最后一层，样式层选择每一个卷积块的第一个卷积层，这样可以抽取到局部和全局的样式。以下这些层就是提取内容和样式的层，可以把这些层来构建一个新的网络，用这个新网络来提取图像特征。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">style_layers, content_layers = [<span class="number">0</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">19</span>, <span class="number">28</span>], [<span class="number">25</span>]</div><div class="line"></div><div class="line">net = nn.Sequential()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(max(content_layers + style_layers) + <span class="number">1</span>):</div><div class="line">    net.add(pretrained_net.features[i])</div></pre></td></tr></table></figure>
+<p>但一个网络的前向计算，只会得到最后一层的输出，因此在提取不同的特征时，需要逐层提取，以下函数返回的是通过特征提取网络提取到的输入X的内容特征图和样式特征图。（注：此处的输入X应为标准化后的适合net的输入格式的多维数组）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_features</span><span class="params">(img, image_shape, content_layers, style_layers)</span>:</span></div><div class="line">    contents = []</div><div class="line">    styles = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(net)):</div><div class="line">        X = net[i](X)</div><div class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> style_layers:</div><div class="line">            styles.append(X)</div><div class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> content_layers:</div><div class="line">            contents.append(X)</div><div class="line">    <span class="keyword">return</span> contents, styles <span class="comment"># 返回图像的内容特征和样式特征</span></div></pre></td></tr></table></figure>
+<p>到此，我们通过预训练的VGG的某些层，便可以计算得到输入X的样式和内容了。如果上面函数输入是内容图片，那么我们所需要的就只是返回的<code>contents</code>值，如果输入的是样式图片，那么值需要函数返回的 <code>styles</code>值。提取特征的层的参数都不需要更新，唯一需要更新的就是合成图像的模型参数了。所以在训练合成模型之前，我们就可以先获得我们所需的内容和样式特征，定义下面两个函数分别获取内容图片的内容特征和样式图片的样式特征。这样做有几个好处：</p>
+<ol>
+<li>逻辑更加清晰，提取内容的函数返回内容相关，提取样式的返回和样式相关，虽然它们内部都是调用预处理函数和特征提取函数。</li>
+<li>后续初始化合成模型时是以内容图片为基准的，显然神经网络也需要预处理的内容图片，这样可以直接把返回的<code>content_img_norm</code>传过去而不必再调用预处理函数也不必再传合成图片所需要的大小。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_contents</span><span class="params">(image_shape, ctx)</span>:</span></div><div class="line">    <span class="comment"># 返回标准化的内容图像和内容图片的内容特征</span></div><div class="line">    content_img_norm = preprocess(content_img, image_shape).copyto(ctx)</div><div class="line">    content_img_contents, _ = extract_features(content_X, content_layers, style_layers)</div><div class="line">    <span class="keyword">return</span> content_img_norm, content_img_contents</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_styles</span><span class="params">(image_shape, ctx)</span>:</span></div><div class="line">    <span class="comment"># 返回标准化的样式图像和样式图片的样式特征，但前者用不到</span></div><div class="line">    style_img_norm = preprocess(style_img, image_shape).copyto(ctx)</div><div class="line">    _, style_img_styles = extract_features(style_X, content_layers, style_layers)</div><div class="line">    <span class="keyword">return</span> style_img_norm, style_img_styles</div></pre></td></tr></table></figure>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>内容损失的两个输入时合成图像的内容特征和内容图像的内容特征，通过平方误差函数衡量它们的差异</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">content_loss</span><span class="params">(Y_hat, Y)</span>:</span></div><div class="line">    <span class="keyword">return</span> (Y_hat - Y).square().mean()</div></pre></td></tr></table></figure>
+<p>样式损失中需要格拉姆矩阵运算，先定义格拉姆函数，style_loss也是通过平方误差函数衡量两个格拉姆矩阵之间的差异。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 格拉姆矩阵</span></div><div class="line"><span class="comment"># X是一个（batch,channel,h,w）</span></div><div class="line"><span class="comment"># n是计算得到的batch*h*w</span></div><div class="line"><span class="comment"># 再把这个矩阵重塑形状为(channels, n)</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">gram</span><span class="params">(X)</span>:</span></div><div class="line">    num_channels, n = X.shape[<span class="number">1</span>], X.size // X.shape[<span class="number">1</span>]</div><div class="line">    X = X.reshape((num_channels, n))</div><div class="line">    <span class="keyword">return</span> nd.dot(X, X.T) / (num_channels * n)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">style_loss</span><span class="params">(Y_hat, gram_Y)</span>:</span></div><div class="line">    <span class="keyword">return</span> (gram(Y_hat) - gram_Y).square().mean()</div></pre></td></tr></table></figure>
+<p>总变差损失是一个降噪算法，它使得图像中的像素尽可能和邻近的像素值相似，输入值为合成图像的输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tv_loss</span><span class="params">(Y_hat)</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0.5</span> * ((Y_hat[:, :, <span class="number">1</span>:, :] - Y_hat[:, :, :<span class="number">-1</span>, :]).abs().mean() +</div><div class="line">                  (Y_hat[:, :, :, <span class="number">1</span>:] - Y_hat[:, :, :, :<span class="number">-1</span>]).abs().mean())</div></pre></td></tr></table></figure>
+<p>损失函数，计算各类损失和总的损失</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">style_channels = [net[l].weight.shape[<span class="number">0</span>] <span class="keyword">for</span> l <span class="keyword">in</span> style_layers] <span class="comment"># net某层的通道数</span></div><div class="line"><span class="comment"># 调节这三个参数可以权衡合成图像在保留内容、迁移样式以及降噪。</span></div><div class="line"><span class="comment"># content_weight, style_weight = 10, 10 的话就基本和原图无区别</span></div><div class="line"><span class="comment"># 将content_weight调小，style_weight调大，画面才很风格化</span></div><div class="line">content_weight = <span class="number">1</span></div><div class="line">style_weights  = [<span class="number">1e5</span>//n <span class="keyword">for</span> n <span class="keyword">in</span> style_channels] <span class="comment"># 尽量提取到细节的样式而弱化全局样式</span></div><div class="line">tv_weight = <span class="number">10</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_loss</span><span class="params">(X, contents_Y_hat, styles_Y_hat, content_img_contents, styles_gram)</span>:</span></div><div class="line">    <span class="comment"># 分别计算内容损失、样式损失和总变差损失</span></div><div class="line">    contents_l = [content_loss(Y_hat, Y) * content_weight <span class="keyword">for</span> Y_hat, Y <span class="keyword">in</span> zip(</div><div class="line">        contents_Y_hat, content_img_contents)]</div><div class="line">    styles_l = [style_loss(Y_hat, Y) * style_weight <span class="keyword">for</span> style_weight, Y_hat, Y <span class="keyword">in</span> zip(</div><div class="line">        style_weights, styles_Y_hat, styles_Y_gram)]</div><div class="line">    tv_l = tv_loss(X) * tv_weight</div><div class="line">    <span class="comment"># 对所有损失求和</span></div><div class="line">    l = nd.add_n(*styles_l) + nd.add_n(*contents_l) + tv_l</div><div class="line">    <span class="keyword">return</span> contents_l, styles_l, tv_l, l</div></pre></td></tr></table></figure>
+<h3 id="初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。"><a href="#初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。" class="headerlink" title="初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。"></a>初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GeneratedImage</span><span class="params">(nn.Block)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, img_shape, **kwargs)</span>:</span></div><div class="line">        super(GeneratedImage, self).__init__(**kwargs)</div><div class="line">        self.weight = self.params.get(<span class="string">'weight'</span>, shape=img_shape)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.weight.data()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_inits</span><span class="params">(X, ctx, lr, styles)</span>:</span></div><div class="line">    gen_img = GeneratedImage(X.shape)</div><div class="line">    gen_img.initialize(init.Constant(X), ctx=ctx, force_reinit=<span class="keyword">True</span>)</div><div class="line">    trainer = gluon.Trainer(gen_img.collect_params(), <span class="string">'adam'</span>,</div><div class="line">                            &#123;<span class="string">'learning_rate'</span>: lr&#125;)</div><div class="line">    styles_gram = [gram(Y) <span class="keyword">for</span> Y <span class="keyword">in</span> styles]</div><div class="line">    <span class="keyword">return</span> gen_img(), styles_gram, trainer</div></pre></td></tr></table></figure>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(content_img_norm, content_img_contents, stystyle_img_styles, lr, max_epochs, lr_decay_epoch)</span>:</span></div><div class="line">	<span class="string">'''</span></div><div class="line"><span class="string">	参数:</span></div><div class="line"><span class="string">		content_img_norm:标准化的内容图像，用作初始化合成图像，这样可以加速训练</span></div><div class="line"><span class="string">		content_img_contents:内容图像的内容</span></div><div class="line"><span class="string">		stystyle_img_styles:样式图像的样式</span></div><div class="line"><span class="string">		lr:学习率</span></div><div class="line"><span class="string">		max_epochs:最大迭代周期</span></div><div class="line"><span class="string">		lr_decay_epoch:学习率衰减周期</span></div><div class="line"><span class="string">	返回：</span></div><div class="line"><span class="string">		X：合成图像的输出（即一个前向计算）</span></div><div class="line"><span class="string">	'''</span></div><div class="line">	ctx = d2l.try_gpu()</div><div class="line">    X, styles_gram, trainer = get_inits(content_img_norm, ctx, lr, stystyle_img_styles)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(max_epochs):</div><div class="line">        start = time.time()</div><div class="line">        <span class="keyword">with</span> autograd.record():</div><div class="line">            contents_Y_hat, styles_Y_hat = extract_features(</div><div class="line">                X, content_layers, style_layers)</div><div class="line">            contents_l, styles_l, tv_l, l = compute_loss(</div><div class="line">                X, contents_Y_hat, styles_Y_hat, content_img_contents, styles_gram)</div><div class="line">        l.backward()</div><div class="line">        trainer.step(<span class="number">1</span>)</div><div class="line">        nd.waitall() <span class="comment"># @有空解释一下</span></div><div class="line">        <span class="keyword">if</span> i % <span class="number">50</span> == <span class="number">0</span> <span class="keyword">and</span> i != <span class="number">0</span>:</div><div class="line">            print(<span class="string">'epoch %3d, content loss %.2f, style loss %.2f, '</span></div><div class="line">                  <span class="string">'TV loss %.2f, %.2f sec'</span></div><div class="line">                  % (i, nd.add_n(*contents_l).asscalar(), <span class="comment"># @有空解释一下</span></div><div class="line">                     nd.add_n(*styles_l).asscalar(), tv_l.asscalar(),</div><div class="line">                     time.time() - start)) <span class="comment"># 这里的时间只是一个周期的</span></div><div class="line">        <span class="keyword">if</span> i % lr_decay_epoch == <span class="number">0</span> <span class="keyword">and</span> i != <span class="number">0</span>:</div><div class="line">            <span class="comment"># 减少学习率</span></div><div class="line">            trainer.set_learning_rate(trainer.learning_rate * <span class="number">0.1</span>)</div><div class="line">            print(<span class="string">'change lr to %.1e'</span> % trainer.learning_rate)</div><div class="line">    <span class="keyword">return</span> X</div></pre></td></tr></table></figure>
+<p>设置需要的合成图片大小，爆显存就调小一点。此大小2GB显存够用，设置好并开始训练。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">image_shape = (<span class="number">400</span>, <span class="number">300</span>)</div><div class="line">net.collect_params().reset_ctx(ctx)</div><div class="line"></div><div class="line">content_img_norm, content_img_contents = get_contents(image_shape, ctx)</div><div class="line">_, style_img_styles = get_styles(image_shape, ctx)</div><div class="line"><span class="comment"># 内容图片_norm,内容图片_norm的内容,样式图片的样式</span></div><div class="line">output = train(content_img_norm, content_img_contents, stystyle_img_styles, <span class="number">0.01</span>, <span class="number">500</span>, <span class="number">200</span>)</div></pre></td></tr></table></figure>
+<p>保存图像</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">d2l.plt.imsave(<span class="string">'../img/neural-style-1.png'</span>, postprocess(output).asnumpy())</div></pre></td></tr></table></figure>
+<p>其实看效果还是可以。想让合成图像更加接近样式图像，可以调大一些样式的权重，但注意如果所有样式层都有很大的权重那么可能会学习到更多的全局样式信息。不同参数下的效果也不同，总之这是一个很有趣的模型。<br><img src="https://github.com/Shicc/webrecourse/raw/master/img/s-t1.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持是对我原创的最好鼓励</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.jpg" alt="this.Shi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="this.Shi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Deep-Learning/od-ssd/" rel="next" title="Object Detection with SSD">
+                <i class="fa fa-chevron-left"></i> Object Detection with SSD
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTI3NC83ODIz"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.jpg"
+                alt="this.Shi" />
+            
+              <p class="site-author-name" itemprop="name">this.Shi</p>
+              <p class="site-description motion-element" itemprop="description">豁达 安静 好好生活 好好做人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="http://weibo.com/u/2321542495" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-globe"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:shichi@shic.top" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://yzmean.github.io" title="YuanZi's Blog" target="_blank">YuanZi's Blog</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络-样式迁移"><span class="nav-number">1.</span> <span class="nav-text">神经网络 样式迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内容和样式图像"><span class="nav-number">1.1.</span> <span class="nav-text">内容和样式图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">1.2.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽取特征"><span class="nav-number">1.2.1.</span> <span class="nav-text">抽取特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。"><span class="nav-number">1.2.3.</span> <span class="nav-text">初始化合成图像，这是唯一需要训练的模型。前向计算就是返回其权重参数，即合成的图片。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">1.2.4.</span> <span class="nav-text">训练</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">this.Shi</span>
+
+  
+</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
